@@ -1,0 +1,42 @@
+.
+├── 404.php
+├── LICENSE
+├── README.md
+├── archive.php
+├── comments.php
+├── composer.json
+├── footer.php
+├── front-page.php
+├── functions.php
+├── header.php
+├── inc
+│   ├── custom-header.php
+│   ├── customizer.php
+│   ├── jetpack.php
+│   ├── template-functions.php
+│   └── template-tags.php
+├── index.php
+├── js
+│   ├── customizer.js
+│   └── navigation.js
+├── languages
+│   ├── il-forno-a-legna.pot
+│   └── readme.txt
+├── package.json
+├── page.php
+├── phpcs.xml.dist
+├── readme.txt
+├── screenshot.png
+├── search.php
+├── sidebar.php
+├── single.php
+├── style-rtl.css
+├── style.css
+├── template-parts
+│   ├── content-none.php
+│   ├── content-page.php
+│   ├── content-search.php
+│   └── content.php
+└── tree.txt
+
+5 directories, 35 files
