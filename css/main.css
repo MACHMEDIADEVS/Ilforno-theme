@@ -1,0 +1,105 @@
+/* ==========================================================================
+   Header Styles
+   ========================================================================== */
+#main-header {
+  background-color: transparent;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  padding: 15px 0;
+  z-index: 1000;
+}
+
+#main-header.scrolled {
+  background-color: rgba(0, 0, 0, 0.65);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.navbar-toggler {
+  border: 1px solid #dacfbd;
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255,1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+  width: 30px;
+  height: 30px;
+}
+
+/* Tamaño general del logo */
+.logo-header {
+  max-height: 90px;
+  height: auto;
+  width: auto;
+}
+
+/* Más grande en escritorio */
+@media (min-width: 992px) {
+  .logo-header {
+    max-height: 100px;
+  }
+}
+
+/* Más grande también en mobile si lo deseas */
+@media (max-width: 768px) {
+  .logo-header {
+    max-height: 70px;
+  }
+}
+
+/* Solo aplica en mobile */
+@media (max-width: 991.98px) {
+  .offcanvas {
+    background-color: rgba(26, 26, 26, 0.85); /* fondo negro con transparencia */
+    backdrop-filter: blur(8px); /* desenfoque suave */
+  }
+
+  .offcanvas .nav-link {
+    color: #fff;
+  }
+
+  .offcanvas .nav-link:hover {
+    color: #bf9861;
+  }
+}
+
+/* ==========================================================================
+   Footer Styles
+   ========================================================================== */
+.footer-urban {
+  background-color: #1a1a1a;
+  color: #dacfbd;
+}
+
+.footer-urban h6 {
+  color: #ffffff;
+}
+
+.footer-logo {
+  max-width: 260px;
+  padding-bottom: 2%;
+}
+
+.footer-link {
+  color: #dacfbd;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+  color: #bf9861;
+}
+
+.text-footer {
+  color: #dacfbd;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.footer-urban i {
+  color: #bf9861;
+}
+
+.footer-bottom {
+  background-color: #1a1a1a;
+  border-top: 1px solid #2a2a2a;
+  color: #dacfbd;
+  font-size: 0.9rem;
+}
