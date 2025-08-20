@@ -366,9 +366,6 @@ get_header();
     }
 
 
-
-
-
     /* ====== Modern Accordion Style ====== */
     .modern-accordion {
         max-width: 900px;
@@ -438,37 +435,60 @@ get_header();
     }
 </style>
 
-<section class="hero-events-section" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/img/hero-image.png')">
+<?php
+// Obtener los datos de los campos ACF para el hero de la página de Catering
+$background_image     = get_field('catering_hero_image_bg');
+$background_image_url = $background_image ? $background_image['url'] : get_template_directory_uri() . '/assets/img/hero-image.png';
+
+$title    = get_field('catering_hero_title') ?: 'Catering';
+$subtitle = get_field('catering_hero_subtitle') ?: 'Let us bring the flavors of Italy to your home, office, or celebration.';
+?>
+
+<section class="hero-events-section" style="background-image: url('<?php echo esc_url($background_image_url); ?>')">
     <div class="overlay"></div>
     <div class="container">
-        <h1 class="display-4 fw-bold">Catering</h1>
+        <h1 class="display-4 fw-bold"><?php echo esc_html($title); ?></h1>
         <p class="lead">
-            Let us bring the flavors of Italy to your home, office, or
-            celebration.
+            <?php echo esc_html($subtitle); ?>
         </p>
     </div>
 </section>
+
+<?php
+// Obtener los datos de los campos ACF
+$title       = get_field('catering_intro_title') ?: 'IL Forno a Legna Catering Authentic Italian Cuisine Delivered to Your Event';
+$description = get_field('catering_intro_description');
+$button      = get_field('catering_intro_button');
+$image_url   = get_field('catering_intro_image') ?: get_template_directory_uri() . '/assets/img/catering 2.png';
+
+// Contenido de respaldo para la descripción
+$description_fallback = 'At IL Forno a Legna, we bring the flavors of Italy directly to
+your event with our catering services. Whether you\'re hosting a
+corporate event, a wedding, or a private party, we offer a variety
+of menu options to suit every occasion.
+
+From our signature wood-fired pizzas to our freshly prepared
+pastas, each dish is made with the finest ingredients, ensuring
+your event is both delicious and memorable. Let us take care of
+the food, so you can focus on enjoying your celebration!';
+?>
 
 <section id="catering-introduction" class="py-5 bg-black text-light">
     <div class="container">
         <div class="row align-items-center g-4">
             <div class="col-lg-6">
                 <h2 class="fw-bold text-gold mb-4">
-                    IL Forno a Legna Catering Authentic Italian Cuisine Delivered to
-                    Your Event
+                    <?php echo esc_html($title); ?>
                 </h2>
-                <p class="mb-3">
-                    At IL Forno a Legna, we bring the flavors of Italy directly to
-                    your event with our catering services. Whether you're hosting a
-                    corporate event, a wedding, or a private party, we offer a variety
-                    of menu options to suit every occasion.
-                </p>
-                <p>
-                    From our signature wood-fired pizzas to our freshly prepared
-                    pastas, each dish is made with the finest ingredients, ensuring
-                    your event is both delicious and memorable. Let us take care of
-                    the food, so you can focus on enjoying your celebration!
-                </p>
+                
+                <?php 
+                // Usamos wpautop para convertir el texto del Área de Texto en párrafos
+                if ($description) {
+                    echo wpautop(esc_html($description));
+                } else {
+                    echo wpautop(esc_html($description_fallback));
+                }
+                ?>
 
                 <div class="d-grid">
                     <style>
@@ -490,80 +510,90 @@ get_header();
                         }
                     </style>
 
-                    <a href="#book-event" class="btn btn-golden" role="button">Inquiry Now</a>
+                    <?php // Comprobar y mostrar el botón del campo Enlace
+                    if ($button && $button['url'] && $button['title']) :
+                        $btn_url    = esc_url($button['url']);
+                        $btn_title  = esc_html($button['title']);
+                        $btn_target = $button['target'] ? 'target="' . esc_attr($button['target']) . '"' : '';
+                    ?>
+                        <a href="<?php echo $btn_url; ?>" class="btn btn-golden" role="button" <?php echo $btn_target; ?>><?php echo $btn_title; ?></a>
+                    <?php else: // Botón de respaldo ?>
+                        <a href="#book-event" class="btn btn-golden" role="button">Inquiry Now</a>
+                    <?php endif; ?>
                 </div>
             </div>
 
             <div class="col-lg-6">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/img/catering 2.png" alt="Catering Il Forno" class="img-fluid rounded shadow" />
+                <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($title); ?>" class="img-fluid rounded shadow" />
             </div>
         </div>
     </div>
 </section>
+
+<?php
+// Obtener el título de la sección
+$section_title = get_field('why_catering_title') ?: 'Why Choose IL Forno a Legna Catering?';
+
+// Array con la configuración estática (iconos y clases de columna)
+$reasons_layout = [
+    ['icon' => 'fas fa-fire',         'col' => 'col-lg-4'],
+    ['icon' => 'fas fa-cogs',         'col' => 'col-lg-4'],
+    ['icon' => 'fas fa-truck-moving', 'col' => 'col-lg-4'],
+    ['icon' => 'fas fa-dollar-sign',  'col' => 'col-lg-6'],
+    ['icon' => 'fas fa-user-tie',     'col' => 'col-lg-6']
+];
+?>
 
 <section id="why-catering-icons" class="py-5">
     <div class="container position-relative">
         <h2 class="text-center fw-bold text-gold mb-5">
-            Why Choose IL Forno a Legna Catering?
+            <?php echo esc_html($section_title); ?>
         </h2>
 
         <div class="row g-4 justify-content-center">
-            <div class="col-12 col-sm-6 col-lg-4">
-                <div class="why-card text-center p-4 rounded h-100">
-                    <i class="fas fa-fire fa-2x mb-3"></i>
-                    <h5 class="fw-bold text-gold">Authentic Flavors</h5>
-                    <p class="small">
-                        Wood-fired pizza, handmade pastas, and classic recipes from
-                        Italy.
-                    </p>
+            <?php // Comprobar si hay razones en el repetidor
+            if (have_rows('why_catering_reasons')) :
+                $reason_index = 0; // Inicializar contador
+                // Iniciar el bucle para recorrer cada razón
+                while (have_rows('why_catering_reasons')) : the_row();
+                    
+                    // Obtener los datos de los sub-campos
+                    $reason_title       = get_sub_field('reason_title');
+                    $reason_description = get_sub_field('reason_description');
+                    
+                    // Obtener la configuración de layout (icono y columna) del array
+                    $layout = isset($reasons_layout[$reason_index]) ? $reasons_layout[$reason_index] : ['icon' => '', 'col' => 'col-lg-4'];
+            ?>
+                    <div class="col-12 col-sm-6 <?php echo esc_attr($layout['col']); ?>">
+                        <div class="why-card text-center p-4 rounded h-100">
+                            <i class="<?php echo esc_attr($layout['icon']); ?> fa-2x mb-3"></i>
+                            <h5 class="fw-bold text-gold"><?php echo esc_html($reason_title); ?></h5>
+                            <p class="small">
+                                <?php echo esc_html($reason_description); ?>
+                            </p>
+                        </div>
+                    </div>
+            <?php
+                    $reason_index++; // Incrementar el contador
+                endwhile;
+            else:
+            ?>
+                <div class="col-12">
+                    <p class="text-center">Las razones se mostrarán aquí.</p>
                 </div>
-            </div>
-
-            <div class="col-12 col-sm-6 col-lg-4">
-                <div class="why-card text-center p-4 rounded h-100">
-                    <i class="fas fa-cogs fa-2x mb-3"></i>
-                    <h5 class="fw-bold text-gold">Custom Menus</h5>
-                    <p class="small">
-                        Menus tailored to your event, preferences, and dietary needs.
-                    </p>
-                </div>
-            </div>
-
-            <div class="col-12 col-sm-6 col-lg-4">
-                <div class="why-card text-center p-4 rounded h-100">
-                    <i class="fas fa-truck-moving fa-2x mb-3"></i>
-                    <h5 class="fw-bold text-gold">On-Site Catering</h5>
-                    <p class="small">
-                        Live pizza-making at your event with our mobile oven trailer.
-                    </p>
-                </div>
-            </div>
-
-            <div class="col-12 col-sm-6 col-lg-6">
-                <div class="why-card text-center p-4 rounded h-100">
-                    <i class="fas fa-dollar-sign fa-2x mb-3"></i>
-                    <h5 class="fw-bold text-gold">Affordable Packages</h5>
-                    <p class="small">
-                        Budget-friendly options — from small parties to weddings.
-                    </p>
-                </div>
-            </div>
-
-            <div class="col-12 col-sm-6 col-lg-6">
-                <div class="why-card text-center p-4 rounded h-100">
-                    <i class="fas fa-user-tie fa-2x mb-3"></i>
-                    <h5 class="fw-bold text-gold">Experienced Team</h5>
-                    <p class="small">
-                        Years of trusted catering for events across New Jersey.
-                    </p>
-                </div>
-            </div>
+            <?php endif; ?>
         </div>
     </div>
 </section>
 
+<?php
+// Obtener los datos de los campos principales de la sección
+$background_image_url = get_field('packages_image_bg') ?: get_template_directory_uri() . '/assets/img/events-intro.png';
+$section_title        = get_field('packages_section_title') ?: 'Catering Menu';
+?>
+
 <section id="catering-packages" class="py-5" style="
-        background-image: url('<?php echo get_template_directory_uri(); ?>/assets/img/events-intro.png');
+        background-image: url('<?php echo esc_url($background_image_url); ?>');
         background-size: cover;
         background-position: center;
         position: relative;
@@ -571,283 +601,130 @@ get_header();
     <div class="overlay-dark"></div>
 
     <div class="container position-relative">
-        <h2 class="text-center fw-bold text-gold mb-5">Catering Menu</h2>
+        <h2 class="text-center fw-bold text-gold mb-5"><?php echo esc_html($section_title); ?></h2>
 
         <div class="row g-4 justify-content-center">
-            <div class="col-md-6 col-lg-4 d-flex">
-                <div class="package-card text-center p-4 flex-fill">
-                    <div>
-                        <h5 class="fw-bold text-gold mb-0">Appetizers</h5>
-                        <p class="text-gold fw-bold mb-3">Half Tray / Full Tray</p>
+            <?php // BUCLE EXTERIOR: Comprobar y recorrer los PAQUETES
+            if (have_rows('catering_packages')) :
+                while (have_rows('catering_packages')) : the_row();
+                    
+                    // Obtener el título y subtítulo del paquete actual
+                    $package_title    = get_sub_field('package_title');
+                    $package_subtitle = get_sub_field('package_subtitle');
+            ?>
+                    <div class="col-md-6 col-lg-4 d-flex">
+                        <div class="package-card text-center p-4 flex-fill">
+                            <div>
+                                <h5 class="fw-bold text-gold mb-0"><?php echo esc_html($package_title); ?></h5>
+                                <p class="text-gold fw-bold mb-3"><?php echo esc_html($package_subtitle); ?></p>
+                            </div>
+                            
+                            <?php // BUCLE INTERIOR: Comprobar y recorrer los PLATOS de este paquete
+                            if (have_rows('package_items')) : ?>
+                                <ul class="list-unstyled text-start mb-4">
+                                    <?php while (have_rows('package_items')) : the_row();
+                                        // Obtener el nombre y precio del plato actual
+                                        $item_name   = get_sub_field('item_name');
+                                        $item_prices = get_sub_field('item_prices');
+                                    ?>
+                                        <li class="d-flex justify-content-between">
+                                            <span><?php echo esc_html($item_name); ?></span><span><?php echo esc_html($item_prices); ?></span>
+                                        </li>
+                                    <?php endwhile; ?>
+                                </ul>
+                            <?php endif; // Fin del bucle interior de platos ?>
+                        </div>
                     </div>
-                    <ul class="list-unstyled text-start mb-4">
-                        <li class="d-flex justify-content-between">
-                            <span>Calamari</span><span>$80 / $110</span>
-                        </li>
-                        <li class="d-flex justify-content-between">
-                            <span>Eggplant Rollatini</span><span>$65 / $95</span>
-                        </li>
-                        <li class="d-flex justify-content-between">
-                            <span>Meatballs al Forno</span><span>$85 / $115</span>
-                        </li>
-                        <li class="d-flex justify-content-between">
-                            <span>Spinach & Cheese Dumplings</span><span>$70 / $110</span>
-                        </li>
-                        <li class="d-flex justify-content-between">
-                            <span>Wood Fire Wings</span><span>$70 / $105</span>
-                        </li>
-                        <li class="d-flex justify-content-between">
-                            <span>Mussels al Forno</span><span>$80 / $110</span>
-                        </li>
-                    </ul>
+            <?php
+                endwhile;
+            else :
+                // Mensaje de respaldo si no hay paquetes
+            ?>
+                <div class="col-12">
+                    <p class="text-center text-light">Los paquetes de catering se mostrarán aquí.</p>
                 </div>
-            </div>
-
-            <div class="col-md-6 col-lg-4 d-flex">
-                <div class="package-card text-center p-4 flex-fill">
-                    <div>
-                        <h5 class="fw-bold text-gold mb-0">Pastas</h5>
-                        <p class="text-gold fw-bold mb-3">Half Tray / Full Tray</p>
-                    </div>
-                    <ul class="list-unstyled text-start mb-4">
-                        <li class="d-flex justify-content-between">
-                            <span>Penne alla Vodka</span><span>$50 / $70</span>
-                        </li>
-                        <li class="d-flex justify-content-between">
-                            <span>Rigatoni Bolognese</span><span>$65 / $95</span>
-                        </li>
-                        <li class="d-flex justify-content-between">
-                            <span>Shrimp Scampi</span><span>$75 / $120</span>
-                        </li>
-                        <li class="d-flex justify-content-between">
-                            <span>Lasagna</span><span>$70 / $110</span>
-                        </li>
-                        <li class="d-flex justify-content-between">
-                            <span>Pasta Salad</span><span>$50 / $70</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-4 d-flex">
-                <div class="package-card text-center p-4 flex-fill">
-                    <div>
-                        <h5 class="fw-bold text-gold mb-0">Salads</h5>
-                        <p class="text-gold fw-bold mb-3">Half Tray / Full Tray</p>
-                    </div>
-                    <ul class="list-unstyled text-start mb-4">
-                        <li class="d-flex justify-content-between">
-                            <span>House</span><span>$45 / $55</span>
-                        </li>
-                        <li class="d-flex justify-content-between">
-                            <span>Caesar</span><span>$45 / $60</span>
-                        </li>
-                        <li class="d-flex justify-content-between">
-                            <span>Greek</span><span>$50 / $60</span>
-                        </li>
-                        <li class="d-flex justify-content-between">
-                            <span>Forno Salad</span><span>$50 / $70</span>
-                        </li>
-                        <li class="d-flex justify-content-between">
-                            <span>Baby Spinach</span><span>$50 / $65</span>
-                        </li>
-                        <li class="d-flex justify-content-between">
-                            <span>Arugula</span><span>$45 / $60</span>
-                        </li>
-                        <li class="d-flex justify-content-between">
-                            <span>Caprese</span><span>$70 / $110</span>
-                        </li>
-                        <li class="d-flex justify-content-between">
-                            <span>Cobb Salad</span><span>$70 / $100</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-4 d-flex">
-                <div class="package-card text-center p-4 flex-fill">
-                    <div>
-                        <h5 class="fw-bold text-gold mb-0">Entrées</h5>
-                        <p class="text-gold fw-bold mb-3">Half Tray / Full Tray</p>
-                    </div>
-                    <ul class="list-unstyled text-start mb-4">
-                        <li class="d-flex justify-content-between">
-                            <span>Pollo Parmigiana</span><span>$80 / $120</span>
-                        </li>
-                        <li class="d-flex justify-content-between">
-                            <span>Pollo Franchese</span><span>$70 / $105</span>
-                        </li>
-                        <li class="d-flex justify-content-between">
-                            <span>Pollo Picatta</span><span>$60 / $110</span>
-                        </li>
-                        <li class="d-flex justify-content-between">
-                            <span>Pollo Marsala</span><span>$60 / $110</span>
-                        </li>
-                        <li class="d-flex justify-content-between">
-                            <span>Pollo Martini</span><span>$70 / $115</span>
-                        </li>
-                        <li class="d-flex justify-content-between">
-                            <span>Sausage, Peppers & Onions</span><span>$65 / $95</span>
-                        </li>
-                        <li class="d-flex justify-content-between">
-                            <span>Salmon</span><span>$85 / $150</span>
-                        </li>
-                        <li class="d-flex justify-content-between">
-                            <span>Veal & Eggplant Parmigiana</span><span>Upon Request</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-4 d-flex">
-                <div class="package-card text-center p-4 flex-fill">
-                    <div>
-                        <h5 class="fw-bold text-gold mb-0">Sides</h5>
-                        <p class="text-gold fw-bold mb-3">Half Tray / Full Tray</p>
-                    </div>
-                    <ul class="list-unstyled text-start mb-4">
-                        <li class="d-flex justify-content-between">
-                            <span>Roasted Potatoes</span><span>$45 / $60</span>
-                        </li>
-                        <li class="d-flex justify-content-between">
-                            <span>Seasonal Vegetables</span><span>$55 / $75</span>
-                        </li>
-                        <li class="d-flex justify-content-between">
-                            <span>Pasta (Half Tray)</span><span>$25</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-4 d-flex">
-                <div class="package-card text-center p-4 flex-fill">
-                    <div>
-                        <h5 class="fw-bold text-gold mb-0">Wood-Fired Pizza</h5>
-                        <p class="text-gold fw-bold mb-3">Small (12”) / Large (16”)</p>
-                    </div>
-                    <ul class="list-unstyled text-start mb-4">
-                        <li class="d-flex justify-content-between">
-                            <span>Plain</span><span>$12 / $17</span>
-                        </li>
-                        <li class="d-flex justify-content-between">
-                            <span>Margherita</span><span>$15 / $21</span>
-                        </li>
-                        <li class="d-flex justify-content-between">
-                            <span>Carne</span><span>$15 / $21</span>
-                        </li>
-                        <li class="d-flex justify-content-between">
-                            <span>Napoli (Veggie)</span><span>$14 / $19</span>
-                        </li>
-                        <li class="d-flex justify-content-between">
-                            <span>Buffalo Chicken</span><span>$14 / $18</span>
-                        </li>
-                        <li class="d-flex justify-content-between">
-                            <span>Marinara (No Cheese)</span><span>$12 / $18</span>
-                        </li>
-                        <li class="d-flex justify-content-between">
-                            <span>Tommy</span><span>$16 / $23</span>
-                        </li>
-                        <li class="d-flex justify-content-between">
-                            <span>Bianca (White)</span><span>$16 / $22</span>
-                        </li>
-                        <li class="d-flex justify-content-between">
-                            <span>Tri-Color</span><span>$15 / $21</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            <?php endif; // Fin del bucle exterior de paquetes ?>
         </div>
     </div>
 </section>
+
+<?php
+// Obtener los datos de los campos ACF para la sección del formulario
+$title     = get_field('form_section_title') ?: 'Catering Request Form';
+$subtitle  = get_field('form_section_subtitle') ?: 'Please fill out the form below to request more information or to book catering for your event.';
+$image_url = get_field('form_image') ?: get_template_directory_uri() . '/assets/img/blog3.png';
+$shortcode = get_field('form_shortcode') ?: '[contact-form-7 id="98c8a5c" title="Catering"]';
+?>
 
 <section id="book-event" class="py-5">
     <div class="container">
         <h3 class="text-center fw-bold text-gold mb-4">
-            Catering Request Form
+            <?php echo esc_html($title); ?>
         </h3>
         <p class="text-center text-light mb-5">
-            Please fill out the form below to request more information or to book
-            catering for your event.
+            <?php echo esc_html($subtitle); ?>
         </p>
         <div class="row g-4 align-items-center">
             <div class="col-lg-6">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/img/blog3.png" alt="Catering Event" class="img-fluid rounded shadow" />
+                <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($title); ?>" class="img-fluid rounded shadow" />
             </div>
 
             <div class="col-lg-6">
                 <div class="bg-black p-4 shadow rounded">
-                    <?php echo do_shortcode('[contact-form-7 id="98c8a5c" title="Catering"]'); ?>
+                    <?php
+                    // Comprobar si hay un shortcode antes de ejecutarlo
+                    if ($shortcode) {
+                        echo do_shortcode($shortcode);
+                    }
+                    ?>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
+<?php
+// Obtener el título de la sección
+$section_title = get_field('catering_faq_title') ?: 'Frequently Asked Questions';
+?>
+
 <section id="faqs" class="py-5">
     <div class="container">
         <h2 class="text-center text-gold fw-bold mb-5">
-            Frequently Asked Questions
+            <?php echo esc_html($section_title); ?>
         </h2>
 
         <div class="modern-accordion">
-            <div class="accordion-item">
-                <input type="checkbox" id="faq1" hidden />
-                <label for="faq1" class="accordion-title">
-                    <span>Do you provide catering for events outside of Rahway?</span>
-                    <i class="fas fa-chevron-down"></i>
-                </label>
-                <div class="accordion-content">
-                    Yes, we cater events throughout New Jersey, including with our
-                    pizza trailer for outdoor parties, weddings, and corporate events.
-                </div>
-            </div>
-
-            <div class="accordion-item">
-                <input type="checkbox" id="faq2" hidden />
-                <label for="faq2" class="accordion-title">
-                    <span>Can I customize the menu for my event?</span>
-                    <i class="fas fa-chevron-down"></i>
-                </label>
-                <div class="accordion-content">
-                    Absolutely! We’ll tailor your menu to match your event and dietary
-                    needs including vegan and gluten-free.
-                </div>
-            </div>
-
-            <div class="accordion-item">
-                <input type="checkbox" id="faq3" hidden />
-                <label for="faq3" class="accordion-title">
-                    <span>How far in advance should I book my catering?</span>
-                    <i class="fas fa-chevron-down"></i>
-                </label>
-                <div class="accordion-content">
-                    Ideally 2–4 weeks in advance, but we’ll do our best to accommodate
-                    last-minute requests.
-                </div>
-            </div>
-
-            <div class="accordion-item">
-                <input type="checkbox" id="faq4" hidden />
-                <label for="faq4" class="accordion-title">
-                    <span>Do you offer delivery or on-site catering services?</span>
-                    <i class="fas fa-chevron-down"></i>
-                </label>
-                <div class="accordion-content">
-                    We offer both — from simple delivery to full on-site cooking with
-                    our mobile oven.
-                </div>
-            </div>
-
-            <div class="accordion-item">
-                <input type="checkbox" id="faq5" hidden />
-                <label for="faq5" class="accordion-title">
-                    <span>Can I bring my own drinks to my catering event?</span>
-                    <i class="fas fa-chevron-down"></i>
-                </label>
-                <div class="accordion-content">
-                    Yes! We allow BYOB or can provide full bar service on request.
-                </div>
-            </div>
+            <?php // Comprobar si hay preguntas en el repetidor
+            if (have_rows('catering_faq_list')) :
+                // Iniciar el bucle para recorrer cada pregunta
+                while (have_rows('catering_faq_list')) : the_row();
+                    
+                    // Obtener los datos de los sub-campos
+                    $question = get_sub_field('faq_question');
+                    $answer   = get_sub_field('faq_answer');
+                    
+                    // Generar un ID único para cada elemento del acordeón
+                    $faq_id = 'faq-' . get_row_index();
+            ?>
+                    <div class="accordion-item">
+                        <input type="checkbox" id="<?php echo esc_attr($faq_id); ?>" hidden />
+                        <label for="<?php echo esc_attr($faq_id); ?>" class="accordion-title">
+                            <span><?php echo esc_html($question); ?></span>
+                            <i class="fas fa-chevron-down"></i>
+                        </label>
+                        <div class="accordion-content">
+                            <?php // Usamos nl2br para los saltos de línea del Área de Texto ?>
+                            <?php echo nl2br(esc_html($answer)); ?>
+                        </div>
+                    </div>
+            <?php
+                endwhile;
+            else :
+                // Mensaje de respaldo si el repetidor está vacío
+            ?>
+                <p class="text-center">Las preguntas frecuentes se mostrarán aquí.</p>
+            <?php endif; ?>
         </div>
     </div>
 </section>
