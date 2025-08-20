@@ -105,6 +105,32 @@ get_header();
     .social-icon:hover {
         color: #bf9861;
     }
+
+
+
+
+ /* ===================================================
+   Estilos Corregidos para el Botón de la Sección de Contacto
+====================================================== */
+
+/* Estilo para el estado normal del botón */
+.contact-section .btn-dark {
+    background-color: #212529;
+    color: #ffffff;
+    border: 2px solid transparent; /* Borde transparente para evitar que el botón "salte" en hover */
+    padding: 1rem 2rem;   /* <-- 1. AUMENTAMOS LA ALTURA AQUÍ */
+    border-radius: 6px;
+    font-weight: 500;
+    text-transform: none;
+    transition: all 0.3s ease;
+}
+
+/* Estilo para hover (cuando el mouse pasa por encima) */
+.contact-section .btn-dark:hover {
+    background-color: #dacfbd;
+    color: #1a1a1a;
+    border: 2px solid #1a1a1a; /* <-- 2. AÑADIMOS EL BORDE NEGRO AQUÍ */
+}
 </style>
 
 <section class="hero-section" id="hero-section">
@@ -120,23 +146,9 @@ get_header();
             <div class="col-lg-6">
                 <div class="contact-form p-5 rounded-4 shadow-lg h-100">
                     <h2 class="fw-bold mb-4">Get in Touch</h2>
-                    <form>
-                        <div class="mb-3">
-                            <input type="text" class="form-control" placeholder="Full Name" />
-                        </div>
-                        <div class="mb-3">
-                            <input type="email" class="form-control" placeholder="Email Address" />
-                        </div>
-                        <div class="mb-3">
-                            <input type="tel" class="form-control" placeholder="Phone Number" />
-                        </div>
-                        <div class="mb-4">
-                            <textarea class="form-control" rows="4" placeholder="Message"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-dark px-4 py-2">
-                            Send Message
-                        </button>
-                    </form>
+
+                    <?php echo do_shortcode('[contact-form-7 id="d525695" title="Contact"]'); ?>
+
                     <div class="social-icons mt-5 text-center">
                         <a href="https://www.instagram.com/ilfornolegna/" class="social-icon"><i class="fab fa-instagram"></i></a>
                         <a href="https://www.facebook.com/ilfornolegna" class="social-icon"><i class="fab fa-facebook-f"></i></a>

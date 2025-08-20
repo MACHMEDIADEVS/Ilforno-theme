@@ -204,27 +204,29 @@ get_header();
         color: #bf9861;
     }
 
-    .btn-gold {
-        background-color: #bf9861;
-        color: #1a1a1a;
-        font-weight: bold;
-        padding: 10px 25px;
-        border-radius: 8px;
-        text-transform: uppercase;
-        transition: all 0.3s ease;
-        border: none;
-    }
+    #booking-form .btn-gold {
+    background-color: #bf9861;
+    color: #1a1a1a;
+    font-weight: bold;
+    padding: 0.9rem 1.5rem; /* <-- Ajustado para más altura */
+    border-radius: 8px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    border: none;
+    width: 100%; /* Asegura que ocupe todo el ancho */
+}
 
-    .btn-gold:hover {
-        background-color: #b0844f;
-        color: #fff;
-    }
+#booking-form .btn-gold:hover {
+    background-color: #b0844f;
+    color: #fff;
+}
 
-    .booking-card {
-        background-color: #1f1f1f;
-        border-radius: 10px;
-        color: #fff;
-    }
+  .booking-card {
+    background-color: #1f1f1f;
+    border-radius: 10px;
+    color: #fff;
+    padding: 1.5rem !important; /* <-- ¡AÑADIMOS !important PARA FORZAR EL ESTILO! */
+}
 
     /* Inputs y Selects */
     .booking-card .form-control,
@@ -498,43 +500,7 @@ get_header();
 
             <div class="col-lg-6">
                 <div class="booking-card p-4 shadow">
-                    <h3 class="fw-bold text-gold mb-4">Book Your Event</h3>
-                    <form>
-                        <div class="row mb-3">
-                            <div class="col">
-                                <input type="text" class="form-control" placeholder="Full Name *" required />
-                            </div>
-                            <div class="col">
-                                <input type="tel" class="form-control" placeholder="Phone Number" required />
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <input type="email" class="form-control" placeholder="Email Address *" required />
-                        </div>
-                        <div class="mb-3">
-                            <select class="form-select">
-                                <option value="">Preferred Package</option>
-                                <option>Classic Italian Experience</option>
-                                <option>Premium Italian Feast</option>
-                                <option>Ultimate Italian Celebration</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <input type="date" class="form-control" required />
-                        </div>
-                        <div class="mb-3">
-                            <input type="text" class="form-control" placeholder="Event Type (Birthday, Corporate, Wedding, etc.)" />
-                        </div>
-                        <div class="mb-3">
-                            <input type="number" class="form-control" placeholder="Number of Guests *" required />
-                        </div>
-                        <div class="mb-3">
-                            <textarea class="form-control" rows="4" placeholder="Special Requests / Notes"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-gold w-100">
-                            Submit Event Request
-                        </button>
-                    </form>
+                    <?php echo do_shortcode('[contact-form-7 id="e369c04" title="Events"]'); ?>
                 </div>
             </div>
         </div>

@@ -131,18 +131,42 @@ get_header();
         z-index: 3;
     }
 
-    .btn-golden {
-        background-color: #bf9861;
-        color: #1a1a1a;
-        border: none;
-        padding: 0.6rem 1.2rem;
-        transition: background-color 0.3s ease;
-    }
+  /* Estilos para el botón dorado con tu color personalizado */
+.btn-golden {
+    background-color: #bf9861;
+    color: #201c21ff; /* <--- ¡Aquí está tu color morado de la captura! */
+    border: none;
+    padding: 0.6rem 1.2rem;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+}
 
-    .btn-golden:hover {
-        background-color: #a87f47;
-        color: #ffffff;
+/* También puedes ajustar el color del texto cuando el mouse pasa por encima si lo deseas */
+.btn-golden:hover {
+    background-color: #a87f47;
+    color: #ffffff; /* Generalmente se ve bien un color blanco al pasar el mouse */
+}
+
+
+    /* =========================================
+   SOLUCIÓN PARA EL FONDO DE LA SECCIÓN
+============================================ */
+
+/* 1. Esta clase crea el espacio vertical arriba y abajo de la tarjeta gris */
+.apply-section-area {
+    padding: 80px 0; /* Puedes ajustar el 80px si quieres más o menos espacio */
+    background-color: #dacfbd;
+}
+
+/* 2. Esta es la clase más importante: convierte el contenedor en la tarjeta gris */
+
+
+/* 3. Ajuste para que el padding sea menor en dispositivos móviles */
+@media (max-width: 768px) {
+    .apply-section-bg {
+        padding: 25px;
     }
+}
 
     /* formulario de aplicacion */
     .application-form-section {
@@ -191,6 +215,91 @@ get_header();
         background-color: #a87f3d;
         color: #fff;
     }
+
+
+
+    /* Wrapper oscuro ya existente */
+.application-form-section{background-color:#141414;padding-top:4rem;padding-bottom:4rem}
+.application-form-section h2{font-size:2rem;color:#fff}
+.application-form-section .form-wrapper{max-width:100%}
+
+/* Inputs blancos con borde y radio (B5 look) */
+.application-form-section .wpcf7 .form-control,
+.application-form-section .wpcf7 select,
+.application-form-section .wpcf7 textarea,
+.application-form-section .wpcf7 input[type="text"],
+.application-form-section .wpcf7 input[type="email"],
+.application-form-section .wpcf7 input[type="tel"],
+.application-form-section .wpcf7 input[type="file"]{
+  background:#fff;
+  color:#1a1a1a;
+  border:1px solid #ccc;
+  border-radius:.375rem;
+  padding:.75rem;
+  font-size:.95rem;
+  box-shadow:none;
+}
+.application-form-section .wpcf7 .form-control:focus,
+.application-form-section .wpcf7 textarea:focus,
+.application-form-section .wpcf7 input:focus{
+  outline:0;
+  box-shadow:none;
+  border-color:#b3b3b3;
+}
+
+/* File input altura/coherencia */
+.application-form-section .wpcf7 input[type="file"]{
+  padding:.55rem .75rem;
+  cursor:pointer;
+}
+
+/* Botón dorado como el diseño */
+.application-form-section .wpcf7 .wpcf7-submit,
+.application-form-section .btn-golden{
+  background-color:#bf9861;
+  color:#1a1a1a;
+  border:0;
+  border-radius:.375rem;
+  font-weight:600;
+  padding:.6rem 1.4rem;
+  transition:background-color .3s ease, color .3s ease, border-color .3s ease;
+  cursor:pointer;
+}
+.application-form-section .wpcf7 .wpcf7-submit:hover,
+.application-form-section .btn-golden:hover{
+  background-color:#a87f47;
+  color:#fff;
+}
+
+/* Ajustes menores en espacios */
+.application-form-section .wpcf7 .row{--bs-gutter-x:1rem}
+
+/* Botón dorado – tamaño y estilo final */
+.application-form-section .wpcf7 .wpcf7-submit,
+.application-form-section .btn-golden{
+  background-color:#bf9861;
+  color:#1a1a1a;
+  border:0;
+  border-radius:.5rem;      /* similar a tu captura */
+  font-weight:700;
+  font-size:1rem;
+  line-height:1.2;          /* compacta alto de línea */
+  padding:12px 28px;        /* alto y ancho del botón */
+  min-width:230px;          /* ancho mínimo como la maqueta */
+  height:48px;              /* altura consistente */
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  transition:background-color .3s ease,color .3s ease,border-color .3s ease;
+  cursor:pointer;
+}
+
+.application-form-section .wpcf7 .wpcf7-submit:hover,
+.application-form-section .btn-golden:hover{
+  background-color:#a87f47;
+  color:#fff;
+}
+
 </style>
 
 <section class="hero-join-section d-flex align-items-center" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/img/hero-image.png')">
@@ -264,8 +373,8 @@ get_header();
     </div>
 </section>
 
-<section class="how-to-apply-modern dark-style-section with-bg-overlay">
-    <div class="container">
+<section class="apply-section-area">
+    <div class="container apply-section-bg">
         <div class="row align-items-center g-4">
             <div class="col-lg-6">
                 <img src="<?php echo get_template_directory_uri(); ?>/assets/img/aplicar.png" alt="Il Forno Restaurant Interior" class="img-fluid rounded shadow" />
@@ -297,31 +406,8 @@ get_header();
             <div class="col-lg-6">
                 <div class="form-wrapper bg-dark text-white p-4 rounded shadow-sm">
                     <h2 class="fw-bold mb-4">Join the IL Forno Family</h2>
-                    <form>
-                        <div class="row mb-3">
-                            <div class="col">
-                                <input type="text" class="form-control" placeholder="Full Name *" required />
-                            </div>
-                            <div class="col">
-                                <input type="text" class="form-control" placeholder="Phone Number" />
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <input type="email" class="form-control" placeholder="Email Address *" required />
-                        </div>
-                        <div class="mb-3">
-                            <input type="text" class="form-control" placeholder="Position Applying For *" required />
-                        </div>
-                        <div class="mb-3">
-                            <input type="file" class="form-control" required />
-                        </div>
-                        <div class="mb-4">
-                            <textarea class="form-control" rows="4" placeholder="Cover Letter or Message (Optional)"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-golden">
-                            Submit Application
-                        </button>
-                    </form>
+                    <?php echo do_shortcode('[contact-form-7 id="985d1dd" title="Join Team"]'); ?>
+
                 </div>
             </div>
         </div>

@@ -60,10 +60,8 @@
   }
 }
 
-/* ==========================================================================
-   Footer Styles
-   ========================================================================== */
-.footer-urban {
+/* Footer Styles (Actualizado) */
+   .footer-urban {
   background-color: #1a1a1a;
   color: #dacfbd;
 }
@@ -96,6 +94,7 @@
 .footer-urban i {
   color: #bf9861;
 }
+
 
 .footer-bottom {
   background-color: #1a1a1a;

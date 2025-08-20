@@ -300,7 +300,8 @@ get_header();
         background-color: #bf9861;
         color: #1a1a1a;
         border: none;
-        padding: 0.7rem 1.5rem;
+        padding: 1rem 1.5rem;
+        /* <-- Aumentamos la altura aquí */
         border-radius: 8px;
         font-size: 0.95rem;
         text-transform: uppercase;
@@ -327,7 +328,8 @@ get_header();
 
         #book-event .btn-gold {
             font-size: 0.9rem;
-            padding: 0.65rem;
+            padding: 0.9rem 1rem;
+            /* <-- ¡LÍNEA MODIFICADA! */
         }
 
         #book-event input,
@@ -336,6 +338,36 @@ get_header();
             font-size: 0.95rem;
         }
     }
+
+    /* ===================================================
+   Estilos FORZADOS para Mensajes de Contact Form 7
+====================================================== */
+
+    /* Estilo para la caja del mensaje de ÉXITO */
+    #book-event .wpcf7-mail-sent-ok {
+        background-color: rgba(191, 152, 97, 0.1) !important;
+        border: 1px solid #bf9861 !important;
+        color: #ffffff !important;
+        padding: 1em !important;
+        margin-top: 1.5rem !important;
+        border-radius: 8px !important;
+        text-align: center !important;
+    }
+
+    /* EXTRA: Estilo para los mensajes de ERROR */
+    #book-event .wpcf7-validation-errors {
+        background-color: rgba(220, 53, 69, 0.1) !important;
+        border: 1px solid #dc3545 !important;
+        color: #ffffff !important;
+        padding: 1em !important;
+        margin-top: 1.5rem !important;
+        border-radius: 8px !important;
+        text-align: center !important;
+    }
+
+
+
+
 
     /* ====== Modern Accordion Style ====== */
     .modern-accordion {
@@ -744,52 +776,7 @@ get_header();
 
             <div class="col-lg-6">
                 <div class="bg-black p-4 shadow rounded">
-                    <form>
-                        <div class="row g-3 mb-3">
-                            <div class="col-md-6">
-                                <input type="text" class="form-control" placeholder="Full Name *" required />
-                            </div>
-                            <div class="col-md-6">
-                                <input type="tel" class="form-control" placeholder="Phone Number *" required />
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            <input type="email" class="form-control" placeholder="Email Address *" required />
-                        </div>
-
-                        <div class="mb-3">
-                            <input type="date" class="form-control" placeholder="Event Date *" required />
-                        </div>
-
-                        <div class="mb-3">
-                            <input type="text" class="form-control" placeholder="Event Location *" required />
-                        </div>
-
-                        <div class="mb-3">
-                            <input type="number" class="form-control" placeholder="Number of Guests *" required />
-                        </div>
-
-                        <div class="mb-3">
-                            <select class="form-select" required>
-                                <option value="">Select Catering Package *</option>
-                                <option>Classic Italian</option>
-                                <option>Premium Italian Feast</option>
-                                <option>Ultimate Italian Experience</option>
-                                <option>Custom Catering</option>
-                            </select>
-                        </div>
-
-                        <div class="mb-4">
-                            <textarea class="form-control" rows="4" placeholder="Special Requests / Notes (Optional)"></textarea>
-                        </div>
-
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-gold">
-                                Submit Catering Request
-                            </button>
-                        </div>
-                    </form>
+                    <?php echo do_shortcode('[contact-form-7 id="98c8a5c" title="Catering"]'); ?>
                 </div>
             </div>
         </div>

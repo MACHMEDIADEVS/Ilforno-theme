@@ -20,6 +20,7 @@
         <p class="text-footer small"></p>
       </div>
 
+     <!-- Columna 2: Blog -->
       <div class="col-md-3">
         <h6 class="fw-bold text-uppercase mb-3">Recent Blog</h6>
         <ul class="list-unstyled small">
@@ -29,6 +30,7 @@ Just Add Pizza</a></li>
         </ul>
       </div>
 
+      <!-- Columna 3: Servicios -->
       <div class="col-md-3">
         <h6 class="fw-bold text-uppercase mb-3">Services</h6>
         <ul class="list-unstyled small">
@@ -39,6 +41,7 @@ Just Add Pizza</a></li>
         </ul>
       </div>
 
+      <!-- Columna 4: Contacto -->
       <div class="col-md-3">
         <h6 class="fw-bold text-uppercase mb-3">Have a Question?</h6>
         <ul class="list-unstyled small">
@@ -52,7 +55,7 @@ Just Add Pizza</a></li>
   </div>
 </footer>
 <div class="footer-bottom text-center py-3">
-  <p class="mb-0">&copy; <?php echo date('Y'); ?> IL Forno a Legna — All Rights Reserved</p>
+  <p class="mb-0">&copy; 2025 IL Forno a Legna — All Rights Reserved</p>
 </div>
 
 

@@ -922,7 +922,6 @@ get_header();
     }
 
     /* Hero de promoción */
-    /* Hero con imagen de fondo */
     .promo-hero {
         background-size: cover;
         background-position: center;
@@ -1063,52 +1062,122 @@ get_header();
     }
 </style>
 
+<?php
+/**
+ * Obtener los datos de los campos personalizados (ACF) para la sección Hero.
+ * Usamos el contenido estático original como valores por defecto en caso de que los campos estén vacíos.
+ */
+$video_url = get_field('hero_video_bg') ?: get_template_directory_uri() . '/assets/img/ilforno.webm';
+$title     = get_field('hero_title_h1') ?: 'The Pizza Spot of Rahway, NJ Since 2018';
+$subtitle  = get_field('hero_subtitle_h2') ?: 'New Jersey’s Best Chicken Parm We Made the List!';
+?>
+
 <section class="hero-section position-relative overflow-hidden" style="height: 100vh">
+
+    <?php // Imprimimos la URL del video de forma segura 
+    ?>
     <video autoplay muted loop playsinline class="position-absolute top-0 start-0 w-100 h-100" style="object-fit: cover">
-        <source src="<?php echo get_template_directory_uri(); ?>/assets/img/ilforno.webm" type="video/webm" />
+        <source src="<?php echo esc_url($video_url); ?>" type="video/webm" />
         Tu navegador no soporta la etiqueta de video.
     </video>
 
     <div class="overlay position-absolute top-0 start-0 w-100 h-100" style="background: rgba(0, 0, 0, 0.5); z-index: 1"></div>
 
     <div class="container text-center text-white d-flex flex-column justify-content-center align-items-center h-100 position-relative" style="z-index: 2">
-        <h1 class="display-4">The Pizza Spot of Rahway, NJ Since 2018</h1>
-        <p class="lead">New Jersey’s Best Chicken Parm We Made the List!.</p>
 
-        <div class="hero-buttons d-flex flex-column flex-md-row justify-content-center align-items-center gap-2">
-            <a href="#" class="btn btn-lg btn-outline-light custom-btn">Order Now</a>
-            <a href="#" class="btn btn-lg custom-btn">Reserve Now</a>
-        </div>
+        <?php // Imprimimos el título y subtítulo de forma segura 
+        ?>
+        <h1 class="display-4"><?php echo esc_html($title); ?></h1>
+        <p class="lead"><?php echo esc_html($subtitle); ?></p>
+
+        <?php // Verificamos si el campo repetidor 'hero_buttons' tiene filas (botones) 
+        ?>
+        <?php if (have_rows('hero_buttons')) : ?>
+            <div class="hero-buttons d-flex flex-column flex-md-row justify-content-center align-items-center gap-2">
+
+                <?php
+                $button_count = 0; // Inicializamos un contador para el estilo del primer botón
+                // Iniciamos el bucle para recorrer cada botón
+                while (have_rows('hero_buttons')) : the_row();
+
+                    // Obtenemos los datos de los sub-campos para este botón específico
+                    $button_text = get_sub_field('text_button_hero');
+                    $button_link = get_sub_field('link_button_hero');
+
+                    // Lógica para asignar la clase 'btn-outline-light' solo al primer botón
+                    $btn_class = ($button_count === 0) ? 'btn-outline-light' : '';
+                ?>
+                    <a href="<?php echo esc_url($button_link); ?>" class="btn btn-lg <?php echo $btn_class; ?> custom-btn">
+                        <?php echo esc_html($button_text); ?>
+                    </a>
+                <?php
+                    $button_count++; // Incrementamos el contador
+                endwhile;
+                ?>
+            </div>
+        <?php endif; ?>
+
     </div>
 </section>
 
 <section class="info-section">
     <div class="container-fluid p-0">
         <div class="row gx-0 text-center">
-            <div class="col-md-3 info-box bg-dark text-white">
-                <i class="bi bi-telephone-fill big-icon"></i>
-                <div class="info-text">
-                    <h4>(732) 382-6600</h4>
-                    <p>Call us for bookings or questions</p>
-                </div>
-            </div>
 
-            <div class="col-md-3 info-box bg-dark text-white">
-                <i class="bi bi-geo-alt-fill big-icon"></i>
-                <div class="info-text">
-                    <h4>1464 Main St, Rahway, NJ</h4>
-                    <p>Downtown Rahway</p>
-                </div>
-            </div>
+            <?php
+            // Comprobamos si el repetidor 'secciones_informacion_hero' tiene contenido
+            if (have_rows('secciones_informacion_hero')) :
+                // Creamos un array con las clases de los iconos para mantenerlos en orden
+                $icons = ['bi-telephone-fill', 'bi-geo-alt-fill', 'bi-clock'];
+                $icon_index = 0;
 
-            <div class="col-md-3 info-box bg-dark text-white">
-                <i class="bi bi-clock big-icon"></i>
-                <div class="info-text">
-                    <h4>Open Monday - Sunday</h4>
-                    <p>11:00 AM - 9:00 PM</p>
-                </div>
-            </div>
+                // Iniciamos el bucle para recorrer cada sección de información
+                while (have_rows('secciones_informacion_hero')) : the_row();
 
+                    // Obtenemos los valores de los sub-campos (ahora ambos son texto)
+                    $title = get_sub_field('title_sectionbar_p');
+                    $description = get_sub_field('description_sectionbar_p');
+            ?>
+                    <div class="col-md-3 info-box bg-dark text-white">
+
+                        <i class="bi <?php echo esc_attr($icons[$icon_index]); ?> big-icon"></i>
+
+                        <div class="info-text">
+                            <h4><?php echo esc_html($title); ?></h4>
+                            <p><?php echo esc_html($description); ?></p>
+                        </div>
+                    </div>
+                <?php
+                    $icon_index++;
+                endwhile;
+            else :
+                // Contenido de respaldo si el repetidor está vacío
+                ?>
+                <div class="col-md-3 info-box bg-dark text-white">
+                    <i class="bi bi-telephone-fill big-icon"></i>
+                    <div class="info-text">
+                        <h4>(732) 382-6600</h4>
+                        <p>Call us for bookings or questions</p>
+                    </div>
+                </div>
+                <div class="col-md-3 info-box bg-dark text-white">
+                    <i class="bi bi-geo-alt-fill big-icon"></i>
+                    <div class="info-text">
+                        <h4>1464 Main St, Rahway, NJ</h4>
+                        <p>Downtown Rahway</p>
+                    </div>
+                </div>
+                <div class="col-md-3 info-box bg-dark text-white">
+                    <i class="bi bi-clock big-icon"></i>
+                    <div class="info-text">
+                        <h4>Open Monday - Sunday</h4>
+                        <p>11:00 AM - 9:00 PM</p>
+                    </div>
+                </div>
+            <?php endif; ?>
+
+            <?php // La sección de redes sociales se mantiene estática, como solicitaste 
+            ?>
             <div class="col-md-3 info-box social-box">
                 <div class="social-icons">
                     <a href="https://www.tiktok.com/@ilfornolegna" aria-label="Síguenos en TikTok">
@@ -1122,30 +1191,60 @@ get_header();
                     </a>
                 </div>
             </div>
+
         </div>
     </div>
 </section>
 
+<?php
+// Obtener todos los datos de los campos del slider
+$gallery_images = get_field('images_slider_promo_');
+$title          = get_field('title_slider_h1_');
+$description    = get_field('description_slider_p');
+$button_text    = get_field('title_button_slider');
+$button_link    = get_field('link_button_slider');
+
+// Valores por defecto para el texto y el botón
+$title_fallback       = "Authentic Neapolitan Style <br /> Casual Elegant Dining.";
+$description_fallback = "Enjoy a relaxed yet refined dining experience with our brick‑oven Neapolitan pizza and Italian classics like Chicken Parm, Spaghetti & Meatballs, and more.";
+$button_text_fallback = "Book a Table";
+$button_link_fallback = "#reservation";
+?>
+
 <section class="promo-banner-slider text-white d-flex align-items-center position-relative">
     <div class="promo-overlay"></div>
 
-    <div class="promo-bg" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/img/promo-banner-2.png')"></div>
-    <div class="promo-bg" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/img/promo-banner.png')"></div>
+    <?php
+    // Comprobar si se han añadido imágenes a la galería
+    if ($gallery_images) :
+        // Recorrer cada imagen de la galería y crear un div para cada una
+        foreach ($gallery_images as $image_url) :
+    ?>
+            <div class="promo-bg" style="background-image: url('<?php echo esc_url($image_url); ?>')"></div>
+        <?php
+        endforeach;
+    else :
+        // Si la galería está vacía, mostrar las imágenes por defecto para no romper el diseño
+        ?>
+        <div class="promo-bg" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/img/promo-banner-2.png')"></div>
+        <div class="promo-bg" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/img/promo-banner.png')"></div>
+    <?php endif; ?>
 
     <div class="container position-relative">
         <div class="row">
             <div class="col-lg-6">
                 <div class="promo-text p-4">
                     <h2 class="fw-bold mb-3">
-                        Authentic Neapolitan Style <br />
-                        Casual Elegant Dining.
+                        <?php // Usamos wp_kses_post para permitir etiquetas como <br> de forma segura 
+                        ?>
+                        <?php echo wp_kses_post($title ?: $title_fallback); ?>
                     </h2>
                     <p class="mb-4">
-                        Enjoy a relaxed yet refined dining experience with our
-                        brick‑oven Neapolitan pizza and Italian classics like Chicken
-                        Parm, Spaghetti & Meatballs, and more. .
+                        <?php echo esc_html($description ?: $description_fallback); ?>
                     </p>
-                    <a href="#reservation" class="btn btn-gold fw-bold">Book a Table</a>
+                    <a href="<?php echo esc_url($button_link ?: $button_link_fallback); ?>" class="btn btn-gold fw-bold">
+                        <?php echo esc_html($button_text ?: $button_text_fallback); ?>
+                    </a>
                 </div>
             </div>
         </div>
