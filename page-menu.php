@@ -470,22 +470,35 @@ get_header();
     }
 </style>
 
-<section class="hero-menu-section" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/img/our-menu.png')">
+<?php
+// Obtener los datos de los campos ACF para el hero de la página de menú
+$background_image_url = get_field('menu_hero_image_bg') ?: get_template_directory_uri() . '/assets/img/our-menu.png';
+$title                = get_field('menu_hero_title') ?: 'Our Menu';
+$subtitle             = get_field('menu_hero_subtitle') ?: 'Experience the finest wood-fired pizzas, handcrafted pastas, and authentic Italian flavors.';
+?>
+
+<section class="hero-menu-section" style="background-image: url('<?php echo esc_url($background_image_url); ?>')">
     <div class="overlay"></div>
     <div class="container">
-        <h1 class="display-4 fw-bold">Our Menu</h1>
+        <h1 class="display-4 fw-bold"><?php echo esc_html($title); ?></h1>
         <p class="lead">
-            Experience the finest wood-fired pizzas, handcrafted pastas, and
-            authentic Italian flavors.
+            <?php // Usamos nl2br para respetar los saltos de línea del Área de Texto ?>
+            <?php echo nl2br(esc_html($subtitle)); ?>
         </p>
     </div>
 </section>
+
+<?php
+// Obtener los datos de los campos principales de la sección
+$main_image_url = get_field('favorites_main_image') ?: get_template_directory_uri() . '/assets/img/popular.png';
+$section_title  = get_field('favorites_section_title') ?: 'Customer Favorites';
+?>
 
 <section id="customer-favorites" class="">
     <div class="container-fluid p-0">
         <div class="row g-0">
             <div class="col-lg-5 favorites-left-img">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/img/popular.png" alt="Restaurant Interior" class="img-fluid w-100 h-100" />
+                <img src="<?php echo esc_url($main_image_url); ?>" alt="<?php echo esc_attr($section_title); ?>" class="img-fluid w-100 h-100" />
             </div>
 
             <div class="col-lg-7 p-5 favorites-right">
@@ -502,265 +515,168 @@ get_header();
                     }
                 </style>
                 <h2 class="text-gold fw-bold text-uppercase mb-4 text-center text-lg-start">
-                    Customer Favorites
+                    <?php echo esc_html($section_title); ?>
                 </h2>
+                
                 <div class="row g-4">
-                    <div class="col-12 col-sm-6 col-lg-3">
-                        <div class="favorite-card">
-                            <div class="favorite-img">
-                                <img src="<?php echo get_template_directory_uri(); ?>/assets/img/pizza.png" alt="BBQ Pizza" />
+                    <?php // Comprobar si existen elementos en el repetidor 'favorites_list'
+                    if (have_rows('favorites_list')) :
+                        // Iniciar el bucle para recorrer cada elemento
+                        while (have_rows('favorites_list')) : the_row();
+                            // Obtener los datos de los sub-campos para este elemento
+                            $item_image_url = get_sub_field('favorite_item_image');
+                            $item_name      = get_sub_field('favorite_item_name');
+                            $item_button    = get_sub_field('favorite_item_button');
+                    ?>
+                            <div class="col-12 col-sm-6 col-lg-3">
+                                <div class="favorite-card">
+                                    <div class="favorite-img">
+                                        <img src="<?php echo esc_url($item_image_url); ?>" alt="<?php echo esc_attr($item_name); ?>" />
+                                    </div>
+                                    <h5 class="favorite-title"><?php echo esc_html($item_name); ?></h5>
+                                    
+                                    <?php if ($item_button && $item_button['url'] && $item_button['title']) :
+                                        $button_url = esc_url($item_button['url']);
+                                        $button_title = esc_html($item_button['title']);
+                                        $button_target = $item_button['target'] ? 'target="' . esc_attr($item_button['target']) . '"' : '';
+                                    ?>
+                                        <a href="<?php echo $button_url; ?>" class="btn btn-outline-golden btn-sm" <?php echo $button_target; ?>><?php echo $button_title; ?></a>
+                                    <?php endif; ?>
+                                </div>
                             </div>
-                            <h5 class="favorite-title">Half Cheese Half Chicken</h5>
-                            <a href="#" class="btn btn-outline-golden btn-sm">Order Online</a>
+                    <?php
+                        endwhile;
+                    else :
+                        // Contenido de respaldo si el repetidor está vacío
+                    ?>
+                        <div class="col-12 col-sm-6 col-lg-3">
+                            <p class="text-white">Añade platos favoritos desde el editor.</p>
                         </div>
-                    </div>
-
-                    <div class="col-12 col-sm-6 col-lg-3">
-                        <div class="favorite-card">
-                            <div class="favorite-img">
-                                <img src="<?php echo get_template_directory_uri(); ?>/assets/img/pizza2.png" alt="Four Cheese Pizza" />
-                            </div>
-                            <h5 class="favorite-title">Classic Cheese Pizza</h5>
-                            <a href="#" class="btn btn-outline-golden btn-sm">Order Online</a>
-                        </div>
-                    </div>
-
-                    <div class="col-12 col-sm-6 col-lg-3">
-                        <div class="favorite-card">
-                            <div class="favorite-img">
-                                <img src="<?php echo get_template_directory_uri(); ?>/assets/img/pizza3.png" alt="Marinara Pizza" />
-                            </div>
-                            <h5 class="favorite-title">Meat Lover’s Pizza</h5>
-                            <a href="#" class="btn btn-outline-golden btn-sm">Order Online</a>
-                        </div>
-                    </div>
-
-                    <div class="col-12 col-sm-6 col-lg-3">
-                        <div class="favorite-card">
-                            <div class="favorite-img">
-                                <img src="<?php echo get_template_directory_uri(); ?>/assets/img/pizza4.png" alt="Seafood Pizza" />
-                            </div>
-                            <h5 class="favorite-title">Vegetable Pizza</h5>
-                            <a href="#" class="btn btn-outline-golden btn-sm">Order Online</a>
-                        </div>
-                    </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+<?php
+// Obtener el título de la sección de menú
+$main_menu_title = get_field('main_menu_title') ?: 'Main Menu';
+?>
 
 <section id="main-menu" class="py-5">
     <div class="container">
-        <h2 class="text-center mb-5 fw-bold text-uppercase">Main Menu</h2>
+        <h2 class="text-center mb-5 fw-bold text-uppercase"><?php echo esc_html($main_menu_title); ?></h2>
 
         <div class="row g-4">
-            <div class="col-md-6 col-lg-4">
-                <div class="menu-card">
-                    <div class="menu-img">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/img/apeti.png" alt="Appetizers" />
-                        <div class="overlay"></div>
-                        <h3 class="category-title">Appetizers</h3>
+            <?php // Comprobar si existen categorías en el repetidor
+            if (have_rows('menu_categories')) :
+                // Iniciar el bucle para recorrer cada categoría
+                while (have_rows('menu_categories')) : the_row();
+                    
+                    // Obtener los datos de los sub-campos
+                    $image_url = get_sub_field('category_image');
+                    $name      = get_sub_field('category_name');
+                    $link_url  = get_sub_field('category_url');
+            ?>
+                    <div class="col-md-6 col-lg-4">
+                        <?php // La etiqueta <a> envuelve toda la tarjeta para hacerla clickeable ?>
+                        <a href="<?php echo esc_url($link_url); ?>" class="menu-card-link">
+                            <div class="menu-card">
+                                <div class="menu-img">
+                                    <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($name); ?>" />
+                                    <div class="overlay"></div>
+                                    <h3 class="category-title"><?php echo esc_html($name); ?></h3>
+                                </div>
+                            </div>
+                        </a>
                     </div>
+            <?php
+                endwhile;
+            else :
+                // Mensaje de respaldo si el repetidor está vacío
+            ?>
+                <div class="col-12">
+                    <p class="text-center">Las categorías del menú se mostrarán aquí.</p>
                 </div>
-            </div>
-
-            <div class="col-md-6 col-lg-4">
-                <div class="menu-card">
-                    <div class="menu-img">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/img/salad.png" alt="Salads" />
-                        <div class="overlay"></div>
-                        <h3 class="category-title">Salads</h3>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-4">
-                <div class="menu-card">
-                    <div class="menu-img">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/img/entree.png" alt="Entrees" />
-                        <div class="overlay"></div>
-                        <h3 class="category-title">Entrees</h3>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-4">
-                <div class="menu-card">
-                    <div class="menu-img">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/img/pasta.png" alt="Pastas" />
-                        <div class="overlay"></div>
-                        <h3 class="category-title">Pastas</h3>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-4">
-                <div class="menu-card">
-                    <div class="menu-img">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/img/pies.png" alt="Pies" />
-                        <div class="overlay"></div>
-                        <h3 class="category-title">Pies</h3>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-4">
-                <div class="menu-card">
-                    <div class="menu-img">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/img/panini.png" alt="Subs and Paninis" />
-                        <div class="overlay"></div>
-                        <h3 class="category-title">Subs and Paninis</h3>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-4">
-                <div class="menu-card">
-                    <div class="menu-img">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/img/drink.png" alt="Drinks" />
-                        <div class="overlay"></div>
-                        <h3 class="category-title">Drinks</h3>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-4">
-                <div class="menu-card">
-                    <div class="menu-img">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/img/sides.png" alt="Sides" />
-                        <div class="overlay"></div>
-                        <h3 class="category-title">Sides</h3>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-4">
-                <div class="menu-card">
-                    <div class="menu-img">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/img/kids.png" alt="Kids Menu" />
-                        <div class="overlay"></div>
-                        <h3 class="category-title">Kids Menu</h3>
-                    </div>
-                </div>
-            </div>
+            <?php endif; ?>
         </div>
     </div>
 </section>
+
+<?php
+// Obtener el título de la sección y los botones
+$section_title    = get_field('catering_section_title') ?: 'Catering Menu';
+$primary_button   = get_field('catering_primary_button');
+$secondary_button = get_field('catering_secondary_button');
+?>
 
 <section id="catering-menu" class="py-5" style="background-color: #101010">
     <div class="container">
         <h2 class="text-center mb-5 fw-bold text-uppercase" style="color: #bf9861">
-            Catering Menu
+            <?php echo esc_html($section_title); ?>
         </h2>
 
         <div class="row g-4">
-            <div class="col-md-6 col-lg-3">
-                <div class="card h-100 border-0 shadow">
-                    <div class="card-body">
-                        <h5 class="card-title fw-bold text-gold">
-                            Appetizer Half / Full Tray
-                        </h5>
-                        <ul class="list-unstyled mb-0">
-                            <li>Calamari <span class="text-gold">$80 / $110</span></li>
-                            <li>Dumplings <span class="text-gold">$70 / $110</span></li>
-                            <li>
-                                Mussels AL FORNO <span class="text-gold">$80 / $110</span>
-                            </li>
-                            <li>
-                                Wood Fire Wings <span class="text-gold">$70 / $105</span>
-                            </li>
-                            <li>
-                                Meatballs Al Forno <span class="text-gold">$85 / $115</span>
-                            </li>
-                            <li>
-                                Eggplant Rollatini <span class="text-gold">$65 / $95</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            <?php // BUCLE EXTERIOR: Comprobar y recorrer las CATEGORÍAS
+            if (have_rows('category_catering')) :
+                while (have_rows('category_catering')) : the_row();
+                    
+                    // Obtener el título de la categoría actual
+                    $category_title = get_sub_field('category_title');
+            ?>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card h-100 border-0 shadow">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold text-gold">
+                                    <?php echo esc_html($category_title); ?>
+                                </h5>
+                                
+                                <?php // BUCLE INTERIOR: Comprobar y recorrer los PLATOS de esta categoría
+                                if (have_rows('menu_list_item')) : ?>
+                                    <ul class="list-unstyled mb-0">
+                                        <?php while (have_rows('menu_list_item')) : the_row();
+                                            // Obtener el nombre y precio del plato actual
+                                            $item_name   = get_sub_field('item_name');
+                                            $item_prices = get_sub_field('item_prices');
+                                        ?>
+                                            <li><?php echo esc_html($item_name); ?> <span class="text-gold"><?php echo esc_html($item_prices); ?></span></li>
+                                        <?php endwhile; ?>
+                                    </ul>
+                                <?php endif; // Fin del bucle interior de platos ?>
 
-            <div class="col-md-6 col-lg-3">
-                <div class="card h-100 border-0 shadow">
-                    <div class="card-body">
-                        <h5 class="card-title fw-bold text-gold">
-                            Entrees Half / Full Tray
-                        </h5>
-                        <ul class="list-unstyled mb-0">
-                            <li>
-                                Pollo Parmigiana <span class="text-gold">$80 / $120</span>
-                            </li>
-                            <li>
-                                Pollo Francese <span class="text-gold">$70 / $105</span>
-                            </li>
-                            <li>
-                                Pollo Picatta <span class="text-gold">$60 / $110</span>
-                            </li>
-                            <li>
-                                Pollo Marsala <span class="text-gold">$60 / $110</span>
-                            </li>
-                            <li>
-                                Pollo Martini <span class="text-gold">$70 / $115</span>
-                            </li>
-                            <li>Salmon <span class="text-gold">$85 / $150</span></li>
-                        </ul>
+                            </div>
+                        </div>
                     </div>
+            <?php
+                endwhile;
+            else :
+                // Mensaje de respaldo si no hay categorías
+            ?>
+                <div class="col-12">
+                    <p class="text-center text-white">El menú de catering se mostrará aquí.</p>
                 </div>
-            </div>
-
-            <div class="col-md-6 col-lg-3">
-                <div class="card h-100 border-0 shadow">
-                    <div class="card-body">
-                        <h5 class="card-title fw-bold text-gold">
-                            Salad Half Tray / Full Tray
-                        </h5>
-                        <ul class="list-unstyled mb-0">
-                            <li>House <span class="text-gold">$45 / $55</span></li>
-                            <li>Greek <span class="text-gold">$50 / $60</span></li>
-                            <li>
-                                Caesar
-                                <span class="text-gold">$45 / $60</span>
-                            </li>
-                            <li>Baby Spinach <span class="text-gold">$50 / $65</span></li>
-                            <li>Arugula <span class="text-gold">$45 / $60</span></li>
-                            <li>Caprese <span class="text-gold">$70 / $110</span></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-3">
-                <div class="card h-100 border-0 shadow">
-                    <div class="card-body">
-                        <h5 class="card-title fw-bold text-gold">Pizza Menu</h5>
-                        <ul class="list-unstyled mb-0">
-                            <li>Plain <span class="text-gold">$12 / $17</span></li>
-                            <li>
-                                Margherita
-                                <span class="text-gold">$15 / $21</span>
-                            </li>
-                            <li>
-                                Carne
-                                <span class="text-gold">$15 / $21</span>
-                            </li>
-                            <li>Napoli <span class="text-gold">$14 / $19</span></li>
-                            <li>
-                                Buffalo Chicken <span class="text-gold">$14 / $18</span>
-                            </li>
-                            <li>
-                                Marinara (No Cheese)
-                                <span class="text-gold">$12 / $18</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            <?php endif; // Fin del bucle exterior de categorías ?>
         </div>
 
         <div class="text-center mt-5">
-            <a href="#" class="btn btn-gold m-2">INQUIRY NOW</a>
-            <a href="#" class="btn btn-outline-gold m-2">DOWNLOAD MENU</a>
+            <?php // Botón Principal
+            if ($primary_button && $primary_button['url'] && $primary_button['title']) :
+                $btn_url    = esc_url($primary_button['url']);
+                $btn_title  = esc_html($primary_button['title']);
+                $btn_target = $primary_button['target'] ? 'target="' . esc_attr($primary_button['target']) . '"' : '';
+            ?>
+                <a href="<?php echo $btn_url; ?>" class="btn btn-gold m-2" <?php echo $btn_target; ?>><?php echo $btn_title; ?></a>
+            <?php endif; ?>
+
+            <?php // Botón Secundario
+            if ($secondary_button && $secondary_button['url'] && $secondary_button['title']) :
+                $btn_url    = esc_url($secondary_button['url']);
+                $btn_title  = esc_html($secondary_button['title']);
+                $btn_target = $secondary_button['target'] ? 'target="' . esc_attr($secondary_button['target']) . '"' : '';
+            ?>
+                <a href="<?php echo $btn_url; ?>" class="btn btn-outline-gold m-2" <?php echo $btn_target; ?>><?php echo $btn_title; ?></a>
+            <?php endif; ?>
         </div>
     </div>
 </section>

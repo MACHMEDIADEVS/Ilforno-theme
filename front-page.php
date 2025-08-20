@@ -1251,163 +1251,145 @@ $button_link_fallback = "#reservation";
     </div>
 </section>
 
-<section class="services-section py-5 section-with-bg position-relative" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/img/servi-fondo.png')">
+<?php
+// Obtener los datos de los campos de la sección
+$background_image_url = get_field('image_service_bg') ?: get_template_directory_uri() . '/assets/img/servi-fondo.png';
+$section_title        = get_field('services_section_title') ?: 'Our Services';
+$section_subtitle     = get_field('services_section_subtitle') ?: 'We do more than serve pizza. Explore our full list of services designed for all occasions.';
+?>
+
+<section class="services-section py-5 section-with-bg position-relative" style="background-image: url('<?php echo esc_url($background_image_url); ?>')">
     <div class="overlay-bg"></div>
     <div class="container mb-4">
         <div class="text-center mb-5">
-            <h2 class="fw-bold text-white">Our Services</h2>
-            <p class="text-green">
-                We do more than serve pizza. Explore our full list of services
-                designed for all occasions.
-            </p>
+            <h2 class="fw-bold text-white"><?php echo esc_html($section_title); ?></h2>
+            <p class="text-green"><?php echo esc_html($section_subtitle); ?></p>
         </div>
 
-        <ul class="nav nav-tabs justify-content-center services-tabs mb-4" id="servicesTab" role="tablist">
-            <li class="nav-item d-inline-block" role="presentation">
-                <button class="nav-link active" id="dinein-tab" data-bs-toggle="tab" data-bs-target="#dinein" type="button" role="tab">
-                    Dine-In
-                </button>
-            </li>
-            <li class="nav-item d-inline-block" role="presentation">
-                <button class="nav-link" id="takeout-tab" data-bs-toggle="tab" data-bs-target="#takeout" type="button" role="tab">
-                    Takeout
-                </button>
-            </li>
-            <li class="nav-item d-inline-block" role="presentation">
-                <button class="nav-link" id="catering-tab" data-bs-toggle="tab" data-bs-target="#catering" type="button" role="tab">
-                    Catering
-                </button>
-            </li>
-            <li class="w-100 d-block d-md-none"></li>
-            <li class="nav-item d-inline-block" role="presentation">
-                <button class="nav-link" id="truck-tab" data-bs-toggle="tab" data-bs-target="#truck" type="button" role="tab">
-                    Pizza Truck
-                </button>
-            </li>
-            <li class="nav-item d-inline-block" role="presentation">
-                <button class="nav-link" id="private-tab" data-bs-toggle="tab" data-bs-target="#private" type="button" role="tab">
-                    Private Events
-                </button>
-            </li>
-        </ul>
+        <?php // Comprobamos si existen servicios en el repetidor
+        if (have_rows('pestanas_servicios')) : ?>
 
-        <div class="tab-content" id="servicesTabContent">
-            <div class="tab-pane fade show active" id="dinein" role="tabpanel">
-                <div class="service-card row g-0 align-items-center">
-                    <div class="col-lg-6">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/img/dine-in.png" class="img-fluid rounded-start w-100" alt="Dine-In" />
+            <ul class="nav nav-tabs justify-content-center services-tabs mb-4" id="servicesTab" role="tablist">
+                <?php
+                $tab_index = 0;
+                while (have_rows('pestanas_servicios')) : the_row();
+                    $service_name = get_sub_field('service_name');
+                    $slug = sanitize_title($service_name);
+                    $active_class = ($tab_index === 0) ? 'active' : '';
+                ?>
+                    <li class="nav-item d-inline-block" role="presentation">
+                        <button class="nav-link <?php echo $active_class; ?>" id="<?php echo $slug; ?>-tab" data-bs-toggle="tab" data-bs-target="#<?php echo $slug; ?>" type="button" role="tab" aria-controls="<?php echo $slug; ?>" aria-selected="<?php echo ($tab_index === 0) ? 'true' : 'false'; ?>">
+                            <?php echo esc_html($service_name); ?>
+                        </button>
+                    </li>
+                <?php
+                    $tab_index++;
+                endwhile;
+                ?>
+            </ul>
+
+            <div class="tab-content" id="servicesTabContent">
+                <?php
+                $content_index = 0;
+                while (have_rows('pestanas_servicios')) : the_row();
+                    $service_name = get_sub_field('service_name');
+                    $slug = sanitize_title($service_name);
+
+                    $image_url     = get_sub_field('service_image');
+                    $content_title = get_sub_field('service_content_title') ?: $service_name;
+                    $description   = get_sub_field('service_description');
+                    $button        = get_sub_field('service_button');
+
+                    $active_class = ($content_index === 0) ? 'show active' : '';
+                ?>
+                    <div class="tab-pane fade <?php echo $active_class; ?>" id="<?php echo $slug; ?>" role="tabpanel" aria-labelledby="<?php echo $slug; ?>-tab">
+                        <div class="service-card row g-0 align-items-center">
+                            <div class="col-lg-6">
+                                <?php if ($image_url): ?>
+                                    <img src="<?php echo esc_url($image_url); ?>" class="img-fluid rounded-start w-100" alt="<?php echo esc_attr($content_title); ?>" />
+                                <?php endif; ?>
+                            </div>
+                            <div class="col-lg-6 p-4">
+                                <h3 class="text-light fw-bold"><?php echo esc_html($content_title); ?></h3>
+                                <p class="text-light"><?php echo esc_html($description); ?></p>
+                                <?php if ($button && $button['url'] && $button['title']) :
+                                    $button_url = esc_url($button['url']);
+                                    $button_title = esc_html($button['title']);
+                                    $button_target = $button['target'] ? 'target="' . esc_attr($button['target']) . '"' : '';
+                                ?>
+                                    <a href="<?php echo $button_url; ?>" class="btn-service" <?php echo $button_target; ?>><?php echo $button_title; ?></a>
+                                <?php endif; ?>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-lg-6 p-4">
-                        <h3 class="text-light fw-bold">Dine-In</h3>
-                        <p class="text-light">
-                            Enjoy a cozy, casual dining experience right on Main Street.
-                            Our family-friendly restaurant offers freshly prepared
-                            wood-fired pizzas, pasta, and Italian comfort food served hot
-                            from our kitchen..
-                        </p>
-                        <a href="#" class="btn-service">Reserve Now</a>
-                    </div>
-                </div>
+                <?php
+                    $content_index++;
+                endwhile;
+                ?>
             </div>
 
-            <div class="tab-pane fade" id="takeout" role="tabpanel">
-                <div class="service-card row g-0 align-items-center">
-                    <div class="col-lg-6">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/img/take.png" class="img-fluid rounded-start w-100" alt="Takeout" />
-                    </div>
-                    <div class="col-lg-6 p-4">
-                        <h3 class="text-light fw-bold">Takeout</h3>
-                        <p class="text-light">
-                            Craving Italian at home? Call ahead or order online for fast
-                            and reliable takeout. Your favorite pizza, pasta, and
-                            appetizers ready when you are.
-                        </p>
-                        <a href="#" class="btn-service">Order Online</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="tab-pane fade" id="catering" role="tabpanel">
-                <div class="service-card row g-0 align-items-center">
-                    <div class="col-lg-6">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/img/catering 2.png" class="img-fluid rounded-start w-100" alt="Catering" />
-                    </div>
-                    <div class="col-lg-6 p-4">
-                        <h3 class="text-light fw-bold">Catering</h3>
-                        <p class="text-light">
-                            From office lunches to weddings, our catering service brings
-                            the flavor of Italy to your event. Choose from customizable
-                            packages featuring trays of pasta, salads, entrees, and more.
-                        </p>
-                        <a href="#" class="btn-service">Call Now</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="tab-pane fade" id="truck" role="tabpanel">
-                <div class="service-card row g-0 align-items-center">
-                    <div class="col-lg-6">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/img/truck-party.png" class="img-fluid rounded-start w-100" alt="Truck Party" />
-                    </div>
-                    <div class="col-lg-6 p-4">
-                        <h3 class="text-light fw-bold">Pizza Truck Service</h3>
-                        <p class="text-light">
-                            Elevate your event with our mobile pizza oven truck! Perfect
-                            for birthdays, festivals, and private parties serving hot,
-                            wood-fired pizzas on the spot.
-                        </p>
-                        <a href="#" class="btn-service">Call Now</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="tab-pane fade" id="private" role="tabpanel">
-                <div class="service-card row g-0 align-items-center">
-                    <div class="col-lg-6">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/img/private-events.png" class="img-fluid rounded-start w-100" alt="Private Events" />
-                    </div>
-                    <div class="col-lg-6 p-4">
-                        <h3 class="text-light fw-bold">Private Events</h3>
-                        <p class="text-light">
-                            Celebrate your special moments with us. Our space is available
-                            for birthdays, corporate gatherings, and family celebrations.
-                            We’ll help you plan the perfect Italian-inspired event.
-                        </p>
-                        <a href="#" class="btn-service">Call Now</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <?php else : ?>
+            <p class="text-center text-white">No hay servicios para mostrar en este momento.</p>
+        <?php endif; ?>
+    </div>
 </section>
+
+<?php
+// Obtener todos los datos de los campos para la sección de bienvenida
+$main_image_url = get_field('welcome_main_image') ?: get_template_directory_uri() . '/assets/img/horno.png';
+
+$text_bg_image_array = get_field('welcome_image_bg');
+$text_bg_image_url   = $text_bg_image_array ? $text_bg_image_array['url'] : get_template_directory_uri() . '/assets/img/bg-dark-pizza.png';
+
+$title       = get_field('welcome_title');
+$description = get_field('welcome_description');
+$button      = get_field('welcome_button');
+
+// Fallbacks para el contenido de texto
+$title_fallback = 'Wood-fired <span class="text-warning">PIZZA</span> & <br /> Traditional Italian Dishes in Rahway, NJ';
+$description_fallback = 'At IL Forno a Legna, we serve artisan wood‑fired pizzas, handcrafted pastas, and timeless Italian favorites in a warm, inviting setting. Join us for an elegant yet relaxed dining experience, order online, or let us host your next special event.';
+?>
 
 <section class="pizza-welcome-section">
     <div class="container-fluid p-0">
         <div class="row g-0">
             <div class="col-lg-6">
                 <div class="pizza-image bg-cover h-100" style="
-                background-image: url('<?php echo get_template_directory_uri(); ?>/assets/img/horno.png');
+                background-image: url('<?php echo esc_url($main_image_url); ?>');
                 min-height: 600px;
               "></div>
             </div>
 
             <div class="col-lg-6 position-relative text-side">
-                <div class="text-bg" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/img/bg-dark-pizza.png')"></div>
+                <div class="text-bg" style="background-image: url('<?php echo esc_url($text_bg_image_url); ?>')"></div>
                 <div class="text-overlay"></div>
 
                 <div class="d-flex align-items-center h-100 text-white px-5 py-5 position-relative" style="z-index: 2">
                     <div>
                         <h2 class="fw-bold mb-4">
-                            Wood-fired <span class="text-warning">PIZZA</span> & <br />
-                            Traditional Italian Dishes in Rahway, NJ
+                            <?php // Usamos wp_kses_post para permitir de forma segura etiquetas como <span> y <br> 
+                            ?>
+                            <?php echo wp_kses_post($title ?: $title_fallback); ?>
                         </h2>
                         <p class="text-light">
-                            At IL Forno a Legna, we serve artisan wood‑fired pizzas,
-                            handcrafted pastas, and timeless Italian favorites in a warm,
-                            inviting setting. Join us for an elegant yet relaxed dining
-                            experience, order online, or let us host your next special
-                            event.
+                            <?php // Usamos nl2br para convertir saltos de línea del textarea en <br> 
+                            ?>
+                            <?php echo nl2br(esc_html($description ?: $description_fallback)); ?>
                         </p>
-                        <a href="#" class="btn-menu mt-4">View Menu</a>
+
+                        <?php // Comprobar y mostrar el botón del campo Enlace 
+                        ?>
+                        <?php if ($button && $button['url'] && $button['title']) :
+                            $button_url    = esc_url($button['url']);
+                            $button_title  = esc_html($button['title']);
+                            $button_target = $button['target'] ? 'target="' . esc_attr($button['target']) . '"' : '';
+                        ?>
+                            <a href="<?php echo $button_url; ?>" class="btn-menu mt-4" <?php echo $button_target; ?>><?php echo $button_title; ?></a>
+                        <?php else: // Botón de respaldo si el campo ACF está vacío 
+                        ?>
+                            <a href="#" class="btn-menu mt-4">View Menu</a>
+                        <?php endif; ?>
+
                     </div>
                 </div>
             </div>
@@ -1415,58 +1397,109 @@ $button_link_fallback = "#reservation";
     </div>
 </section>
 
-<section class="promo-hero text-white d-flex align-items-center" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/img/events-intro.png')">
+<?php
+// Obtener los datos de los campos de la sección de promoción
+$background_image_url = get_field('promo_background_image') ?: get_template_directory_uri() . '/assets/img/events-intro.png';
+$title                = get_field('promo_title') ?: 'Voted Best Chicken Parm in the City';
+$description          = get_field('promo_description');
+$button               = get_field('promo_button');
+
+// Contenido de respaldo para la descripción
+$description_fallback = "Come see why everyone’s talking about it. Our signature Chicken
+Parm is made with tender, breaded chicken cutlets, house‑made
+marinara, and layers of melted mozzarella, baked to perfection.
+It’s an award‑winning favorite that’s become a local legend.
+
+Visit us and taste the best Chicken Parm you’ve ever had.";
+?>
+
+<section class="promo-hero text-white d-flex align-items-center" style="background-image: url('<?php echo esc_url($background_image_url); ?>')">
     <div class="promo-overlay"></div>
     <div class="container position-relative">
         <div class="row">
             <div class="col-lg-6 col-md-8">
                 <h2 class="fw-bold display-5">
-                    Voted Best Chicken Parm in the City
+                    <?php echo esc_html($title); ?>
                 </h2>
-                <p class="lead mt-3">
-                    Come see why everyone’s talking about it. Our signature Chicken
-                    Parm is made with tender, breaded chicken cutlets, house‑made
-                    marinara, and layers of melted mozzarella, baked to perfection.
-                    It’s an award‑winning favorite that’s become a local legend.
-                </p>
-                <p class="lead met-3">
-                    Visit us and taste the best Chicken Parm you’ve ever had.
-                </p>
-                <a href="#reservation" class="btn btn-gold mt-4">View Full Menu</a>
+
+                <?php
+                // Usamos wpautop para convertir los saltos de línea del Área de Texto en párrafos <p>
+                // También le añadimos las clases CSS a los párrafos generados.
+                if ($description) {
+                    // Añadimos un filtro para agregar clases a los párrafos generados por wpautop
+                    function add_class_to_promo_paragraphs($content)
+                    {
+                        return str_replace('<p>', '<p class="lead mt-3">', $content);
+                    }
+                    add_filter('the_content', 'add_class_to_promo_paragraphs');
+
+                    echo wpautop(esc_html($description));
+
+                    remove_filter('the_content', 'add_class_to_promo_paragraphs');
+                } else {
+                    echo wpautop(esc_html($description_fallback));
+                }
+                ?>
+
+                <?php // Comprobar y mostrar el botón del campo Enlace
+                if ($button && $button['url'] && $button['title']) :
+                    $button_url    = esc_url($button['url']);
+                    $button_title  = esc_html($button['title']);
+                    $button_target = $button['target'] ? 'target="' . esc_attr($button['target']) . '"' : '';
+                ?>
+                    <a href="<?php echo $button_url; ?>" class="btn btn-gold mt-4" <?php echo $button_target; ?>><?php echo $button_title; ?></a>
+                <?php else: // Botón de respaldo si el campo ACF está vacío 
+                ?>
+                    <a href="#reservation" class="btn btn-gold mt-4">View Full Menu</a>
+                <?php endif; ?>
+
             </div>
         </div>
     </div>
 </section>
+
+<?php
+// Obtener los datos de los campos de la sección del plato especial
+$image_url   = get_field('specialty_image') ?: get_template_directory_uri() . '/assets/img/napolitana.png';
+$pre_title   = get_field('specialty_pre_title') ?: 'House Specialty';
+$title       = get_field('specialty_title') ?: 'Authentic Neapolitan, Wood‑Fired to Perfection';
+$description = get_field('specialty_description') ?: 'Our Neapolitan pizza is where tradition meets flavor. Crafted with thin, airy dough, San Marzano tomato sauce, creamy fresh mozzarella, and fragrant basil, each pie is baked to perfection in our wood‑fired oven.';
+?>
 
 <section class="special-dish-section">
     <div class="container-fluid">
         <div class="row align-items-center g-0">
             <div class="col-lg-6">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/img/napolitana.png" alt="Pizza Napolitana" class="img-fluid w-100 h-100 object-fit-cover full-mobile-img" />
+                <?php // La imagen y su 'alt' ahora son dinámicos ?>
+                <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($title); ?>" class="img-fluid w-100 h-100 object-fit-cover full-mobile-img" />
             </div>
 
             <div class="col-lg-6 p-5 text-white">
                 <p class="text-uppercase small letter-spacing text-gold mb-2">
-                    House Specialty
+                    <?php echo esc_html($pre_title); ?>
                 </p>
                 <h2 class="display-6 fw-bold mb-3">
-                    Authentic Neapolitan, Wood‑Fired to Perfection
+                    <?php echo esc_html($title); ?>
                 </h2>
                 <p class="fs-6">
-                    Our Neapolitan pizza is where tradition meets flavor. Crafted with
-                    thin, airy dough, San Marzano tomato sauce, creamy fresh
-                    mozzarella, and fragrant basil, each pie is baked to perfection in
-                    our wood‑fired oven.
+                    <?php // Usamos nl2br para respetar los saltos de línea del Área de Texto ?>
+                    <?php echo nl2br(esc_html($description)); ?>
                 </p>
             </div>
         </div>
     </div>
 </section>
 
+<?php
+// Obtener el título de la sección de testimonios
+$testimonials_title = get_field('testimonials_title') ?: 'What Our Guests Say';
+?>
+
 <section class="testimonials-section text-white">
     <div class="container text-center">
-        <h2 class="fw-bold mb-5">What Our Guests Say</h2>
+        <h2 class="fw-bold mb-5"><?php echo esc_html($testimonials_title); ?></h2>
 
+        <?php // El resto del contenido permanece estático, como se solicitó ?>
         <div class="row align-items-center justify-content-center">
             <div class="col-12 col-md-3 mb-4 mb-md-0 d-flex flex-column align-items-center text-center">
                 <div class="google-info-content">
@@ -1571,12 +1604,18 @@ $button_link_fallback = "#reservation";
     </div>
 </section>
 
+<?php
+// Obtener el título de la sección de blog
+$blog_section_title = get_field('blog_section_title') ?: 'Fresh News & Happenings';
+?>
+
 <section class="blog-section">
     <div class="container">
         <h2 class="text-center fw-bold text-dark mb-5">
-            Fresh News & Happenings
+            <?php echo esc_html($blog_section_title); ?>
         </h2>
 
+        <?php // El resto del contenido permanece estático, como se solicitó ?>
         <div class="row g-4">
             <div class="col-md-6 col-lg-4">
                 <div class="blog-card">
