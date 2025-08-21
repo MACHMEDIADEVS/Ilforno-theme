@@ -219,10 +219,6 @@ get_header();
         color: #dacfbd;
     }
 
-
-
-
-
     /* ====== Join Us Today CTA Section ====== */
     #cta-join-us {
         background-color: #111010;
@@ -285,235 +281,258 @@ get_header();
     }
 </style>
 
-<section class="hero-events-section" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/img/hero-image.png');">
+<?php
+// Obtener los datos de los campos ACF para el hero de la página de Historia
+$background_image_url = get_field('history_hero_image_bg') ?: get_template_directory_uri() . '/assets/img/hero-image.png';
+$title                = get_field('history_hero_title') ?: 'History';
+$subtitle             = get_field('history_hero_subtitle') ?: 'Let us bring the flavors of Italy to your home, office, or celebration.';
+?>
+
+<section class="hero-events-section" style="background-image: url('<?php echo esc_url($background_image_url); ?>');">
     <div class="overlay"></div>
     <div class="container">
-        <h1 class="display-4 fw-bold">History</h1>
-        <p class="lead">Let us bring the flavors of Italy to your home, office, or celebration.</p>
+        <h1 class="display-4 fw-bold"><?php echo esc_html($title); ?></h1>
+        <p class="lead">
+            <?php // Usamos nl2br para respetar los saltos de línea del Área de Texto ?>
+            <?php echo nl2br(esc_html($subtitle)); ?>
+        </p>
     </div>
 </section>
+
+<?php
+// Obtener los datos de los campos ACF
+$title       = get_field('about_intro_title') ?: 'About IL Forno a Legna';
+$description = get_field('about_intro_description');
+
+// Contenido de respaldo para la descripción
+$description_fallback = 'IL Forno a Legna is a beloved Italian restaurant located in the heart of Rahway, New Jersey,
+known for its authentic wood-fired pizza, hearty pasta dishes, and inviting atmosphere.
+Since its opening in 2018, IL Forno a Legna has earned a reputation for its high-quality food
+and strong ties to the local community.
+
+Below, we share the story of our restaurant, highlighting key milestones in our journey to
+become one of New Jersey\'s favorite dining spots.';
+?>
 
 <section id="about-intro" class="py-5 text-light">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-10 text-center">
-                <h2 class="text-gold fw-bold mb-4">About IL Forno a Legna</h2>
-                <p>
-                    IL Forno a Legna is a beloved Italian restaurant located in the heart of Rahway, New Jersey,
-                    known for its authentic wood-fired pizza, hearty pasta dishes, and inviting atmosphere.
-                    Since its opening in 2018, IL Forno a Legna has earned a reputation for its high-quality food
-                    and strong ties to the local community.
-                </p>
-                <p>
-                    Below, we share the story of our restaurant, highlighting key milestones in our journey to
-                    become one of New Jersey's favorite dining spots.
-                </p>
+                <h2 class="text-gold fw-bold mb-4"><?php echo esc_html($title); ?></h2>
+                
+                <?php 
+                // Usamos wpautop para convertir el texto del Área de Texto en párrafos
+                if ($description) {
+                    echo wpautop(esc_html($description));
+                } else {
+                    echo wpautop(esc_html($description_fallback));
+                }
+                ?>
             </div>
         </div>
     </div>
 </section>
+
+<?php
+// Obtener el título de la sección
+$section_title = get_field('timeline_section_title') ?: 'Our Timeline';
+?>
 
 <section id="about-timeline" class="py-5">
     <div class="container">
-        <h2 class="text-center text-gold fw-bold mb-5">Our Timeline</h2>
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+        <h2 class="text-center text-gold fw-bold mb-5"><?php echo esc_html($section_title); ?></h2>
 
-            <div class="col">
-                <div class="timeline-box p-4 text-center rounded bg-dark h-100 d-flex flex-column justify-content-between">
-                    <div>
-                        <h4 class="text-gold fw-bold">2018</h4>
-                        <p class="small text-light mb-3">The Grand Opening</p>
-                    </div>
-                    <button class="btn btn-outline-gold mt-auto" data-bs-toggle="modal" data-bs-target="#modal2018">View Details</button>
-                </div>
-            </div>
+        <?php // Comprobar si hay eventos en el repetidor
+        if (have_rows('timeline_events')) : ?>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
 
-            <div class="col">
-                <div class="timeline-box p-4 text-center rounded bg-dark h-100 d-flex flex-column justify-content-between">
-                    <div>
-                        <h4 class="text-gold fw-bold">2019–2021</h4>
-                        <p class="small text-light mb-3">Growth & Takeout Success</p>
+                <?php // BUCLE 1: Crear las tarjetas visibles de la línea de tiempo
+                while (have_rows('timeline_events')) : the_row();
+                    
+                    // Obtener datos para la tarjeta
+                    $event_year  = get_sub_field('event_year');
+                    $event_title = get_sub_field('event_title');
+                    
+                    // Generar un ID único para enlazar con el modal
+                    $modal_id = 'timeline-modal-' . get_row_index();
+                ?>
+                    <div class="col">
+                        <div class="timeline-box p-4 text-center rounded bg-dark h-100 d-flex flex-column justify-content-between">
+                            <div>
+                                <h4 class="text-gold fw-bold"><?php echo esc_html($event_year); ?></h4>
+                                <p class="small text-light mb-3"><?php echo esc_html($event_title); ?></p>
+                            </div>
+                            <button class="btn btn-outline-gold mt-auto" data-bs-toggle="modal" data-bs-target="#<?php echo esc_attr($modal_id); ?>">View Details</button>
+                        </div>
                     </div>
-                    <button class="btn btn-outline-gold mt-auto" data-bs-toggle="modal" data-bs-target="#modal2019">View Details</button>
-                </div>
-            </div>
+                <?php endwhile; ?>
 
-            <div class="col">
-                <div class="timeline-box p-4 text-center rounded bg-dark h-100 d-flex flex-column justify-content-between">
-                    <div>
-                        <h4 class="text-gold fw-bold">2022</h4>
-                        <p class="small text-light mb-3">Mobile Pizza Trailer</p>
-                    </div>
-                    <button class="btn btn-outline-gold mt-auto" data-bs-toggle="modal" data-bs-target="#modal2022">View Details</button>
-                </div>
             </div>
-
-            <div class="col">
-                <div class="timeline-box p-4 text-center rounded bg-dark h-100 d-flex flex-column justify-content-between">
-                    <div>
-                        <h4 class="text-gold fw-bold">2024–2025</h4>
-                        <p class="small text-light mb-3">Expansion & Recognition</p>
-                    </div>
-                    <button class="btn btn-outline-gold mt-auto" data-bs-toggle="modal" data-bs-target="#modal2024">View Details</button>
-                </div>
-            </div>
-        </div>
+        <?php else: ?>
+            <p class="text-center text-light">Los hitos de la historia se mostrarán aquí.</p>
+        <?php endif; ?>
     </div>
 </section>
 
-<div class="modal fade" id="modal2018" tabindex="-1" aria-labelledby="modal2018Label" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content bg-dark text-light border-gold">
-            <div class="modal-header border-0">
-                <h5 class="modal-title text-gold fw-bold" id="modal2018Label">2018 – The Grand Opening</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                On August 24, 2018, Il Forno a Legna officially opened its doors in Rahway. With a focus on wood-fired pizza and traditional Italian cuisine, the restaurant quickly became a local favorite for its fresh ingredients, rustic flavors, and cozy atmosphere.
+<?php // BUCLE 2: Crear las ventanas modales ocultas
+if (have_rows('timeline_events')) :
+    while (have_rows('timeline_events')) : the_row();
+        
+        // Obtener todos los datos para el modal
+        $event_year    = get_sub_field('event_year');
+        $event_title   = get_sub_field('event_title');
+        $event_details = get_sub_field('event_details'); // Contenido del WYSIWYG
+        
+        // Generar el MISMO ID único que en el primer bucle
+        $modal_id = 'timeline-modal-' . get_row_index();
+    ?>
+        <div class="modal fade" id="<?php echo esc_attr($modal_id); ?>" tabindex="-1" aria-labelledby="<?php echo esc_attr($modal_id); ?>-label" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content bg-dark text-light border-gold">
+                    <div class="modal-header border-0">
+                        <h5 class="modal-title text-gold fw-bold" id="<?php echo esc_attr($modal_id); ?>-label">
+                            <?php echo esc_html($event_year . ' – ' . $event_title); ?>
+                        </h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <?php echo $event_details; // Imprimir contenido del editor WYSIWYG ?>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
+<?php
+    endwhile;
+endif;
+?>
 
-<div class="modal fade" id="modal2019" tabindex="-1" aria-labelledby="modal2019Label" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content bg-dark text-light border-gold">
-            <div class="modal-header border-0">
-                <h5 class="modal-title text-gold fw-bold" id="modal2019Label">2019–2021 – Growth & Takeout</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                Il Forno expanded its offerings and became an essential part of Rahway’s food scene. In 2020, the IlFornoALegnaToGo platform launched, enabling easy online ordering for takeout and delivery, helping the restaurant thrive during the pandemic.
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="modal2022" tabindex="-1" aria-labelledby="modal2022Label" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content bg-dark text-light border-gold">
-            <div class="modal-header border-0">
-                <h5 class="modal-title text-gold fw-bold" id="modal2022Label">2022 – Mobile Pizza Trailer</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                In 2022, Il Forno launched its Pizza Trailer with a wood-fired oven, delivering pizza to festivals, breweries, and private parties across New Jersey. A huge hit at local events and wineries!
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="modal2024" tabindex="-1" aria-labelledby="modal2024Label" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content bg-dark text-light border-gold">
-            <div class="modal-header border-0">
-                <h5 class="modal-title text-gold fw-bold" id="modal2024Label">2024–2025 – Expansion & Recognition</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                Il Forno opened a second location in Raritan and was featured by Barstool Sports. In March 2025, NJ.com named its chicken parm one of the 21 best in NJ. In June, the restaurant was rebranded with a modern look to mark its 7th anniversary.
-            </div>
-        </div>
-    </div>
-</div>
+<?php
+// Obtener los datos de los campos principales
+$main_image_url = get_field('community_main_image') ?: get_template_directory_uri() . '/assets/img/comunity.png';
+$section_title  = get_field('community_section_title') ?: 'Community Engagement';
+?>
 
 <section id="community-engagement" class="py-5">
     <div class="container">
         <div class="row align-items-center g-4">
-
             <div class="col-lg-6">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/img/comunity.png" alt="Il Forno Community Events" class="community-image w-100 rounded">
+                <img src="<?php echo esc_url($main_image_url); ?>" alt="<?php echo esc_attr($section_title); ?>" class="community-image w-100 rounded">
             </div>
 
             <div class="col-lg-6">
-                <h2 class="text-gold fw-bold mb-4">Community Engagement</h2>
+                <h2 class="text-gold fw-bold mb-4"><?php echo esc_html($section_title); ?></h2>
+                
                 <div class="row row-cols-1 row-cols-md-2 g-3">
-                    <div class="col">
-                        <div class="community-card h-100">
-                            <h5>Food Truck & Music Festivals</h5>
-                            <p>Serving fresh wood-fired pizza at NJ's best festivals.</p>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="community-card h-100">
-                            <h5>Beneduce Vineyards Nights</h5>
-                            <p>A regular feature at wine & picnic nights in NJ.</p>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="community-card h-100">
-                            <h5>Hot Rods & Harleys</h5>
-                            <p>Serving at Rahway’s iconic street festivals annually.</p>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="community-card h-100">
-                            <h5>Weddings & Corporate</h5>
-                            <p>Full-service catering for private & business events.</p>
-                        </div>
-                    </div>
+                    <?php // Comprobar si hay eventos en el repetidor
+                    if (have_rows('community_events')) :
+                        // Iniciar el bucle para recorrer cada evento
+                        while (have_rows('community_events')) : the_row();
+                            $event_title       = get_sub_field('event_title');
+                            $event_description = get_sub_field('event_description');
+                    ?>
+                            <div class="col">
+                                <div class="community-card h-100">
+                                    <h5><?php echo esc_html($event_title); ?></h5>
+                                    <p><?php echo esc_html($event_description); ?></p>
+                                </div>
+                            </div>
+                    <?php
+                        endwhile;
+                    endif;
+                    ?>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+<?php
+// Obtener el título de la sección
+$section_title = get_field('press_section_title') ?: 'Press & Recognition';
+?>
 
 <section id="press-recognition" class="py-5 bg-dark">
     <div class="container">
-        <h2 class="text-gold fw-bold text-center mb-5">Press & Recognition</h2>
+        <h2 class="text-gold fw-bold text-center mb-5"><?php echo esc_html($section_title); ?></h2>
+        
         <div class="row row-cols-1 row-cols-md-2 g-4">
-
-            <div class="col">
-                <div class="press-card p-4 h-100 rounded">
-                    <h5 class="fw-bold text-gold">NJ.com</h5>
-                    <p class="text-light small mb-0">
-                        Ranked in New Jersey’s 21 Best Plates of Chicken Parm (March 2025).
-                    </p>
+            <?php // Comprobar si hay menciones de prensa en el repetidor
+            if (have_rows('press_items')) :
+                // Iniciar el bucle para recorrer cada mención
+                while (have_rows('press_items')) : the_row();
+                    
+                    // Obtener los datos de los sub-campos
+                    $publication_name = get_sub_field('publication_name');
+                    $description      = get_sub_field('recognition_description');
+            ?>
+                    <div class="col">
+                        <div class="press-card p-4 h-100 rounded">
+                            <h5 class="fw-bold text-gold"><?php echo esc_html($publication_name); ?></h5>
+                            <p class="text-light small mb-0">
+                                <?php echo esc_html($description); ?>
+                            </p>
+                        </div>
+                    </div>
+            <?php
+                endwhile;
+            else :
+                // Mensaje de respaldo si el repetidor está vacío
+            ?>
+                <div class="col">
+                    <p class="text-light text-center">Las menciones de prensa se mostrarán aquí.</p>
                 </div>
-            </div>
-
-            <div class="col">
-                <div class="press-card p-4 h-100 rounded">
-                    <h5 class="fw-bold text-gold">Barstool Sports</h5>
-                    <p class="text-light small mb-0">
-                        Featured in Dave Portnoy’s One Bite Pizza Review.
-                    </p>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="press-card p-4 h-100 rounded">
-                    <h5 class="fw-bold text-gold">Home News Tribune</h5>
-                    <p class="text-light small mb-0">
-                        Voted Best Italian Restaurant in Union County (Multiple years).
-                    </p>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="press-card p-4 h-100 rounded">
-                    <h5 class="fw-bold text-gold">Rahway Rising</h5>
-                    <p class="text-light small mb-0">
-                        Featured in the “New Openings” section in 2018.
-                    </p>
-                </div>
-            </div>
+            <?php endif; ?>
         </div>
     </div>
 </section>
 
+<?php
+// Obtener los datos de los campos ACF
+$cta_title       = get_field('cta_title') ?: 'Join Us Today!';
+$cta_description = get_field('cta_description');
+
+// Contenido de respaldo para la descripción
+$description_fallback = '<p class="text-light mb-4">
+    Visit us at <strong>1464 Main Street, Rahway, NJ</strong> or check out our food trailer at local events.<br>
+    For reservations, catering, or info, call <a href="tel:+17323826600" class="text-gold-link fw-bold">732-382-6600</a>
+    or order online.
+</p>';
+?>
+
 <section id="cta-join-us" class="py-5">
     <div class="container text-center">
-        <h2 class="text-gold fw-bold mb-4">Join Us Today!</h2>
-        <p class="text-light mb-4">
-            Visit us at <strong>1464 Main Street, Rahway, NJ</strong> or check out our food trailer at local events.<br>
-            For reservations, catering, or info, call <a href="tel:+17323826600" class="text-gold-link fw-bold">732-382-6600</a>
-            or order online.
-        </p>
+        <h2 class="text-gold fw-bold mb-4"><?php echo esc_html($cta_title); ?></h2>
+        
+        <?php // Imprimir el contenido del editor WYSIWYG
+        if ($cta_description) {
+            echo $cta_description;
+        } else {
+            echo $description_fallback;
+        }
+        ?>
+        
         <div class="d-flex flex-wrap justify-content-center gap-3">
-            <a href="#order" class="btn btn-gold px-4">Order Now</a>
-            <a href="#catering" class="btn btn-outline-gold px-4">Book Catering</a>
-            <a href="#contact" class="btn btn-outline-gold px-4">Contact Us</a>
+            <?php // Comprobar si hay botones en el repetidor
+            if (have_rows('cta_buttons')) :
+                $button_index = 0; // Inicializar contador para los estilos
+                // Iniciar el bucle para recorrer cada botón
+                while (have_rows('cta_buttons')) : the_row();
+                    $button = get_sub_field('button');
+                    if ($button) :
+                        // Determinar el estilo del botón basado en su posición
+                        $btn_class = ($button_index === 0) ? 'btn-gold' : 'btn-outline-gold';
+                        
+                        $btn_url    = esc_url($button['url']);
+                        $btn_title  = esc_html($button['title']);
+                        $btn_target = $button['target'] ? 'target="' . esc_attr($button['target']) . '"' : '';
+                ?>
+                        <a href="<?php echo $btn_url; ?>" class="btn <?php echo $btn_class; ?> px-4" <?php echo $btn_target; ?>><?php echo $btn_title; ?></a>
+                <?php
+                    $button_index++;
+                    endif;
+                endwhile;
+            endif;
+            ?>
         </div>
     </div>
 </section>

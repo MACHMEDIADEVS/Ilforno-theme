@@ -302,112 +302,143 @@ get_header();
 
 </style>
 
-<section class="hero-join-section d-flex align-items-center" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/img/hero-image.png')">
+<?php
+// Obtener los datos de los campos ACF
+$background_image     = get_field('join_hero_image_bg');
+$background_image_url = $background_image ? $background_image['url'] : get_template_directory_uri() . '/assets/img/hero-image.png';
+
+$title    = get_field('join_hero_title') ?: 'Join Our Team';
+$subtitle = get_field('join_hero_subtitle') ?: 'At IL Forno a Legna, we’re not just passionate about our food – we’re passionate about creating a team that feels like family.';
+?>
+
+<section class="hero-join-section d-flex align-items-center" style="background-image: url('<?php echo esc_url($background_image_url); ?>')">
     <div class="container text-center text-white">
-        <h1 class="display-4 fw-bold">Join Our Team</h1>
+        <h1 class="display-4 fw-bold"><?php echo esc_html($title); ?></h1>
         <p class="lead">
-            At IL Forno a Legna, we’re not just passionate about our food – we’re
-            passionate about creating a team that feels like family.
+            <?php echo esc_html($subtitle); ?>
         </p>
     </div>
 </section>
 
+<?php
+// Obtener el título de la sección
+$section_title = get_field('why_work_title') ?: 'Why Work at IL Forno a Legna?';
+?>
+
 <section class="why-work-section py-5">
     <div class="container">
         <div class="text-center mb-5">
-            <h2 class="fw-bold">Why Work at IL Forno a Legna?</h2>
+            <h2 class="fw-bold"><?php echo esc_html($section_title); ?></h2>
         </div>
         <div class="row g-4">
-            <div class="col-md-6 col-lg-3 text-center">
-                <div class="p-4 custom-bg rounded shadow-sm h-100">
-                    <div class="mb-3">
-                        <i class="fas fa-users fa-2x"></i>
+            <?php // Comprobar si hay razones en el repetidor
+            if (have_rows('why_work_reasons')) :
+                // Iniciar el bucle para recorrer cada razón
+                while (have_rows('why_work_reasons')) : the_row();
+                    
+                    // Obtener los datos de los sub-campos
+                    $reason_title       = get_sub_field('reason_title');
+                    $reason_description = get_sub_field('reason_description');
+            ?>
+                    <div class="col-md-6 col-lg-3 text-center">
+                        <div class="p-4 custom-bg rounded shadow-sm h-100">
+                            <?php // El bloque del icono ha sido eliminado, como se solicitó ?>
+                            <h5 class="fw-bold"><?php echo esc_html($reason_title); ?></h5>
+                            <p class="small">
+                                <?php echo esc_html($reason_description); ?>
+                            </p>
+                        </div>
                     </div>
-                    <h5 class="fw-bold">Great Team Culture</h5>
-                    <p class="small">
-                        We foster a collaborative, team-first atmosphere where everyone
-                        is valued and supported.
-                    </p>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-3 text-center">
-                <div class="p-4 custom-bg rounded shadow-sm h-100">
-                    <div class="mb-3">
-                        <i class="fas fa-dollar-sign fa-2x"></i>
-                    </div>
-                    <h5 class="fw-bold">Competitive Pay</h5>
-                    <p class="small">
-                        Earn great wages and tips that reflect your dedication and hard
-                        work.
-                    </p>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-3 text-center">
-                <div class="p-4 custom-bg rounded shadow-sm h-100">
-                    <div class="mb-3">
-                        <i class="fas fa-chart-line fa-2x"></i>
-                    </div>
-                    <h5 class="fw-bold">Training & Growth</h5>
-                    <p class="small">
-                        Develop your skills with hands-on training and grow with a team
-                        that invests in your future.
-                    </p>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-3 text-center">
-                <div class="p-4 custom-bg rounded shadow-sm h-100">
-                    <div class="mb-3">
-                        <i class="fas fa-gift fa-2x"></i>
-                    </div>
-                    <h5 class="fw-bold">Employee Perks</h5>
-                    <p class="small">
-                        Enjoy staff meals, flexible schedules, and being part of a
-                        lively, passionate environment.
-                    </p>
-                </div>
-            </div>
+            <?php
+                endwhile;
+            endif; // Fin del bucle del repetidor
+            ?>
         </div>
     </div>
 </section>
+
+<?php
+// Obtener los datos de los campos ACF
+$image       = get_field('apply_section_image');
+$title       = get_field('apply_section_title') ?: 'How to Apply';
+$description = get_field('apply_section_description');
+$button      = get_field('apply_section_button');
+
+// Fallbacks
+if ($image) {
+    $image_url = $image['url'];
+    $image_alt = $image['alt'] ?: $title;
+} else {
+    $image_url = get_template_directory_uri() . '/assets/img/aplicar.png';
+    $image_alt = 'Il Forno Restaurant Interior';
+}
+
+$description_fallback = '<p class="mb-4">
+    Ready to be part of our team? We’d love to hear from you! Fill
+    out the contact form below or send your resume to
+    <strong>fornoalegna@yahoo.com</strong>. We’re excited to see how
+    you can contribute to the Il Forno a Legna family!
+</p>';
+?>
 
 <section class="apply-section-area">
     <div class="container apply-section-bg">
         <div class="row align-items-center g-4">
             <div class="col-lg-6">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/img/aplicar.png" alt="Il Forno Restaurant Interior" class="img-fluid rounded shadow" />
+                <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($image_alt); ?>" class="img-fluid rounded shadow" />
             </div>
 
             <div class="col-lg-6">
                 <div class="bg-dark p-5 rounded-2 shadow-sm">
-                    <h2 class="fw-bold mb-3">How to Apply</h2>
-                    <p class="mb-4">
-                        Ready to be part of our team? We’d love to hear from you! Fill
-                        out the contact form below or send your resume to
-                        <strong>fornoalegna@yahoo.com</strong>. We’re excited to see how
-                        you can contribute to the Il Forno a Legna family!
-                    </p>
-                    <a href="#application-form" class="btn btn-golden fw-bold">Submit Application</a>
+                    <h2 class="fw-bold mb-3"><?php echo esc_html($title); ?></h2>
+                    
+                    <?php // Imprimir el contenido del editor WYSIWYG
+                    if ($description) {
+                        echo $description;
+                    } else {
+                        echo $description_fallback;
+                    }
+                    ?>
+                    
+                    <?php // Comprobar y mostrar el botón del campo Enlace
+                    if ($button && $button['url'] && $button['title']) :
+                        $btn_url    = esc_url($button['url']);
+                        $btn_title  = esc_html($button['title']);
+                        $btn_target = $button['target'] ? 'target="' . esc_attr($button['target']) . '"' : '';
+                    ?>
+                        <a href="<?php echo $btn_url; ?>" class="btn btn-golden fw-bold" <?php echo $btn_target; ?>><?php echo $btn_title; ?></a>
+                    <?php else: // Botón de respaldo ?>
+                        <a href="#application-form" class="btn btn-golden fw-bold">Submit Application</a>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
+<?php
+// Obtener los datos de los campos ACF
+$image_url = get_field('form_section_image') ?: get_template_directory_uri() . '/assets/img/horno-join.png';
+$title     = get_field('form_section_title') ?: 'Join the IL Forno Family';
+$shortcode = get_field('form_section_shortcode') ?: '[contact-form-7 id="985d1dd" title="Join Team"]';
+?>
+
 <section class="application-form-section py-5" id="application-form">
     <div class="container">
         <div class="row justify-content-center align-items-center g-5">
             <div class="col-lg-6 text-center">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/img/horno-join.png" alt="Join Our Team" class="img-fluid rounded shadow" />
+                <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($title); ?>" class="img-fluid rounded shadow" />
             </div>
 
             <div class="col-lg-6">
                 <div class="form-wrapper bg-dark text-white p-4 rounded shadow-sm">
-                    <h2 class="fw-bold mb-4">Join the IL Forno Family</h2>
-                    <?php echo do_shortcode('[contact-form-7 id="985d1dd" title="Join Team"]'); ?>
-
+                    <h2 class="fw-bold mb-4"><?php echo esc_html($title); ?></h2>
+                    <?php
+                    // Comprobar si hay un shortcode antes de ejecutarlo
+                    if ($shortcode) {
+                        echo do_shortcode($shortcode);
+                    }
+                    ?>
                 </div>
             </div>
         </div>

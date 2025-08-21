@@ -272,168 +272,252 @@ get_header();
     }
 </style>
 
-<section class="hero-community-section" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/img/hero-image.png');">
+<?php
+// Obtener los datos de los campos ACF
+$background_image_url = get_field('community_hero_background') ?: get_template_directory_uri() . '/assets/img/hero-image.png';
+$title                = get_field('community_hero_title') ?: 'Community';
+$subtitle             = get_field('community_hero_subtitle') ?: 'Our commitment to Rahway goes beyond serving pizza because we’re here to make a difference.';
+?>
+
+<section class="hero-community-section" style="background-image: url('<?php echo esc_url($background_image_url); ?>');">
     <div class="overlay"></div>
     <div class="container">
-        <h1 class="display-4 fw-bold">Community</h1>
-        <p class="lead">Our commitment to Rahway goes beyond serving pizza because we’re here to make a difference.</p>
+        <h1 class="display-4 fw-bold"><?php echo esc_html($title); ?></h1>
+        <p class="lead">
+            <?php // Usamos nl2br para respetar los saltos de línea del Área de Texto
+            echo nl2br(esc_html($subtitle)); ?>
+        </p>
     </div>
 </section>
+
+<?php
+// Obtener los datos de los campos ACF
+$title       = get_field('community_intro_title') ?: 'Our Commitment to the Community';
+$description = get_field('community_intro_description') ?: 'At IL Forno a Legna, we believe that a great restaurant is built not just on delicious food, but also on a deep connection to the community. As a family-owned business in the heart of Rahway, NJ, we’re committed to creating lasting relationships, giving back, and making a positive impact wherever we can. Here’s how we approach our community involvement and the ways we continue <br> to make a difference.';
+?>
 
 <section id="community-intro" class="py-5">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-10 text-center">
                 <h2 class="fw-bold mb-3">
-                    Our Commitment to the Community
+                    <?php echo esc_html($title); ?>
                 </h2>
                 <p class="mb-0">
-                    At IL Forno a Legna, we believe that a great restaurant is built not
-                    just on delicious food, but also on a deep connection to the
-                    community. As a family-owned business in the heart of Rahway, NJ,
-                    we’re committed to creating lasting relationships, giving back, and
-                    making a positive impact wherever we can. Here’s how we approach our
-                    community involvement and the ways we continue <br> to make a difference.
+                    <?php // Usamos nl2br para convertir los saltos de línea del Área de Texto en <br>
+                    echo nl2br(esc_html($description)); ?>
                 </p>
             </div>
         </div>
     </div>
 </section>
+
+<?php
+// Obtener los datos de los campos ACF
+$image_url = get_field('support_local_image') ?: get_template_directory_uri() . '/assets/img/popular.png';
+$content   = get_field('support_local_content');
+
+// Contenido de respaldo para el editor WYSIWYG
+$content_fallback = '
+<h3 class="fw-bold mb-3">Supporting Local Businesses</h3>
+<p>
+    IL Forno a Legna values collaboration with other local businesses. From
+    sourcing the freshest ingredients from nearby farms and markets to
+    collaborating with neighboring shops, we aim to strengthen the Rahway
+    economy by supporting our local suppliers and fellow entrepreneurs.
+</p>
+<div class="mt-3">
+    <h5 class="fw-bold">Partnering with Local Farms & Vendors</h5>
+    <p class="mb-2">
+        We support New Jersey farmers and suppliers for seasonal produce,
+        meats, and dairy. Our tomatoes, mozzarella, and fresh herbs are
+        locally sourced to ensure quality in every dish.
+    </p>
+    <h5 class="fw-bold mt-3">Collaborations with Local Businesses</h5>
+    <p class="mb-0">
+        From wine pairings with local vineyards to craft beer nights with
+        nearby breweries, we team up to create experiences that benefit our
+        guests and our community.
+    </p>
+</div>';
+?>
 
 <section id="support-local" class="py-5">
     <div class="container">
         <div class="row g-4 align-items-center">
             <div class="col-lg-6">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/img/popular.png" alt="Ingredientes frescos y locales para pizza" class="img-fluid rounded-3" />
+                <img src="<?php echo esc_url($image_url); ?>" alt="Supporting local businesses" class="img-fluid rounded-3" />
             </div>
 
             <div class="col-lg-6">
-                <h3 class="fw-bold mb-3">Supporting Local Businesses</h3>
-                <p>
-                    IL Forno a Legna values collaboration with other local businesses. From
-                    sourcing the freshest ingredients from nearby farms and markets to
-                    collaborating with neighboring shops, we aim to strengthen the Rahway
-                    economy by supporting our local suppliers and fellow entrepreneurs.
-                </p>
-                <div class="mt-3">
-                    <h5 class="fw-bold">Partnering with Local Farms & Vendors</h5>
-                    <p class="mb-2">
-                        We support New Jersey farmers and suppliers for seasonal produce,
-                        meats, and dairy. Our tomatoes, mozzarella, and fresh herbs are
-                        locally sourced to ensure quality in every dish.
-                    </p>
-                    <h5 class="fw-bold mt-3">Collaborations with Local Businesses</h5>
-                    <p class="mb-0">
-                        From wine pairings with local vineyards to craft beer nights with
-                        nearby breweries, we team up to create experiences that benefit our
-                        guests and our community.
-                    </p>
-                </div>
+                <?php 
+                // Imprimir el contenido del editor WYSIWYG
+                if ($content) {
+                    echo $content;
+                } else {
+                    echo $content_fallback;
+                }
+                ?>
             </div>
         </div>
     </div>
 </section>
+
+<?php
+// Obtener el título de la sección
+$section_title = get_field('trailer_section_title') ?: 'Community Events & The Il Forno Pizza Trailer';
+?>
 
 <section id="pizza-trailer" class="py-5">
     <div class="container">
         <h3 class="fw-bold text-center mb-4">
-            Community Events & The Il Forno Pizza Trailer
+            <?php echo esc_html($section_title); ?>
         </h3>
         <div class="row g-4 justify-content-center">
-            <div class="col-md-6 col-lg-4 d-flex">
-                <div class="pizza-trailer-card">
-                    <h5 class="fw-bold text-center">Food Truck & Music Festivals</h5>
-                    <div class="card-content-wrapper">
-                        <p class="mb-0 text-center">
-                            We fire pies at festivals across NJ like Rahway’s Hot Rods &
-                            Harleys and the West Milford Food Truck Festival.
-                        </p>
+            <?php // Comprobar si hay tarjetas en el repetidor
+            if (have_rows('trailer_cards')) :
+                // Iniciar el bucle para recorrer cada tarjeta
+                while (have_rows('trailer_cards')) : the_row();
+                    
+                    // Obtener los datos de los sub-campos
+                    $card_title       = get_sub_field('card_title');
+                    $card_description = get_sub_field('card_description');
+                    $card_button      = get_sub_field('card_button');
+            ?>
+                    <div class="col-md-6 col-lg-4 d-flex">
+                        <div class="pizza-trailer-card">
+                            <h5 class="fw-bold text-center"><?php echo esc_html($card_title); ?></h5>
+                            <div class="card-content-wrapper">
+                                <p class="mb-3 text-center"> <?php // mb-3 para dar espacio al botón si aparece ?>
+                                    <?php echo nl2br(esc_html($card_description)); ?>
+                                </p>
+                            </div>
+                            
+                            <?php // Comprobar si esta tarjeta tiene un botón
+                            if ($card_button && $card_button['url'] && $card_button['title']) :
+                                $btn_url    = esc_url($card_button['url']);
+                                $btn_title  = esc_html($card_button['title']);
+                                $btn_target = $card_button['target'] ? 'target="' . esc_attr($card_button['target']) . '"' : '';
+                            ?>
+                                <div class="text-center">
+                                    <a href="<?php echo $btn_url; ?>" class="btn fw-bold btn-outline-gold" <?php echo $btn_target; ?>><?php echo $btn_title; ?></a>
+                                </div>
+                            <?php endif; ?>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 d-flex">
-                <div class="pizza-trailer-card">
-                    <h5 class="fw-bold text-center">Farmers Markets & Street Fairs</h5>
-                    <div class="card-content-wrapper">
-                        <p class="mb-0 text-center">
-                            We serve fresh, wood-fired pizza while genuinely connecting with families and supporting small businesses.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 d-flex">
-                <div class="pizza-trailer-card">
-                    <h5 class="fw-bold text-center">Private Event Catering</h5>
-                    <div class="card-content-wrapper">
-                        <p class="mb-3 text-center">
-                            Weddings, corporate parties, charity galas you name it. We bring
-                            the oven and the fun.
-                        </p>
-                    </div>
-                    <div class="text-center">
-                        <a href="#get-involved" class="btn fw-bold btn-outline-gold">Inquiry Now</a>
-                    </div>
-                </div>
-            </div>
+            <?php
+                endwhile;
+            endif; // Fin del bucle del repetidor
+            ?>
         </div>
     </div>
 </section>
 
+<?php
+// Obtener el título de la sección
+$section_title = get_field('testimonials_section_title') ?: 'What Our Community Says';
+?>
+
 <section id="testimonials" class="py-5">
     <div class="container">
-        <h3 class="fw-bold text-center mb-4">What Our Community Says</h3>
+        <h3 class="fw-bold text-center mb-4"><?php echo esc_html($section_title); ?></h3>
+        
         <div class="row g-4">
-            <div class="col-md-6 d-flex">
-                <div class="testimonial-card">
-                    <p class="mb-2 quote">
-                        “Il Forno a Legna isn’t just a pizza place it’s a vital part of
-                        Rahway’s downtown scene. The pizza is incredible, but it’s the
-                        heart behind the business that makes it truly special.”
-                    </p>
-                    <p class="mb-0">– Emily T., Rahway Resident</p>
-                </div>
-            </div>
-            <div class="col-md-6 d-flex">
-                <div class="testimonial-card">
-                    <p class="mb-2 quote">
-                        “We’ve catered our school’s fundraising events with Il Forno for
-                        years generous, reliable, and always delicious. Our community
-                        loves them.”
-                    </p>
-                    <p class="mb-0">– Mark H., Rahway School Board Member</p>
-                </div>
-            </div>
+            <?php // Comprobar si hay testimonios en el repetidor
+            if (have_rows('testimonials_list')) :
+                // Iniciar el bucle para recorrer cada testimonio
+                while (have_rows('testimonials_list')) : the_row();
+                    
+                    // Obtener los datos de los sub-campos
+                    $quote  = get_sub_field('testimonial_quote');
+                    $author = get_sub_field('testimonial_author');
+            ?>
+                    <div class="col-md-6 d-flex">
+                        <div class="testimonial-card">
+                            <p class="mb-2 quote">
+                                <?php echo esc_html($quote); ?>
+                            </p>
+                            <p class="mb-0"><?php echo esc_html($author); ?></p>
+                        </div>
+                    </div>
+            <?php
+                endwhile;
+            endif; // Fin del bucle del repetidor
+            ?>
         </div>
     </div>
 </section>
+
+<?php
+// Obtener datos para la columna izquierda
+$left_title       = get_field('get_involved_title') ?: 'Get Involved with Us!';
+$left_description = get_field('get_involved_description') ?: 'Follow our events, book our pizza trailer, or just stop by for a meal we’d love to see you.';
+
+// Obtener datos para la columna derecha (caja de contacto)
+$right_title   = get_field('contact_box_title') ?: 'Join Us in Giving Back';
+$right_content = get_field('contact_box_content');
+$right_button  = get_field('contact_box_button');
+
+// Contenido de respaldo para el WYSIWYG de la derecha
+$right_content_fallback = '
+<p class="mb-2">
+    Interested in partnering or supporting our initiatives?
+</p>
+<ul class="mb-3 ps-3">
+    <li>Email: <a href="mailto:fornoalegna@yahoo.com">fornoalegna@yahoo.com</a></li>
+    <li>Phone: <a href="tel:+17323826600">(732) 382-6600</a></li>
+</ul>';
+?>
 
 <section id="get-involved" class="py-5">
     <div class="container">
         <div class="row align-items-center g-4">
             <div class="col-lg-7">
-                <h3 class="fw-bold">Get Involved with Us!</h3>
+                <h3 class="fw-bold"><?php echo esc_html($left_title); ?></h3>
                 <p class="mb-3">
-                    Follow our events, book our pizza trailer, or just stop by for a
-                    meal we’d love to see you.
+                    <?php echo nl2br(esc_html($left_description)); ?>
                 </p>
                 <div class="d-flex flex-wrap gap-2">
-                    <a href="#pizza-trailer" class="btn btn-gold">Book Pizza Trailer</a>
-                    <a href="https://www.instagram.com/ilfornolegna/" class="btn btn-outline-gold" target="_blank" rel="noopener">Instagram</a>
-                    <a href="https://www.facebook.com/ilfornolegna" class="btn btn-outline-gold" target="_blank" rel="noopener">Facebook</a>
-                    <a href="https://www.tiktok.com/@ilfornolegna" class="btn btn-outline-gold" target="_blank" rel="noopener">TikTok</a>
+                    <?php // Bucle para los botones de la izquierda
+                    if (have_rows('bet_involved_buttons')) :
+                        $button_index = 0;
+                        while (have_rows('bet_involved_buttons')) : the_row();
+                            $button = get_sub_field('us_button');
+                            if ($button) :
+                                $btn_class = ($button_index === 0) ? 'btn-gold' : 'btn-outline-gold';
+                                $btn_url    = esc_url($button['url']);
+                                $btn_title  = esc_html($button['title']);
+                                $btn_target = $button['target'] ? 'target="' . esc_attr($button['target']) . '"' : '';
+                        ?>
+                                <a href="<?php echo $btn_url; ?>" class="btn <?php echo $btn_class; ?>" <?php echo $btn_target; ?>><?php echo $btn_title; ?></a>
+                        <?php
+                            $button_index++;
+                            endif;
+                        endwhile;
+                    endif;
+                    ?>
                 </div>
             </div>
             <div class="col-lg-5">
                 <div class="cta-contact-box">
-                    <h5 class="fw-bold mb-2">Join Us in Giving Back</h5>
-                    <p class="mb-2">
-                        Interested in partnering or supporting our initiatives?
-                    </p>
-                    <ul class="mb-3 ps-3">
-                        <li>Email: <a href="mailto:fornoalegna@yahoo.com">fornoalegna@yahoo.com</a></li>
-                        <li>Phone: <a href="tel:+17323826600">(732) 382-6600</a></li>
-                    </ul>
-                    <a href="mailto:fornoalegna@yahoo.com" class="btn w-100 btn-green">Contact Us</a>
+                    <h5 class="fw-bold mb-2"><?php echo esc_html($right_title); ?></h5>
+
+                    <?php // Contenido del editor WYSIWYG
+                    if ($right_content) {
+                        echo $right_content;
+                    } else {
+                        echo $right_content_fallback;
+                    }
+                    ?>
+                    
+                    <?php // Botón final de la caja de contacto
+                    if ($right_button && $right_button['url'] && $right_button['title']) :
+                        $btn_url    = esc_url($right_button['url']);
+                        $btn_title  = esc_html($right_button['title']);
+                        $btn_target = $right_button['target'] ? 'target="' . esc_attr($right_button['target']) . '"' : '';
+                    ?>
+                        <a href="<?php echo $btn_url; ?>" class="btn w-100 btn-green" <?php echo $btn_target; ?>><?php echo $btn_title; ?></a>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
