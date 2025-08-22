@@ -1,8 +1,74 @@
+
+
+
+<style>
+	/* ==========================================================================
+   Estilos para la Página de Búsqueda Sin Resultados
+   ========================================================================== */
+.no-results-content {
+    background-color: #212529; /* Fondo de tarjeta oscuro */
+    color: #dacfbd;
+    padding: 2.5rem;
+    border-radius: 8px;
+    border: 1px solid rgba(191, 152, 97, 0.2);
+    text-align: center;
+}
+
+.no-results-content .no-results-icon {
+    font-size: 3rem;
+    color: #bf9861;
+    margin-bottom: 1.5rem;
+    display: block;
+}
+
+.no-results-content h2 {
+    color: #fff;
+    font-weight: bold;
+}
+
+/* Estilos para el formulario de búsqueda dentro de la caja */
+.no-results-content .search-form {
+    display: flex;
+    max-width: 400px;
+    margin: 1.5rem auto 0;
+}
+
+.no-results-content .search-field {
+    flex-grow: 1;
+    background-color: #1a1a1a;
+    border: 1px solid #555;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 4px 0 0 4px; /* Esquinas izquierdas redondeadas */
+}
+
+.no-results-content .search-submit {
+    background-color: #bf9861;
+    color: #1a1a1a;
+    font-weight: bold;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 0 4px 4px 0; /* Esquinas derechas redondeadas */
+    cursor: pointer;
+}
+
+/* ==========================================================================
+   Solución para Sticky Footer
+   ========================================================================== */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+#primary.site-main {
+    flex-grow: 1;
+}
+</style>
+
 <?php
 /**
  * The template for displaying search results pages
- *
- * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#search-result
  *
  * @package IL_Forno_a_Legna
  */
@@ -10,44 +76,48 @@
 get_header();
 ?>
 
-	<main id="primary" class="site-main">
+<main id="primary" class="site-main py-5" style="background-color: #f0f0f0;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
 
-		<?php if ( have_posts() ) : ?>
+                <header class="page-header mb-5 text-center">
+                    <h1 class="page-title text-dark fw-bold">
+                        <?php
+                        /* translators: %s: search query. */
+                        printf( esc_html__( 'Search Results for: %s', 'il-forno-a-legna' ), '<span>' . get_search_query() . '</span>' );
+                        ?>
+                    </h1>
+                </header><?php if ( have_posts() ) : ?>
 
-			<header class="page-header">
-				<h1 class="page-title">
-					<?php
-					/* translators: %s: search query. */
-					printf( esc_html__( 'Search Results for: %s', 'il-forno-a-legna' ), '<span>' . get_search_query() . '</span>' );
-					?>
-				</h1>
-			</header><!-- .page-header -->
+                    <?php
+                    /* Iniciar el Bucle */
+                    while ( have_posts() ) :
+                        the_post();
 
-			<?php
-			/* Start the Loop */
-			while ( have_posts() ) :
-				the_post();
+                        get_template_part( 'template-parts/content', 'search' );
 
-				/**
-				 * Run the loop for the search to output the results.
-				 * If you want to overload this in a child theme then include a file
-				 * called content-search.php and that will be used instead.
-				 */
-				get_template_part( 'template-parts/content', 'search' );
+                    endwhile;
 
-			endwhile;
+                    the_posts_pagination( array(
+                        'mid_size'  => 2,
+                        'prev_text' => '‹ Previous',
+                        'next_text' => 'Next ›',
+                    ) );
 
-			the_posts_navigation();
+                else : ?>
+                    
+                    <div class="no-results-content">
+                        <i class="fas fa-search-minus no-results-icon"></i>
+                        <h2 class="text-white">Nothing Found</h2>
+                        <p>Sorry, but nothing matched your search terms. Please try again with some different keywords.</p>
+                        <?php get_search_form(); ?>
+                    </div>
+                    <?php endif; ?>
 
-		else :
-
-			get_template_part( 'template-parts/content', 'none' );
-
-		endif;
-		?>
-
-	</main><!-- #main -->
-
-<?php
-get_sidebar();
+            </div>
+        </div>
+    </div>
+</main><?php
 get_footer();
+?>

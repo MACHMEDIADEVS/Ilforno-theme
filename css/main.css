@@ -4,7 +4,7 @@
 #main-header {
   background-color: transparent;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  padding: 15px 0;
+
   z-index: 1000;
 }
 

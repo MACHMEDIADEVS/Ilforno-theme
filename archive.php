@@ -47,6 +47,33 @@
   object-fit: cover;
   width: 100%;
 }
+
+
+
+/* ==========================================================================
+   Estilos para el Hero de la Página de Archivo
+   ========================================================================== */
+.hero-archive-section {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    text-align: center;
+    padding: 120px 20px;
+}
+
+.hero-archive-section .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6); /* Superposición oscura */
+}
+
+.hero-archive-section .container {
+    position: relative; /* Para que el texto esté sobre la superposición */
+}
 </style>
 
 
@@ -61,17 +88,21 @@
 get_header();
 ?>
 
+<section class="hero-archive-section" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/img/hero-image.png');">
+    <div class="overlay"></div>
+    <div class="container">
+        <?php
+        the_archive_title( '<h1 class="display-4 fw-bold">', '</h1>' );
+        the_archive_description( '<p class="lead">', '</p>' );
+        ?>
+    </div>
+</section>
 <main id="primary" class="site-main py-5" style="background-color: #f0f0f0;">
     <div class="container">
 
         <?php if ( have_posts() ) : ?>
 
-            <header class="page-header mb-5 text-center">
-                <?php
-                the_archive_title( '<h1 class="page-title fw-bold text-dark">', '</h1>' );
-                the_archive_description( '<div class="archive-description text-secondary mt-3">', '</div>' );
-                ?>
-            </header><div class="row">
+            <div class="row">
                 <?php
                 /* Iniciar el Bucle */
                 while ( have_posts() ) :
@@ -99,7 +130,7 @@ get_header();
                 endwhile;
                 ?>
             </div><?php
-            // Navegación de la paginación (CSS se encargará de los estilos)
+            // Navegación de la paginación
             the_posts_pagination( array(
                 'mid_size'  => 2,
                 'prev_text' => '‹ Previous',
