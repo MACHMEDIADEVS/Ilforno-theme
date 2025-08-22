@@ -2,59 +2,67 @@
 /**
  * The template for displaying 404 pages (not found)
  *
- * @link https://codex.wordpress.org/Creating_an_Error_404_Page
- *
  * @package IL_Forno_a_Legna
  */
 
 get_header();
 ?>
 
-	<main id="primary" class="site-main">
+<style>
+    /* Estilos para la sección 404 */
+    .error-404-section {
+        background-color: #1a1a1a; /* Fondo oscuro consistente con tu marca */
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        min-height: 70vh; /* Altura considerable para ocupar la pantalla */
+        padding: 60px 20px;
+    }
+    .error-404-content .error-title {
+        font-size: 8rem; /* Número 404 grande y llamativo */
+        font-weight: bold;
+        color: #bf9861; /* Color dorado de tu marca */
+        line-height: 1;
+    }
+    .error-404-content .page-title {
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin-top: 0;
+        margin-bottom: 20px;
+    }
+    .error-404-content .message {
+        font-size: 1.2rem;
+        max-width: 500px;
+        margin: 0 auto 30px; /* Centrar y añadir espacio inferior */
+    }
+    .error-404-content .btn-home {
+        background-color: #bf9861;
+        color: #1a1a1a;
+        font-weight: bold;
+        padding: 12px 30px;
+        border-radius: 8px;
+        text-transform: uppercase;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    .error-404-content .btn-home:hover {
+        background-color: #d1aa6e;
+    }
+</style>
 
-		<section class="error-404 not-found">
-			<header class="page-header">
-				<h1 class="page-title"><?php esc_html_e( 'Oops! That page can&rsquo;t be found.', 'il-forno-a-legna' ); ?></h1>
-			</header><!-- .page-header -->
+<main id="primary" class="site-main">
 
-			<div class="page-content">
-				<p><?php esc_html_e( 'It looks like nothing was found at this location. Maybe try one of the links below or a search?', 'il-forno-a-legna' ); ?></p>
+    <section class="error-404-section">
+        <div class="container">
 
-					<?php
-					get_search_form();
-
-					the_widget( 'WP_Widget_Recent_Posts' );
-					?>
-
-					<div class="widget widget_categories">
-						<h2 class="widget-title"><?php esc_html_e( 'Most Used Categories', 'il-forno-a-legna' ); ?></h2>
-						<ul>
-							<?php
-							wp_list_categories(
-								array(
-									'orderby'    => 'count',
-									'order'      => 'DESC',
-									'show_count' => 1,
-									'title_li'   => '',
-									'number'     => 10,
-								)
-							);
-							?>
-						</ul>
-					</div><!-- .widget -->
-
-					<?php
-					/* translators: %1$s: smiley */
-					$il_forno_a_legna_archive_content = '<p>' . sprintf( esc_html__( 'Try looking in the monthly archives. %1$s', 'il-forno-a-legna' ), convert_smilies( ':)' ) ) . '</p>';
-					the_widget( 'WP_Widget_Archives', 'dropdown=1', "after_title=</h2>$il_forno_a_legna_archive_content" );
-
-					the_widget( 'WP_Widget_Tag_Cloud' );
-					?>
-
-			</div><!-- .page-content -->
-		</section><!-- .error-404 -->
-
-	</main><!-- #main -->
-
-<?php
+            <div class="error-404-content">
+                <h1 class="error-title">404</h1>
+                <h2 class="page-title"><?php esc_html_e( 'Page Not Found', 'il-forno-a-legna' ); ?></h2>
+                <p class="message"><?php esc_html_e( 'Sorry, the page you are looking for does not exist or has been moved.', 'il-forno-a-legna' ); ?></p>
+                <a class="btn-home" href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Return to Home', 'il-forno-a-legna' ); ?></a>
+            </div></div>
+    </section></main><?php
 get_footer();
+?>
