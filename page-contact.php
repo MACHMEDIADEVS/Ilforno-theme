@@ -132,22 +132,9 @@ get_header();
     }
 </style>
 
-<?php
-// Obtener los datos de los campos ACF
-$background_image = get_field('contact_hero_image_bg');
-$title            = get_field('contact_hero_title') ?: 'Contact IL Forno a Legna';
-$subtitle         = get_field('contact_hero_subtitle') ?: 'We’d Love to Hear from You.';
+<!-- HERO -->
+<?php get_template_part('template-parts/hero'); ?>
 
-// Preparar la URL de la imagen para el script
-$background_image_url = $background_image ? $background_image['url'] : get_template_directory_uri() . '/assets/img/hero-image.png';
-?>
-
-<section class="hero-section" id="hero-section">
-    <div class="container">
-        <h1><?php echo esc_html($title); ?></h1>
-        <p><?php echo esc_html($subtitle); ?></p>
-    </div>
-</section>
 
 <?php
 // Obtener los datos de los campos ACF

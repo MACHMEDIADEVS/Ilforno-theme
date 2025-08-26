@@ -272,23 +272,9 @@ get_header();
     }
 </style>
 
-<?php
-// Obtener los datos de los campos ACF
-$background_image_url = get_field('community_hero_background') ?: get_template_directory_uri() . '/assets/img/hero-image.png';
-$title                = get_field('community_hero_title') ?: 'Community';
-$subtitle             = get_field('community_hero_subtitle') ?: 'Our commitment to Rahway goes beyond serving pizza because we’re here to make a difference.';
-?>
+<!-- HERO -->
+<?php get_template_part('template-parts/hero'); ?>
 
-<section class="hero-community-section" style="background-image: url('<?php echo esc_url($background_image_url); ?>');">
-    <div class="overlay"></div>
-    <div class="container">
-        <h1 class="display-4 fw-bold"><?php echo esc_html($title); ?></h1>
-        <p class="lead">
-            <?php // Usamos nl2br para respetar los saltos de línea del Área de Texto
-            echo nl2br(esc_html($subtitle)); ?>
-        </p>
-    </div>
-</section>
 
 <?php
 // Obtener los datos de los campos ACF
@@ -350,7 +336,7 @@ $content_fallback = '
             </div>
 
             <div class="col-lg-6">
-                <?php 
+                <?php
                 // Imprimir el contenido del editor WYSIWYG
                 if ($content) {
                     echo $content;
@@ -378,7 +364,7 @@ $section_title = get_field('trailer_section_title') ?: 'Community Events & The I
             if (have_rows('trailer_cards')) :
                 // Iniciar el bucle para recorrer cada tarjeta
                 while (have_rows('trailer_cards')) : the_row();
-                    
+
                     // Obtener los datos de los sub-campos
                     $card_title       = get_sub_field('card_title');
                     $card_description = get_sub_field('card_description');
@@ -388,11 +374,12 @@ $section_title = get_field('trailer_section_title') ?: 'Community Events & The I
                         <div class="pizza-trailer-card">
                             <h5 class="fw-bold text-center"><?php echo esc_html($card_title); ?></h5>
                             <div class="card-content-wrapper">
-                                <p class="mb-3 text-center"> <?php // mb-3 para dar espacio al botón si aparece ?>
+                                <p class="mb-3 text-center"> <?php // mb-3 para dar espacio al botón si aparece 
+                                                                ?>
                                     <?php echo nl2br(esc_html($card_description)); ?>
                                 </p>
                             </div>
-                            
+
                             <?php // Comprobar si esta tarjeta tiene un botón
                             if ($card_button && $card_button['url'] && $card_button['title']) :
                                 $btn_url    = esc_url($card_button['url']);
@@ -421,13 +408,13 @@ $section_title = get_field('testimonials_section_title') ?: 'What Our Community 
 <section id="testimonials" class="py-5">
     <div class="container">
         <h3 class="fw-bold text-center mb-4"><?php echo esc_html($section_title); ?></h3>
-        
+
         <div class="row g-4">
             <?php // Comprobar si hay testimonios en el repetidor
             if (have_rows('testimonials_list')) :
                 // Iniciar el bucle para recorrer cada testimonio
                 while (have_rows('testimonials_list')) : the_row();
-                    
+
                     // Obtener los datos de los sub-campos
                     $quote  = get_sub_field('testimonial_quote');
                     $author = get_sub_field('testimonial_author');
@@ -488,10 +475,10 @@ $right_content_fallback = '
                                 $btn_url    = esc_url($button['url']);
                                 $btn_title  = esc_html($button['title']);
                                 $btn_target = $button['target'] ? 'target="' . esc_attr($button['target']) . '"' : '';
-                        ?>
+                    ?>
                                 <a href="<?php echo $btn_url; ?>" class="btn <?php echo $btn_class; ?>" <?php echo $btn_target; ?>><?php echo $btn_title; ?></a>
-                        <?php
-                            $button_index++;
+                    <?php
+                                $button_index++;
                             endif;
                         endwhile;
                     endif;
@@ -509,7 +496,7 @@ $right_content_fallback = '
                         echo $right_content_fallback;
                     }
                     ?>
-                    
+
                     <?php // Botón final de la caja de contacto
                     if ($right_button && $right_button['url'] && $right_button['title']) :
                         $btn_url    = esc_url($right_button['url']);

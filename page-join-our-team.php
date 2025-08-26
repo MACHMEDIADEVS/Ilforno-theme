@@ -7,6 +7,33 @@
  */
 
 get_header();
+
+$section_title = get_field('why_work_title') ?: 'Why Work at IL Forno a Legna?';
+
+$image       = get_field('apply_section_image');
+$title       = get_field('apply_section_title') ?: 'How to Apply';
+$description = get_field('apply_section_description');
+$button      = get_field('apply_section_button');
+
+$image_url = get_field('form_section_image') ?: get_template_directory_uri() . '/assets/img/horno-join.png';
+$title     = get_field('form_section_title') ?: 'Join the IL Forno Family';
+$shortcode = get_field('form_section_shortcode') ?: '[contact-form-7 id="985d1dd" title="Join Team"]';
+
+// Fallbacks
+if ($image) {
+    $image_url = $image['url'];
+    $image_alt = $image['alt'] ?: $title;
+} else {
+    $image_url = get_template_directory_uri() . '/assets/img/aplicar.png';
+    $image_alt = 'Il Forno Restaurant Interior';
+}
+
+$description_fallback = '<p class="mb-4">
+    Ready to be part of our team? We’d love to hear from you! Fill
+    out the contact form below or send your resume to
+    <strong>fornoalegna@yahoo.com</strong>. We’re excited to see how
+    you can contribute to the Il Forno a Legna family!
+</p>';
 ?>
 
 <style>
@@ -131,42 +158,45 @@ get_header();
         z-index: 3;
     }
 
-  /* Estilos para el botón dorado con tu color personalizado */
-.btn-golden {
-    background-color: #bf9861;
-    color: #201c21ff; /* <--- ¡Aquí está tu color morado de la captura! */
-    border: none;
-    padding: 0.6rem 1.2rem;
-    transition: background-color 0.3s ease;
-    font-weight: bold;
-}
+    /* Estilos para el botón dorado con tu color personalizado */
+    .btn-golden {
+        background-color: #bf9861;
+        color: #201c21ff;
+        /* <--- ¡Aquí está tu color morado de la captura! */
+        border: none;
+        padding: 0.6rem 1.2rem;
+        transition: background-color 0.3s ease;
+        font-weight: bold;
+    }
 
-/* También puedes ajustar el color del texto cuando el mouse pasa por encima si lo deseas */
-.btn-golden:hover {
-    background-color: #a87f47;
-    color: #ffffff; /* Generalmente se ve bien un color blanco al pasar el mouse */
-}
+    /* También puedes ajustar el color del texto cuando el mouse pasa por encima si lo deseas */
+    .btn-golden:hover {
+        background-color: #a87f47;
+        color: #ffffff;
+        /* Generalmente se ve bien un color blanco al pasar el mouse */
+    }
 
 
     /* =========================================
    SOLUCIÓN PARA EL FONDO DE LA SECCIÓN
-============================================ */
+    ============================================ */
 
-/* 1. Esta clase crea el espacio vertical arriba y abajo de la tarjeta gris */
-.apply-section-area {
-    padding: 80px 0; /* Puedes ajustar el 80px si quieres más o menos espacio */
-    background-color: #dacfbd;
-}
-
-/* 2. Esta es la clase más importante: convierte el contenedor en la tarjeta gris */
-
-
-/* 3. Ajuste para que el padding sea menor en dispositivos móviles */
-@media (max-width: 768px) {
-    .apply-section-bg {
-        padding: 25px;
+    /* 1. Esta clase crea el espacio vertical arriba y abajo de la tarjeta gris */
+    .apply-section-area {
+        padding: 80px 0;
+        /* Puedes ajustar el 80px si quieres más o menos espacio */
+        background-color: #dacfbd;
     }
-}
+
+    /* 2. Esta es la clase más importante: convierte el contenedor en la tarjeta gris */
+
+
+    /* 3. Ajuste para que el padding sea menor en dispositivos móviles */
+    @media (max-width: 768px) {
+        .apply-section-bg {
+            padding: 25px;
+        }
+    }
 
     /* formulario de aplicacion */
     .application-form-section {
@@ -219,111 +249,110 @@ get_header();
 
 
     /* Wrapper oscuro ya existente */
-.application-form-section{background-color:#141414;padding-top:4rem;padding-bottom:4rem}
-.application-form-section h2{font-size:2rem;color:#fff}
-.application-form-section .form-wrapper{max-width:100%}
+    .application-form-section {
+        background-color: #141414;
+        padding-top: 4rem;
+        padding-bottom: 4rem
+    }
 
-/* Inputs blancos con borde y radio (B5 look) */
-.application-form-section .wpcf7 .form-control,
-.application-form-section .wpcf7 select,
-.application-form-section .wpcf7 textarea,
-.application-form-section .wpcf7 input[type="text"],
-.application-form-section .wpcf7 input[type="email"],
-.application-form-section .wpcf7 input[type="tel"],
-.application-form-section .wpcf7 input[type="file"]{
-  background:#fff;
-  color:#1a1a1a;
-  border:1px solid #ccc;
-  border-radius:.375rem;
-  padding:.75rem;
-  font-size:.95rem;
-  box-shadow:none;
-}
-.application-form-section .wpcf7 .form-control:focus,
-.application-form-section .wpcf7 textarea:focus,
-.application-form-section .wpcf7 input:focus{
-  outline:0;
-  box-shadow:none;
-  border-color:#b3b3b3;
-}
+    .application-form-section h2 {
+        font-size: 2rem;
+        color: #fff
+    }
 
-/* File input altura/coherencia */
-.application-form-section .wpcf7 input[type="file"]{
-  padding:.55rem .75rem;
-  cursor:pointer;
-}
+    .application-form-section .form-wrapper {
+        max-width: 100%
+    }
 
-/* Botón dorado como el diseño */
-.application-form-section .wpcf7 .wpcf7-submit,
-.application-form-section .btn-golden{
-  background-color:#bf9861;
-  color:#1a1a1a;
-  border:0;
-  border-radius:.375rem;
-  font-weight:600;
-  padding:.6rem 1.4rem;
-  transition:background-color .3s ease, color .3s ease, border-color .3s ease;
-  cursor:pointer;
-}
-.application-form-section .wpcf7 .wpcf7-submit:hover,
-.application-form-section .btn-golden:hover{
-  background-color:#a87f47;
-  color:#fff;
-}
+    /* Inputs blancos con borde y radio (B5 look) */
+    .application-form-section .wpcf7 .form-control,
+    .application-form-section .wpcf7 select,
+    .application-form-section .wpcf7 textarea,
+    .application-form-section .wpcf7 input[type="text"],
+    .application-form-section .wpcf7 input[type="email"],
+    .application-form-section .wpcf7 input[type="tel"],
+    .application-form-section .wpcf7 input[type="file"] {
+        background: #fff;
+        color: #1a1a1a;
+        border: 1px solid #ccc;
+        border-radius: .375rem;
+        padding: .75rem;
+        font-size: .95rem;
+        box-shadow: none;
+    }
 
-/* Ajustes menores en espacios */
-.application-form-section .wpcf7 .row{--bs-gutter-x:1rem}
+    .application-form-section .wpcf7 .form-control:focus,
+    .application-form-section .wpcf7 textarea:focus,
+    .application-form-section .wpcf7 input:focus {
+        outline: 0;
+        box-shadow: none;
+        border-color: #b3b3b3;
+    }
 
-/* Botón dorado – tamaño y estilo final */
-.application-form-section .wpcf7 .wpcf7-submit,
-.application-form-section .btn-golden{
-  background-color:#bf9861;
-  color:#1a1a1a;
-  border:0;
-  border-radius:.5rem;      /* similar a tu captura */
-  font-weight:700;
-  font-size:1rem;
-  line-height:1.2;          /* compacta alto de línea */
-  padding:12px 28px;        /* alto y ancho del botón */
-  min-width:230px;          /* ancho mínimo como la maqueta */
-  height:48px;              /* altura consistente */
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  transition:background-color .3s ease,color .3s ease,border-color .3s ease;
-  cursor:pointer;
-}
+    /* File input altura/coherencia */
+    .application-form-section .wpcf7 input[type="file"] {
+        padding: .55rem .75rem;
+        cursor: pointer;
+    }
 
-.application-form-section .wpcf7 .wpcf7-submit:hover,
-.application-form-section .btn-golden:hover{
-  background-color:#a87f47;
-  color:#fff;
-}
+    /* Botón dorado como el diseño */
+    .application-form-section .wpcf7 .wpcf7-submit,
+    .application-form-section .btn-golden {
+        background-color: #bf9861;
+        color: #1a1a1a;
+        border: 0;
+        border-radius: .375rem;
+        font-weight: 600;
+        padding: .6rem 1.4rem;
+        transition: background-color .3s ease, color .3s ease, border-color .3s ease;
+        cursor: pointer;
+    }
 
+    .application-form-section .wpcf7 .wpcf7-submit:hover,
+    .application-form-section .btn-golden:hover {
+        background-color: #a87f47;
+        color: #fff;
+    }
+
+    /* Ajustes menores en espacios */
+    .application-form-section .wpcf7 .row {
+        --bs-gutter-x: 1rem
+    }
+
+    /* Botón dorado – tamaño y estilo final */
+    .application-form-section .wpcf7 .wpcf7-submit,
+    .application-form-section .btn-golden {
+        background-color: #bf9861;
+        color: #1a1a1a;
+        border: 0;
+        border-radius: .5rem;
+        /* similar a tu captura */
+        font-weight: 700;
+        font-size: 1rem;
+        line-height: 1.2;
+        /* compacta alto de línea */
+        padding: 12px 28px;
+        /* alto y ancho del botón */
+        min-width: 230px;
+        /* ancho mínimo como la maqueta */
+        height: 48px;
+        /* altura consistente */
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color .3s ease, color .3s ease, border-color .3s ease;
+        cursor: pointer;
+    }
+
+    .application-form-section .wpcf7 .wpcf7-submit:hover,
+    .application-form-section .btn-golden:hover {
+        background-color: #a87f47;
+        color: #fff;
+    }
 </style>
 
-<?php
-// Obtener los datos de los campos ACF
-$background_image     = get_field('join_hero_image_bg');
-$background_image_url = $background_image ? $background_image['url'] : get_template_directory_uri() . '/assets/img/hero-image.png';
-
-$title    = get_field('join_hero_title') ?: 'Join Our Team';
-$subtitle = get_field('join_hero_subtitle') ?: 'At IL Forno a Legna, we’re not just passionate about our food – we’re passionate about creating a team that feels like family.';
-?>
-
-<section class="hero-join-section d-flex align-items-center" style="background-image: url('<?php echo esc_url($background_image_url); ?>')">
-    <div class="container text-center text-white">
-        <h1 class="display-4 fw-bold"><?php echo esc_html($title); ?></h1>
-        <p class="lead">
-            <?php echo esc_html($subtitle); ?>
-        </p>
-    </div>
-</section>
-
-<?php
-// Obtener el título de la sección
-$section_title = get_field('why_work_title') ?: 'Why Work at IL Forno a Legna?';
-?>
+<!-- HERO -->
+<?php get_template_part('template-parts/hero'); ?>
 
 <section class="why-work-section py-5">
     <div class="container">
@@ -335,14 +364,15 @@ $section_title = get_field('why_work_title') ?: 'Why Work at IL Forno a Legna?';
             if (have_rows('why_work_reasons')) :
                 // Iniciar el bucle para recorrer cada razón
                 while (have_rows('why_work_reasons')) : the_row();
-                    
+
                     // Obtener los datos de los sub-campos
                     $reason_title       = get_sub_field('reason_title');
                     $reason_description = get_sub_field('reason_description');
             ?>
                     <div class="col-md-6 col-lg-3 text-center">
                         <div class="p-4 custom-bg rounded shadow-sm h-100">
-                            <?php // El bloque del icono ha sido eliminado, como se solicitó ?>
+                            <?php // El bloque del icono ha sido eliminado, como se solicitó 
+                            ?>
                             <h5 class="fw-bold"><?php echo esc_html($reason_title); ?></h5>
                             <p class="small">
                                 <?php echo esc_html($reason_description); ?>
@@ -357,30 +387,6 @@ $section_title = get_field('why_work_title') ?: 'Why Work at IL Forno a Legna?';
     </div>
 </section>
 
-<?php
-// Obtener los datos de los campos ACF
-$image       = get_field('apply_section_image');
-$title       = get_field('apply_section_title') ?: 'How to Apply';
-$description = get_field('apply_section_description');
-$button      = get_field('apply_section_button');
-
-// Fallbacks
-if ($image) {
-    $image_url = $image['url'];
-    $image_alt = $image['alt'] ?: $title;
-} else {
-    $image_url = get_template_directory_uri() . '/assets/img/aplicar.png';
-    $image_alt = 'Il Forno Restaurant Interior';
-}
-
-$description_fallback = '<p class="mb-4">
-    Ready to be part of our team? We’d love to hear from you! Fill
-    out the contact form below or send your resume to
-    <strong>fornoalegna@yahoo.com</strong>. We’re excited to see how
-    you can contribute to the Il Forno a Legna family!
-</p>';
-?>
-
 <section class="apply-section-area">
     <div class="container apply-section-bg">
         <div class="row align-items-center g-4">
@@ -391,7 +397,7 @@ $description_fallback = '<p class="mb-4">
             <div class="col-lg-6">
                 <div class="bg-dark p-5 rounded-2 shadow-sm">
                     <h2 class="fw-bold mb-3"><?php echo esc_html($title); ?></h2>
-                    
+
                     <?php // Imprimir el contenido del editor WYSIWYG
                     if ($description) {
                         echo $description;
@@ -399,7 +405,7 @@ $description_fallback = '<p class="mb-4">
                         echo $description_fallback;
                     }
                     ?>
-                    
+
                     <?php // Comprobar y mostrar el botón del campo Enlace
                     if ($button && $button['url'] && $button['title']) :
                         $btn_url    = esc_url($button['url']);
@@ -407,7 +413,8 @@ $description_fallback = '<p class="mb-4">
                         $btn_target = $button['target'] ? 'target="' . esc_attr($button['target']) . '"' : '';
                     ?>
                         <a href="<?php echo $btn_url; ?>" class="btn btn-golden fw-bold" <?php echo $btn_target; ?>><?php echo $btn_title; ?></a>
-                    <?php else: // Botón de respaldo ?>
+                    <?php else: // Botón de respaldo 
+                    ?>
                         <a href="#application-form" class="btn btn-golden fw-bold">Submit Application</a>
                     <?php endif; ?>
                 </div>
@@ -415,13 +422,6 @@ $description_fallback = '<p class="mb-4">
         </div>
     </div>
 </section>
-
-<?php
-// Obtener los datos de los campos ACF
-$image_url = get_field('form_section_image') ?: get_template_directory_uri() . '/assets/img/horno-join.png';
-$title     = get_field('form_section_title') ?: 'Join the IL Forno Family';
-$shortcode = get_field('form_section_shortcode') ?: '[contact-form-7 id="985d1dd" title="Join Team"]';
-?>
 
 <section class="application-form-section py-5" id="application-form">
     <div class="container">

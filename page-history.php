@@ -281,23 +281,9 @@ get_header();
     }
 </style>
 
-<?php
-// Obtener los datos de los campos ACF para el hero de la página de Historia
-$background_image_url = get_field('history_hero_image_bg') ?: get_template_directory_uri() . '/assets/img/hero-image.png';
-$title                = get_field('history_hero_title') ?: 'History';
-$subtitle             = get_field('history_hero_subtitle') ?: 'Let us bring the flavors of Italy to your home, office, or celebration.';
-?>
+<!-- HERO -->
+<?php get_template_part('template-parts/hero'); ?>
 
-<section class="hero-events-section" style="background-image: url('<?php echo esc_url($background_image_url); ?>');">
-    <div class="overlay"></div>
-    <div class="container">
-        <h1 class="display-4 fw-bold"><?php echo esc_html($title); ?></h1>
-        <p class="lead">
-            <?php // Usamos nl2br para respetar los saltos de línea del Área de Texto ?>
-            <?php echo nl2br(esc_html($subtitle)); ?>
-        </p>
-    </div>
-</section>
 
 <?php
 // Obtener los datos de los campos ACF

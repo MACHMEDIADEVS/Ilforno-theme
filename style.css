@@ -1,3 +1,51 @@
+/*!
+Theme Name: Il forno a Legna
+Theme URI: http://underscores.me/
+Author: Underscores.me
+Author URI: http://underscores.me/
+Description: Description
+Version: 1.0.0
+Tested up to: 5.4
+Requires PHP: 5.6
+License: GNU General Public License v2 or later
+License URI: LICENSE
+Text Domain: il-forno-a-legna
+Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-comments, translation-ready
+
+This theme, like WordPress, is licensed under the GPL.
+Use it to make something cool, have fun, and share what you've learned.
+
+Il forno a Legna is based on Underscores https://underscores.me/, (C) 2012-2020 Automattic, Inc.
+Underscores is distributed under the terms of the GNU GPL v2 or later.
+
+Normalizing styles have been helped along thanks to the fine work of
+Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
+*/
+
+/* BOTONES */
+.btn-primary {
+  background-color: #bf9861;
+  color: #000;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 10px;
+  font-size: 18px;
+  text-transform: uppercase;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #dacfbd;
+  color: #fff;
+}
+
+
+
+
+
+
+
 /* menú actual*/
 
 /* Color de texto BLANCO para los enlaces del menú */
@@ -17,7 +65,3 @@
 #main-header .navbar-nav .nav-item.active .nav-link {
   color: #bf9861 !important; /* Color dorado para la página actual */
 }
-
-
-
-

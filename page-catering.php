@@ -9,7 +9,6 @@
 get_header();
 ?>
 
-
 <style>
     /* HEADER */
     #main-header {
@@ -340,8 +339,8 @@ get_header();
     }
 
     /* ===================================================
-   Estilos FORZADOS para Mensajes de Contact Form 7
-====================================================== */
+    Estilos FORZADOS para Mensajes de Contact Form 7
+    ====================================================== */
 
     /* Estilo para la caja del mensaje de ÉXITO */
     #book-event .wpcf7-mail-sent-ok {
@@ -435,24 +434,8 @@ get_header();
     }
 </style>
 
-<?php
-// Obtener los datos de los campos ACF para el hero de la página de Catering
-$background_image     = get_field('catering_hero_image_bg');
-$background_image_url = $background_image ? $background_image['url'] : get_template_directory_uri() . '/assets/img/hero-image.png';
-
-$title    = get_field('catering_hero_title') ?: 'Catering';
-$subtitle = get_field('catering_hero_subtitle') ?: 'Let us bring the flavors of Italy to your home, office, or celebration.';
-?>
-
-<section class="hero-events-section" style="background-image: url('<?php echo esc_url($background_image_url); ?>')">
-    <div class="overlay"></div>
-    <div class="container">
-        <h1 class="display-4 fw-bold"><?php echo esc_html($title); ?></h1>
-        <p class="lead">
-            <?php echo esc_html($subtitle); ?>
-        </p>
-    </div>
-</section>
+<!-- HERO -->
+<?php get_template_part('template-parts/hero'); ?>
 
 <?php
 // Obtener los datos de los campos ACF
