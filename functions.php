@@ -112,23 +112,36 @@ add_action('widgets_init', 'il_forno_a_legna_widgets_init');
 require get_template_directory() . '/inc/enqueue.php';
 require get_template_directory() . '/inc/bootstrap-navwalker.php';
 
-
-
 /**
  * Remove the archive title prefix (e.g., "Category:", "Author:").
  */
-add_filter( 'get_the_archive_title', function ( $title ) {
-    if ( is_category() ) {
-        $title = single_cat_title( '', false );
-    } elseif ( is_tag() ) {
-        $title = single_tag_title( '', false );
-    } elseif ( is_author() ) {
-        $title = '<span class="vcard">' . get_the_author() . '</span>';
-    } elseif ( is_post_type_archive() ) {
-        $title = post_type_archive_title( '', false );
-    } elseif ( is_tax() ) {
-        $title = single_term_title( '', false );
-    }
-  
-    return $title;
-} );
+add_filter('get_the_archive_title', function ($title) {
+	if (is_category()) {
+		$title = single_cat_title('', false);
+	} elseif (is_tag()) {
+		$title = single_tag_title('', false);
+	} elseif (is_author()) {
+		$title = '<span class="vcard">' . get_the_author() . '</span>';
+	} elseif (is_post_type_archive()) {
+		$title = post_type_archive_title('', false);
+	} elseif (is_tax()) {
+		$title = single_term_title('', false);
+	}
+
+	return $title;
+});
+
+function il_forno_a_legna_acf_options_page()
+{
+	// Verifica si la función de ACF existe para evitar errores.
+	if (function_exists('acf_add_options_page')) {
+		acf_add_options_page(array(
+			'page_title' => __('Información General del Sitio', 'il-forno-a-legna'),
+			'menu_title' => __('Info General', 'il-forno-a-legna'),
+			'menu_slug'  => 'theme-general-settings',
+			'capability' => 'edit_posts',
+			'redirect'   => false
+		));
+	}
+}
+add_action('acf/init', 'il_forno_a_legna_acf_options_page');

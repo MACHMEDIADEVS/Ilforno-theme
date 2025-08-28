@@ -1,4 +1,5 @@
 <?php
+// Obtener datos de los campos personalizados para la sección 'hero'
 $video_url = get_field('hero_video_bg');
 $title     = get_field('hero_title_h1');
 $subtitle  = get_field('hero_subtitle_h2');
@@ -50,12 +51,7 @@ $subtitle  = get_field('hero_subtitle_h2');
                 gap: 1rem;
             }
 
-            .btn.custom-btn {
-                font-size: 18px;
-                padding: 12px 30px;
-                border-radius: 10px;
-                text-transform: uppercase;
-            }
+
         }
     }
 
@@ -110,10 +106,7 @@ $subtitle  = get_field('hero_subtitle_h2');
             flex-direction: column !important;
             align-items: center !important;
 
-            .btn {
-                width: 100%;
-                max-width: 260px;
-            }
+
         }
     }
 </style>
@@ -143,19 +136,14 @@ $subtitle  = get_field('hero_subtitle_h2');
         <?php if (have_rows('hero_buttons')) : ?>
             <div class="hero-buttons d-flex flex-column flex-md-row justify-content-center align-items-center gap-2">
                 <?php
-                $button_count = 0;
                 while (have_rows('hero_buttons')) : the_row();
                     $button_text = get_sub_field('text_button_hero');
                     $button_link = get_sub_field('link_button_hero');
-                    $btn_class   = ($button_count === 0) ? 'btn-outline-light' : '';
                 ?>
-                    <a href="<?php echo esc_url($button_link); ?>" class="btn btn-lg <?php echo $btn_class; ?> custom-btn">
+                    <a href="<?php echo esc_url($button_link); ?>" class="btn btn-lg btn-primary flex-fill">
                         <?php echo esc_html($button_text); ?>
                     </a>
-                <?php
-                    $button_count++;
-                endwhile;
-                ?>
+                <?php endwhile; ?>
             </div>
         <?php endif; ?>
     </div>
@@ -165,39 +153,45 @@ $subtitle  = get_field('hero_subtitle_h2');
     <div class="container-fluid p-0">
         <div class="row gx-0 text-center">
             <?php
+            // Verifica si hay filas en el repetidor 'secciones_informacion_hero'
             if (have_rows('secciones_informacion_hero')) :
-                $icons = ['bi-telephone-fill', 'bi-geo-alt-fill', 'bi-clock'];
-                $icon_index = 0;
                 while (have_rows('secciones_informacion_hero')) : the_row();
+                    // Obtiene los datos de los sub-campos
+                    $icon        = get_sub_field('icon_sectionbar'); // Campo nuevo para la clase del icono
                     $title       = get_sub_field('title_sectionbar_p');
                     $description = get_sub_field('description_sectionbar_p');
             ?>
                     <div class="col-md-3 info-box">
-                        <i class="bi <?php echo esc_attr($icons[$icon_index]); ?> big-icon"></i>
+                        <i class="bi <?php echo esc_attr($icon); ?> big-icon"></i>
                         <div class="info-text">
                             <h4><?php echo esc_html($title); ?></h4>
                             <p><?php echo esc_html($description); ?></p>
                         </div>
                     </div>
             <?php
-                    $icon_index++;
                 endwhile;
             endif;
             ?>
 
-            <div class="col-md-3 info-box social-box">
-                <div class="social-icons">
-                    <a href="https://www.tiktok.com/@ilfornolegna" aria-label="Síguenos en TikTok">
-                        <i class="bi bi-tiktok"></i>
-                    </a>
-                    <a href="https://www.facebook.com/ilfornolegna" aria-label="Síguenos en Facebook">
-                        <i class="bi bi-facebook"></i>
-                    </a>
-                    <a href="https://www.instagram.com/ilfornolegna/" aria-label="Síguenos en Instagram">
-                        <i class="bi bi-instagram"></i>
-                    </a>
+            <?php
+            // Verifica si hay filas en el nuevo repetidor 'secciones_sociales_hero'
+            if (have_rows('secciones_sociales_hero')) :
+            ?>
+                <div class="col-md-3 info-box social-box">
+                    <div class="social-icons">
+                        <?php
+                        while (have_rows('secciones_sociales_hero')) : the_row();
+                            // Obtiene los datos de los sub-campos para redes sociales
+                            $social_link = get_sub_field('link_social');
+                            $social_icon = get_sub_field('icon_social');
+                        ?>
+                            <a href="<?php echo esc_url($social_link); ?>" aria-label="Síguenos en nuestras redes sociales">
+                                <i class="bi <?php echo esc_attr($social_icon); ?>"></i>
+                            </a>
+                        <?php endwhile; ?>
+                    </div>
                 </div>
-            </div>
+            <?php endif; ?>
         </div>
     </div>
 </section>
