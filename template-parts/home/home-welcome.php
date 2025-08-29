@@ -11,7 +11,7 @@ $button            = get_field('welcome_button');
         <div class="row g-0">
             <?php if ($main_image_url) : ?>
                 <div class="col-lg-6">
-                    <div class="pizza-image bg-cover h-100" style="background-image: url('<?php echo esc_url($main_image_url); ?>'); height: 60dvh;"></div>
+                    <div class="pizza-image bg-cover h-100" style="background-image: url('<?php echo esc_url($main_image_url); ?>'); height: 0dvh;"></div>
                 </div>
             <?php endif; ?>
 

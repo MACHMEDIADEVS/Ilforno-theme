@@ -21,39 +21,48 @@ get_header();
         font-weight: bold;
         transition: background-color 0.3s ease;
     }
+
     .custom-btn:hover {
         background-color: var(--light-cream);
         color: var(--white);
     }
+
     .info-section .info-box {
         padding: 30px 15px;
         border-radius: 0px;
     }
+
     .no-gutters {
         margin-left: 0;
         margin-right: 0;
     }
+
     .hero-image img {
         object-fit: cover;
         height: 100%;
         width: 100%;
     }
+
     .hero-text {
         padding: 50px;
         background-color: rgba(0, 0, 0, 0.5);
     }
+
     .hero-text h1 {
         font-size: 50px;
         font-weight: bold;
         margin-bottom: 20px;
     }
+
     .hero-text p {
         font-size: 18px;
         margin-bottom: 20px;
     }
+
     .hero-text .highlight {
         color: #ff9900;
     }
+
     @media (max-width: 768px) {
         .hero-text h1 {
             font-size: 35px;
@@ -63,6 +72,7 @@ get_header();
             font-size: 16px;
         }
     }
+
     .btn-menu {
         background-color: var(--primary);
         color: var(--light-cream);
@@ -73,11 +83,13 @@ get_header();
         transition: all 0.3s ease-in-out;
         text-decoration: none;
     }
+
     .btn-menu:hover {
         background-color: var(--light-cream);
         color: #1a1a1a;
         text-decoration: none;
     }
+
     @media (max-width: 768px) {
         .services-tabs {
             display: flex;
@@ -107,9 +119,11 @@ get_header();
             white-space: nowrap;
         }
     }
-   .order-section {
+
+    .order-section {
         background-color: #1a1a1a;
     }
+
     .card-option {
         display: block;
         text-align: center;
@@ -121,30 +135,37 @@ get_header();
         transition: all 0.3s ease-in-out;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
     }
+
     .card-order {
         background-color: var(--primary);
         color: #1a1a1a;
     }
+
     .card-order:hover {
         background-color: var(--light-cream);
         color: #1a1a1a;
     }
+
     .card-reserve {
         background-color: #02332d;
         color: var(--white);
     }
+
     .card-reserve:hover {
         background-color: #035245;
         color: var(--white);
     }
+
     .order-section h2 {
         font-size: 2.5rem;
     }
+
     .order-section p {
         font-size: 1.1rem;
         max-width: 700px;
         margin: 0 auto;
     }
+
     @media (min-width: 768px) {
         .card-option {
             padding: 20px 28px;
@@ -160,6 +181,7 @@ get_header();
             border-radius: 8px;
         }
     }
+
     .blog-section {
         background-color: var(--light-cream);
     }
@@ -247,6 +269,7 @@ get_header();
     .footer-icon:hover {
         color: var(--primary);
     }
+
     .special-dish-section {
         background-color: #000000;
     }
@@ -303,6 +326,7 @@ get_header();
             padding-bottom: 2rem !important;
         }
     }
+
     .testimonial-card {
         background-color: var(--light-cream);
         color: #1a1a1a;
@@ -370,13 +394,17 @@ get_header();
         <div class="row align-items-center g-4">
             <div class="col-md-7">
                 <h4 class="text-light fw-bold mb-3">Subscribe to our newsletter</h4>
-                <form class="newsletter-form d-flex flex-column flex-sm-row gap-2">
-                    <input type="email" class="form-control" placeholder="Enter your email address" required />
-                    <button type="submit" class="btn-newsletter">Subscribe</button>
-                </form>
-                <small class="text-light d-block mt-2">
-                    Get the latest updates in your inbox. No spam, we promise.
-                </small>
+                <?php
+                $newsletter_shortcode = get_field('shortcode_newsletter');
+
+                if ($newsletter_shortcode) {
+                    echo do_shortcode($newsletter_shortcode);
+                }
+                ?>
+            </div>
+
+            <div class="container">
+                <?php echo do_shortcode('[contact-form-7 id="98c8a5c" title="Catering"]'); ?>
             </div>
 
             <div class="col-md-5 text-center text-md-end">
@@ -397,8 +425,6 @@ get_header();
 </section>
 
 <script>
-
-
     document.addEventListener("DOMContentLoaded", function() {
         // Inicializa el carrusel de reseñas
         new Swiper(".reviews-swiper", {
