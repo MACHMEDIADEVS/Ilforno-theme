@@ -7,7 +7,7 @@
    ========================================================================== */
 .no-results-content {
     background-color: #212529; /* Fondo de tarjeta oscuro */
-    color: #dacfbd;
+    color: var(--light-cream);
     padding: 2.5rem;
     border-radius: 8px;
     border: 1px solid rgba(191, 152, 97, 0.2);
@@ -16,13 +16,13 @@
 
 .no-results-content .no-results-icon {
     font-size: 3rem;
-    color: #bf9861;
+    color: var(--primary);
     margin-bottom: 1.5rem;
     display: block;
 }
 
 .no-results-content h2 {
-    color: #fff;
+    color: var(--white);
     font-weight: bold;
 }
 
@@ -37,13 +37,13 @@
     flex-grow: 1;
     background-color: #1a1a1a;
     border: 1px solid #555;
-    color: #fff;
+    color: var(--white);
     padding: 10px 15px;
     border-radius: 4px 0 0 4px; /* Esquinas izquierdas redondeadas */
 }
 
 .no-results-content .search-submit {
-    background-color: #bf9861;
+    background-color: var(--primary);
     color: #1a1a1a;
     font-weight: bold;
     border: none;

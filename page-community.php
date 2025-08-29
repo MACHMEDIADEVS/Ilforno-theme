@@ -62,11 +62,11 @@ get_header();
     }
 
     #community-intro h2 {
-        color: #bf9861;
+        color: var(--primary);
     }
 
     #community-intro p {
-        color: #dacfbd;
+        color: var(--light-cream);
         text-align: center;
     }
 
@@ -75,7 +75,7 @@ get_header();
 
     /* SUPPORTING LOCAL  */
     #support-local {
-        background-color: #dacfbd;
+        background-color: var(--light-cream);
         /* Fondo beige claro */
         padding: 5rem 0;
     }
@@ -83,7 +83,7 @@ get_header();
     /* Títulos H3 y H5 en color oscuro */
     #support-local h3,
     #support-local h5 {
-        color: #bf9861;
+        color: var(--primary);
     }
 
     /* Párrafos en color oscuro para que sean legibles */
@@ -107,12 +107,12 @@ get_header();
     }
 
     #pizza-trailer h3 {
-        color: #bf9861;
+        color: var(--primary);
     }
 
     .pizza-trailer-card {
         background-color: #111111;
-        border: 2px solid #bf9861;
+        border: 2px solid var(--primary);
         border-radius: 0.5rem;
         padding: 1.5rem;
         height: 100%;
@@ -121,11 +121,11 @@ get_header();
     }
 
     .pizza-trailer-card h5 {
-        color: #bf9861;
+        color: var(--primary);
     }
 
     .pizza-trailer-card p {
-        color: #dacfbd;
+        color: var(--light-cream);
     }
 
     /* NUEVO: Esta es la regla clave que lo soluciona */
@@ -136,14 +136,14 @@ get_header();
 
     /* Estilos del botón que ya teníamos */
     .pizza-trailer-card .btn-outline-gold {
-        color: #bf9861;
-        border: 2px solid #bf9861;
+        color: var(--primary);
+        border: 2px solid var(--primary);
         transition: all 0.3s ease;
     }
 
     .pizza-trailer-card .btn-outline-gold:hover {
         color: #1a1a1a;
-        background-color: #bf9861;
+        background-color: var(--primary);
     }
 
 
@@ -155,7 +155,7 @@ get_header();
     }
 
     #testimonials h3 {
-        color: #bf9861;
+        color: var(--primary);
     }
 
     .testimonial-card {
@@ -176,7 +176,7 @@ get_header();
 
     /* Estilo para el nombre del autor */
     .testimonial-card p:not(.quote) {
-        color: #bf9861;
+        color: var(--primary);
     }
 
 
@@ -189,11 +189,11 @@ get_header();
     }
 
     #get-involved h3 {
-        color: #fff;
+        color: var(--white);
     }
 
     #get-involved p {
-        color: #dacfbd;
+        color: var(--light-cream);
         /* Color de párrafo estándar */
     }
 
@@ -206,16 +206,16 @@ get_header();
     }
 
     .cta-contact-box h5 {
-        color: #bf9861;
+        color: var(--primary);
     }
 
     .cta-contact-box p,
     .cta-contact-box li {
-        color: #dacfbd;
+        color: var(--light-cream);
     }
 
     .cta-contact-box a {
-        color: #fff;
+        color: var(--white);
         text-decoration: none;
         transition: text-decoration 0.3s ease;
     }
@@ -227,7 +227,7 @@ get_header();
     /* Estilos de botones que ya deberías tener definidos */
     /* Botón Dorado (Ej: Book Pizza Trailer) */
     .btn-gold {
-        background-color: #bf9861;
+        background-color: var(--primary);
         color: #1a1a1a;
         border-radius: 10px;
         font-weight: bold;
@@ -236,7 +236,7 @@ get_header();
     }
 
     .btn-gold:hover {
-        background-color: #a87d3d;
+        background-color: var(--primary-hover);
         /* Tono más oscuro */
         color: #1a1a1a;
     }
@@ -244,22 +244,22 @@ get_header();
     /* Botón con Borde Dorado (Ej: Redes Sociales) */
     .btn-outline-gold {
         background-color: transparent;
-        color: #bf9861;
-        border: 1px solid #bf9861;
+        color: var(--primary);
+        border: 1px solid var(--primary);
         border-radius: 5px;
         font-weight: bold;
         transition: all 0.3s ease;
     }
 
     .btn-outline-gold:hover {
-        background-color: #bf9861;
+        background-color: var(--primary);
         color: #1a1a1a;
     }
 
     /* Botón Verde (Ej: Contact Us) */
     .btn-green {
         background-color: #02332d;
-        color: #fff;
+        color: var(--white);
         border-radius: 10px;
         font-weight: bold;
         border: none;
@@ -267,8 +267,8 @@ get_header();
     }
 
     .btn-green:hover {
-        background-color: #012621;
-        color: #fff;
+        background-color: var(--dark-green);
+        color: var(--white);
     }
 </style>
 

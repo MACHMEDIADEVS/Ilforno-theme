@@ -69,12 +69,12 @@ $description_fallback = '<p class="mb-4">
     }
 
     .why-work-section h2 {
-        color: #bf9861;
+        color: var(--primary);
         font-size: 2.3rem;
     }
 
     .custom-bg {
-        background-color: #dacfbd;
+        background-color: var(--light-cream);
     }
 
     .why-work-section i {
@@ -97,7 +97,7 @@ $description_fallback = '<p class="mb-4">
 
     /* seccion aplicar */
     .how-to-apply-modern .info-box {
-        background-color: #dacfbd;
+        background-color: var(--light-cream);
         color: #1a1a1a;
         padding: 2rem;
         border-radius: 15px;
@@ -105,11 +105,11 @@ $description_fallback = '<p class="mb-4">
     }
 
     .col-lg-6 h2 {
-        color: #bf9861;
+        color: var(--primary);
     }
 
     .col-lg-6 p {
-        color: #dacfbd;
+        color: var(--light-cream);
     }
 
     .how-to-apply-modern .info-box h2 {
@@ -124,14 +124,14 @@ $description_fallback = '<p class="mb-4">
 
     .how-to-apply-modern .info-box a.btn {
         background-color: #1a1a1a;
-        color: #fff;
+        color: var(--white);
         font-weight: 600;
         border-radius: 8px;
     }
 
     .how-to-apply-modern .info-box a.btn:hover {
         background-color: #7f1100;
-        color: #fff;
+        color: var(--white);
     }
 
     .with-bg-overlay {
@@ -160,7 +160,7 @@ $description_fallback = '<p class="mb-4">
 
     /* Estilos para el botón dorado con tu color personalizado */
     .btn-golden {
-        background-color: #bf9861;
+        background-color: var(--primary);
         color: #201c21ff;
         /* <--- ¡Aquí está tu color morado de la captura! */
         border: none;
@@ -172,7 +172,7 @@ $description_fallback = '<p class="mb-4">
     /* También puedes ajustar el color del texto cuando el mouse pasa por encima si lo deseas */
     .btn-golden:hover {
         background-color: #a87f47;
-        color: #ffffff;
+        color: var(--white);
         /* Generalmente se ve bien un color blanco al pasar el mouse */
     }
 
@@ -185,7 +185,7 @@ $description_fallback = '<p class="mb-4">
     .apply-section-area {
         padding: 80px 0;
         /* Puedes ajustar el 80px si quieres más o menos espacio */
-        background-color: #dacfbd;
+        background-color: var(--light-cream);
     }
 
     /* 2. Esta es la clase más importante: convierte el contenedor en la tarjeta gris */
@@ -207,7 +207,7 @@ $description_fallback = '<p class="mb-4">
 
     .application-form-section h2 {
         font-size: 2rem;
-        color: #ffffff;
+        color: var(--white);
     }
 
     .application-form-section .form-wrapper {
@@ -222,7 +222,7 @@ $description_fallback = '<p class="mb-4">
     }
 
     .application-form-section .btn-golden {
-        background-color: #bf9861;
+        background-color: var(--primary);
         color: #1a1a1a;
         border: none;
         padding: 0.6rem 1.4rem;
@@ -231,11 +231,11 @@ $description_fallback = '<p class="mb-4">
 
     .application-form-section .btn-golden:hover {
         background-color: #a87f47;
-        color: #ffffff;
+        color: var(--white);
     }
 
     .btn-gold {
-        background-color: #bf9861;
+        background-color: var(--primary);
         color: #1a1a1a;
         font-weight: 600;
         border: none;
@@ -243,7 +243,7 @@ $description_fallback = '<p class="mb-4">
 
     .btn-gold:hover {
         background-color: #a87f3d;
-        color: #fff;
+        color: var(--white);
     }
 
 
@@ -257,7 +257,7 @@ $description_fallback = '<p class="mb-4">
 
     .application-form-section h2 {
         font-size: 2rem;
-        color: #fff
+        color: var(--white)
     }
 
     .application-form-section .form-wrapper {
@@ -272,7 +272,7 @@ $description_fallback = '<p class="mb-4">
     .application-form-section .wpcf7 input[type="email"],
     .application-form-section .wpcf7 input[type="tel"],
     .application-form-section .wpcf7 input[type="file"] {
-        background: #fff;
+        background: var(--white);
         color: #1a1a1a;
         border: 1px solid #ccc;
         border-radius: .375rem;
@@ -298,7 +298,7 @@ $description_fallback = '<p class="mb-4">
     /* Botón dorado como el diseño */
     .application-form-section .wpcf7 .wpcf7-submit,
     .application-form-section .btn-golden {
-        background-color: #bf9861;
+        background-color: var(--primary);
         color: #1a1a1a;
         border: 0;
         border-radius: .375rem;
@@ -311,7 +311,7 @@ $description_fallback = '<p class="mb-4">
     .application-form-section .wpcf7 .wpcf7-submit:hover,
     .application-form-section .btn-golden:hover {
         background-color: #a87f47;
-        color: #fff;
+        color: var(--white);
     }
 
     /* Ajustes menores en espacios */
@@ -322,7 +322,7 @@ $description_fallback = '<p class="mb-4">
     /* Botón dorado – tamaño y estilo final */
     .application-form-section .wpcf7 .wpcf7-submit,
     .application-form-section .btn-golden {
-        background-color: #bf9861;
+        background-color: var(--primary);
         color: #1a1a1a;
         border: 0;
         border-radius: .5rem;
@@ -347,7 +347,7 @@ $description_fallback = '<p class="mb-4">
     .application-form-section .wpcf7 .wpcf7-submit:hover,
     .application-form-section .btn-golden:hover {
         background-color: #a87f47;
-        color: #fff;
+        color: var(--white);
     }
 </style>
 

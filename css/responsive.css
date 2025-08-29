@@ -1,0 +1,116 @@
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* IPHONE RESPONSIVE */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  p {
+    font-size: 1rem;
+  }
+}
+
+/* HOMEPAGE */
+@media (max-width: 991.98px) {
+  .info-section .info-box {
+    padding: 1.5rem;
+  }
+}
+@media (max-width: 767px) {
+  .info-box {
+    flex-direction: row;
+    justify-content: flex-start;
+    text-align: left;
+    padding: 20px 15px;
+  }
+
+  .social-box {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .social-icons {
+    justify-content: center;
+    gap: 30px;
+  }
+}
+@media (max-width: 575.98px) {
+  .pizza-welcome-section .col-lg-6.d-flex {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+  .pizza-welcome-section .px-5 {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .pizza-welcome-section .col-lg-6.d-flex {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+}
+@media (max-width: 576px) {
+  .pizza-image {
+    min-height: 300px;
+    /* Ajustar altura */
+    background-position: center center;
+    /* Centrado */
+  }
+
+  .pizza-welcome-section .text-side {
+    padding: 0 15px;
+    /* Ajuste en el padding */
+  }
+}
+@media (max-width: 768px) {
+  .pizza-image {
+    min-height: 300px;
+    background-position: center top;
+  }
+}
+@media (max-width: 768px) {
+  .promo-hero {
+    padding: 60px 0;
+  }
+
+  .promo-overlay {
+    background: rgba(0, 0, 0, 0.7);
+    /* oscuro completo en mobile */
+  }
+
+  .promo-hero h2 {
+    font-size: 1.5rem;
+  }
+
+  .promo-hero p {
+    font-size: 0.95rem;
+  }
+
+  .promo-hero .container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+/* HEADER */
+@media (min-width: 992px) {
+  .logo-header {
+    max-height: 100px;
+  }
+}
+@media (max-width: 991.98px) {
+  .offcanvas {
+    background-color: rgba(26, 26, 26, 0.85);
+    backdrop-filter: blur(8px);
+  }
+
+  .offcanvas .nav-link {
+    color: var(--white);
+  }
+
+  .offcanvas .nav-link:hover {
+    color: var(--primary);
+  }
+}

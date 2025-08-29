@@ -4,7 +4,7 @@
    ========================================================================== */
 
 .archive .post-card-home-style {
-    background-color: #dacfbd; /* Color de fondo de la tarjeta */
+    background-color: var(--light-cream); /* Color de fondo de la tarjeta */
     border: none;
     border-radius: 10px;
     overflow: hidden;
@@ -28,7 +28,7 @@
 
 .archive .post-card-home-style .btn-read-more {
     background-color: #1a1a1a;
-    color: #ffffff;
+    color: var(--white);
     text-decoration: none;
     padding: 10px 20px;
     border-radius: 8px;
@@ -39,7 +39,7 @@
 
 .archive .post-card-home-style .btn-read-more:hover {
     background-color: #333;
-    color: #ffffff;
+    color: var(--white);
 }
 
 .archive .post-card-home-style .card-img-top {
@@ -57,7 +57,7 @@
     position: relative;
     background-size: cover;
     background-position: center;
-    color: #fff;
+    color: var(--white);
     text-align: center;
     padding: 120px 20px;
 }

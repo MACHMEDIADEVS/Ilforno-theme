@@ -68,34 +68,34 @@ get_header();
     }
 
     #about-intro p {
-        color: #dacfbd;
+        color: var(--light-cream);
         font-size: 1rem;
         line-height: 1.7;
     }
 
     #about-intro h2 {
-        color: #bf9861;
+        color: var(--primary);
     }
 
 
     /* Timeline Cards */
     #about-timeline {
-        background-color: #dacfbd;
+        background-color: var(--light-cream);
     }
 
     .timeline-box {
         background-color: #212428;
-        border: 2px solid #bf9861;
-        color: #ffffff;
+        border: 2px solid var(--primary);
+        color: var(--white);
         transition: all 0.3s ease;
     }
 
     .timeline-box h4 {
-        color: #bf9861;
+        color: var(--primary);
     }
 
     .timeline-box p {
-        color: #ffffff;
+        color: var(--white);
         font-size: 0.9rem;
         margin-bottom: 0.5rem;
     }
@@ -103,8 +103,8 @@ get_header();
     /* Botón dorado */
     .btn-outline-gold {
         background-color: transparent;
-        color: #bf9861;
-        border: 1px solid #bf9861;
+        color: var(--primary);
+        border: 1px solid var(--primary);
         font-weight: bold;
         padding: 6px 12px;
         border-radius: 4px;
@@ -114,12 +114,12 @@ get_header();
     }
 
     .btn-outline-gold:hover {
-        background-color: #bf9861;
+        background-color: var(--primary);
         color: #1a1a1a;
     }
 
     #about-timeline h2 {
-        color: #bf9861;
+        color: var(--primary);
     }
 
 
@@ -131,7 +131,7 @@ get_header();
     }
 
     #community-engagement h2 {
-        color: #bf9861;
+        color: var(--primary);
     }
 
     .community-image {
@@ -144,10 +144,10 @@ get_header();
 
     .community-card {
         background-color: #111;
-        border: 1px solid #bf9861;
+        border: 1px solid var(--primary);
         border-radius: 8px;
         padding: 1.5rem;
-        color: #dacfbd;
+        color: var(--light-cream);
         height: 100%;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
         transition: transform 0.3s ease;
@@ -159,7 +159,7 @@ get_header();
     }
 
     .community-card h5 {
-        color: #bf9861;
+        color: var(--primary);
         font-weight: bold;
         margin-bottom: 0.5rem;
     }
@@ -167,7 +167,7 @@ get_header();
     .community-card p {
         font-size: 0.95rem;
         margin: 0;
-        color: #dacfbd;
+        color: var(--light-cream);
     }
 
     @media (max-width: 991px) {
@@ -192,14 +192,14 @@ get_header();
     }
 
     #press-recognition h2 {
-        color: #bf9861;
+        color: var(--primary);
     }
 
     .press-card {
         background-color: #26292b;
         /* fondo ligeramente más claro que el fondo general */
-        border: 1.5px solid #bf9861;
-        color: #dacfbd;
+        border: 1.5px solid var(--primary);
+        color: var(--light-cream);
         transition: all 0.3s ease;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
@@ -210,13 +210,13 @@ get_header();
     }
 
     .press-card h5 {
-        color: #bf9861;
+        color: var(--primary);
         margin-bottom: 0.75rem;
     }
 
     .press-card p {
         font-size: 0.95rem;
-        color: #dacfbd;
+        color: var(--light-cream);
     }
 
     /* ====== Join Us Today CTA Section ====== */
@@ -225,18 +225,18 @@ get_header();
     }
 
     #cta-join-us h2 {
-        color: #bf9861;
+        color: var(--primary);
     }
 
     #cta-join-us p {
         font-size: 1rem;
-        color: #dacfbd;
+        color: var(--light-cream);
     }
 
     .btn-gold {
-        background-color: #bf9861;
+        background-color: var(--primary);
         color: #1a1a1a;
-        border: 2px solid #bf9861;
+        border: 2px solid var(--primary);
         font-weight: bold;
         border-radius: 8px;
         transition: all 0.3s ease;
@@ -248,15 +248,15 @@ get_header();
     /* Este es el código que debes modificar */
     .btn-gold:hover {
         background-color: transparent;
-        color: #bf9861;
-        border: 2px solid #bf9861;
+        color: var(--primary);
+        border: 2px solid var(--primary);
         /* <- AÑADE ESTA LÍNEA */
     }
 
     .btn-outline-gold {
         background-color: transparent;
-        color: #bf9861;
-        border: 2px solid #bf9861;
+        color: var(--primary);
+        border: 2px solid var(--primary);
         font-weight: bold;
         border-radius: 8px;
         transition: all 0.3s ease;
@@ -268,11 +268,11 @@ get_header();
 
     .btn-outline-gold:hover {
         background-color: rgba(191, 152, 97, 0.15);
-        color: #bf9861;
+        color: var(--primary);
     }
 
     .text-gold-link {
-        color: #bf9861 !important;
+        color: var(--primary) !important;
         text-decoration: none;
     }
 

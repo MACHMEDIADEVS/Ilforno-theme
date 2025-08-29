@@ -16,7 +16,7 @@
 
 /* Título de cada widget (ej. "Recent Posts") */
 .widget-area .widget-title {
-    color: #bf9861; /* Color dorado */
+    color: var(--primary); /* Color dorado */
     font-weight: bold;
     font-size: 1.25rem;
     margin-bottom: 1rem;
@@ -42,33 +42,33 @@
 }
 
 .widget-area ul li a {
-    color: #dacfbd;
+    color: var(--light-cream);
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
 .widget-area ul li a:hover {
-    color: #bf9861; /* Color dorado al pasar el ratón */
+    color: var(--primary); /* Color dorado al pasar el ratón */
 }
 
 /* --- Estilos Específicos para el Buscador --- */
 .widget_search .search-field {
     background-color: #1a1a1a;
     border: 1px solid #555;
-    color: #fff;
+    color: var(--white);
     border-radius: 4px;
     width: 100%;
     padding: 10px;
 }
 
 .widget_search .search-field:focus {
-    border-color: #bf9861;
+    border-color: var(--primary);
     outline: none;
     box-shadow: 0 0 5px rgba(191, 152, 97, 0.5);
 }
 
 .widget_search .search-submit {
-    background-color: #bf9861;
+    background-color: var(--primary);
     color: #1a1a1a;
     font-weight: bold;
     border: none;

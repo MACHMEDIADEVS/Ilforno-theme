@@ -14,7 +14,7 @@ get_header();
         position: relative;
         background-size: cover;
         background-position: center;
-        color: #fff;
+        color: var(--white);
         text-align: center;
         padding: 120px 20px;
     }
@@ -54,11 +54,11 @@ get_header();
     }
 
     .contact-form {
-        background-color: #dacfbd;
+        background-color: var(--light-cream);
     }
 
     .contact-info {
-        background-color: #dacfbd;
+        background-color: var(--light-cream);
         color: #1a1a1a;
     }
 
@@ -81,7 +81,7 @@ get_header();
     }
 
     .contact-section .btn-dark:hover {
-        background-color: #dacfbd;
+        background-color: var(--light-cream);
         color: #1a1a1a;
     }
 
@@ -103,7 +103,7 @@ get_header();
     }
 
     .social-icon:hover {
-        color: #bf9861;
+        color: var(--primary);
     }
 
 
@@ -112,7 +112,7 @@ get_header();
     /* Estilo para el estado normal del botón */
     .contact-section .btn-dark {
         background-color: #212529;
-        color: #ffffff;
+        color: var(--white);
         border: 2px solid transparent;
         /* Borde transparente para evitar que el botón "salte" en hover */
         padding: 1rem 2rem;
@@ -125,7 +125,7 @@ get_header();
 
     /* Estilo para hover (cuando el mouse pasa por encima) */
     .contact-section .btn-dark:hover {
-        background-color: #dacfbd;
+        background-color: var(--light-cream);
         color: #1a1a1a;
         border: 2px solid #1a1a1a;
         /* <-- 2. AÑADIMOS EL BORDE NEGRO AQUÍ */

@@ -8,7 +8,78 @@ $button_link    = get_field('link_button_slider');
 ?>
 
 <style>
-    
+    .promo-banner-slider {
+        position: relative;
+        height: 80vh;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+
+        .promo-overlay {
+            position: absolute;
+            inset: 0;
+            background-color: rgba(27, 27, 27, 0.55);
+            /* oscurecer fondo */
+            z-index: 1;
+        }
+
+        .promo-bg {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            animation: fadeSlider 15s infinite ease-in-out;
+            z-index: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .promo-bg:nth-child(2) {
+            animation-delay: 0s;
+        }
+
+        .promo-bg:nth-child(3) {
+            animation-delay: 7.5s;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+        }
+    }
+    @keyframes fadeSlider {
+        0% {
+            opacity: 0;
+        }
+
+        10% {
+            opacity: 1;
+        }
+
+        25% {
+            opacity: 1;
+        }
+
+        45% {
+            opacity: 1;
+        }
+
+        55% {
+            opacity: 1;
+        }
+
+        75% {
+            opacity: 1;
+        }
+
+        90% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 0;
+        }
+    }
 </style>
 
 <section class="promo-banner-slider text-white d-flex align-items-center position-relative">
@@ -34,7 +105,7 @@ $button_link    = get_field('link_button_slider');
                     <p class="mb-4">
                         <?php echo esc_html($description); ?>
                     </p>
-                    <a href="<?php echo esc_url($button_link); ?>" class="btn btn-gold fw-bold">
+                    <a href="<?php echo esc_url($button_link); ?>" class="btn btn-primary fw-bold">
                         <?php echo esc_html($button_text); ?>
                     </a>
                 </div>

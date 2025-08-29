@@ -27,17 +27,17 @@ get_header();
         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
     }
 
-    
+
 
     /* seccion introduccion */
     /* Colores personalizados */
     .text-gold {
-        color: #bf9861;
+        color: var(--primary);
     }
 
     /* Imagen con efecto */
     #event-introduction img {
-        border: 0px solid #bf9861;
+        border: 0px solid var(--primary);
         transition: transform 0.3s ease;
     }
 
@@ -52,7 +52,7 @@ get_header();
 
     /* Texto */
     #event-introduction p {
-        color: #dacfbd;
+        color: var(--light-cream);
     }
 
     /* ====== Event Services ====== */
@@ -63,12 +63,12 @@ get_header();
 
     /* Colores */
     .text-gold {
-        color: #bf9861;
+        color: var(--primary);
     }
 
     /* Cards de servicios */
     .service-card {
-        border: 2px solid #bf9861;
+        border: 2px solid var(--primary);
         background-color: #111111;
         border-radius: 5px;
         transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -81,7 +81,7 @@ get_header();
 
     /* Texto */
     .service-text {
-        color: #dacfbd;
+        color: var(--light-cream);
         font-size: 0.95rem;
     }
 
@@ -95,13 +95,13 @@ get_header();
 
     /* Color título */
     .text-gold {
-        color: #bf9861;
+        color: var(--primary);
     }
 
     /* Cards uniformes */
     .package-card {
         background-color: rgba(17, 17, 17, 0.95);
-        border: 2px solid #bf9861;
+        border: 2px solid var(--primary);
         border-radius: 8px;
         transition: transform 0.3s ease, box-shadow 0.3s ease;
         display: flex;
@@ -116,14 +116,14 @@ get_header();
 
     /* Lista */
     .package-card ul li {
-        color: #dacfbd;
+        color: var(--light-cream);
         font-size: 0.95rem;
         padding: 4px 0;
     }
 
     /* Badge */
     .badge-popular {
-        background-color: #bf9861;
+        background-color: var(--primary);
         color: #1a1a1a;
         font-weight: bold;
         padding: 5px 10px;
@@ -135,8 +135,8 @@ get_header();
     /* Botón */
     .btn-outline-gold {
         background-color: transparent;
-        color: #bf9861;
-        border: 2px solid #bf9861;
+        color: var(--primary);
+        border: 2px solid var(--primary);
         font-weight: bold;
         padding: 8px 20px;
         border-radius: 8px;
@@ -146,7 +146,7 @@ get_header();
     }
 
     .btn-outline-gold:hover {
-        background-color: #bf9861;
+        background-color: var(--primary);
         color: #1a1a1a;
     }
 
@@ -170,11 +170,11 @@ get_header();
     }
 
     .text-gold {
-        color: #bf9861;
+        color: var(--primary);
     }
 
     #booking-form .btn-gold {
-        background-color: #bf9861;
+        background-color: var(--primary);
         color: #1a1a1a;
         font-weight: bold;
         padding: 0.9rem 1.5rem;
@@ -189,13 +189,13 @@ get_header();
 
     #booking-form .btn-gold:hover {
         background-color: #b0844f;
-        color: #fff;
+        color: var(--white);
     }
 
     .booking-card {
         background-color: #1f1f1f;
         border-radius: 10px;
-        color: #fff;
+        color: var(--white);
         padding: 1.5rem !important;
         /* <-- ¡AÑADIMOS !important PARA FORZAR EL ESTILO! */
     }
@@ -205,7 +205,7 @@ get_header();
     .booking-card .form-select {
         border-radius: 6px;
         border: 1px solid #444;
-        background-color: #fff;
+        background-color: var(--white);
         color: #000;
     }
 
@@ -222,7 +222,7 @@ get_header();
 
     /* seccion contacus */
     .text-gold {
-        color: #bf9861;
+        color: var(--primary);
     }
 
     .bg-black {
@@ -230,7 +230,7 @@ get_header();
     }
 
     .btn-gold {
-        background-color: #bf9861;
+        background-color: var(--primary);
         color: #1a1a1a;
         font-weight: bold;
         padding: 10px 25px;
@@ -241,11 +241,11 @@ get_header();
 
     .btn-gold:hover {
         background-color: #b0844f;
-        color: #fff;
+        color: var(--white);
     }
 
     #why-choose-us ul li {
-        color: #dacfbd;
+        color: var(--light-cream);
         font-size: 1rem;
     }
 
@@ -266,7 +266,7 @@ get_header();
 
     .accordion-item {
         background: #121212;
-        border-left: 4px solid #bf9861;
+        border-left: 4px solid var(--primary);
         margin-bottom: 1.25rem;
         border-radius: 6px;
         overflow: hidden;
@@ -279,7 +279,7 @@ get_header();
         align-items: center;
         padding: 1rem 1.2rem;
         background-color: #1a1a1a;
-        color: #bf9861;
+        color: var(--primary);
         font-weight: bold;
         font-size: 1rem;
         cursor: pointer;
@@ -298,7 +298,7 @@ get_header();
         max-height: 0;
         overflow: hidden;
         background-color: #191919;
-        color: #dacfbd;
+        color: var(--light-cream);
         font-size: 0.95rem;
         padding: 0 1.2rem;
         transition: max-height 0.4s ease, padding 0.4s ease;
@@ -326,14 +326,11 @@ get_header();
 <?php get_template_part('template-parts/venue/packages'); ?>
 
 <!-- REASON BOOKING -->
- <?php get_template_part('template-parts/venue/reason-booking'); ?>
+<?php get_template_part('template-parts/venue/reason-booking'); ?>
 
 <!-- FAQs -->
-<?php get_template_part('template-parts/venue/faqs'); ?>
+<?php get_template_part('template-parts/faqs'); ?>
 
-<?php
-// Script para el header, mantenido aquí para una conversión 1:1.
-?>
 <script>
     document.addEventListener("scroll", function() {
         const header = document.getElementById("main-header");

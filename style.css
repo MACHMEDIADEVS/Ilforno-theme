@@ -24,13 +24,21 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 
 /* ROOT */
 :root {
-  --dark: #012621;
   --primary: #bf9861;
   --primary-hover: #a87d3d;
-  --light: #dacfbd;
+  --light-cream: #dacfbd;
+  --dark-green: #012621;
   --dark-text: #282828;
   --black: #000;
   --white: #fff;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  color: #333;
+  background-color: #1a1a1a;
+  margin: 0;
+  padding: 0;
 }
 
 /* BOTONES */
@@ -46,12 +54,12 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 
   &:hover {
     background-color: var(--primary-hover);
-    color: #fff;
+    color: var(--white);
   }
 }
 
 .btn-primary {
-  background: #bf9861;
+  background: var(--primary);
 
   &:hover,
   &:focus {
@@ -59,17 +67,40 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 }
 
 .btn-outline-primary {
+  color: var(--primary);
+  border-color: var(--primary);
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+
+  white-space: nowrap;
+
+  &:hover {
+    background-color: var(--primary-hover);
+    color: var(--dark-text);
+    border-color: var(--primary-hover);
+  }
 }
 
 .btn-secondary {
+  background-color: #1a1a1a;
+  color: var(--white);
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+  font-weight: 600;
+  display: inline-block;
+  transition: background-color 0.3s ease-in-out;
+
+  &:hover {
+    background-color: var(--dark-green);
+    color: var(--white);
+  }
 }
 
 .btn-success {
-}
-
-/* GROUP BUTTONS */
-.hero-buttons .btn {
-  flex: 1;
 }
 
 /* LETRAS */
@@ -79,14 +110,28 @@ h3,
 h4,
 h5,
 h6 {
-  /* font-family: "Playfair Display", serif; */
   margin-bottom: 1rem;
 }
 
+h1 {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+  font-size: 3rem;
+}
+
+.text-gold {
+  color: var(--primary) !important;
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 /* Color de texto BLANCO para los enlaces del menú */
 #main-header .navbar-nav .nav-link {
-  color: #ffffff !important;
+  color: var(--white) !important;
   font-weight: 500;
   font-size: 1rem;
   text-transform: capitalize;
@@ -95,9 +140,9 @@ h6 {
 
 #main-header .navbar-nav .nav-link:hover,
 #main-header .navbar-nav .nav-link:focus {
-  color: #bf9861 !important; /* Tu color dorado característico */
+  color: var(--primary) !important; /* Tu color dorado característico */
 }
 
 #main-header .navbar-nav .nav-item.active .nav-link {
-  color: #bf9861 !important; /* Color dorado para la página actual */
+  color: var(--primary) !important; /* Color dorado para la página actual */
 }

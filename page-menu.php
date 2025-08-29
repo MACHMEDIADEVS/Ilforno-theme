@@ -36,7 +36,7 @@ get_header();
     }
 
     #main-menu h2 {
-        color: #bf9861;
+        color: var(--primary);
     }
 
     .menu-card {
@@ -81,7 +81,7 @@ get_header();
         left: 15px;
         font-size: 1.6rem;
         font-weight: bold;
-        color: #dacfbd;
+        color: var(--light-cream);
     }
 
     .menu-items {
@@ -100,21 +100,21 @@ get_header();
     }
 
     .price {
-        color: #bf9861;
+        color: var(--primary);
         font-weight: bold;
     }
 
     /* ===== Menu catering ===== */
     /* ===== Menu catering elegante ===== */
     #catering-menu {
-        background-color: #dacfbd;
+        background-color: var(--light-cream);
         /* Fondo de la sección */
         padding-top: 60px;
         padding-bottom: 60px;
     }
 
     #catering-menu .card {
-        background-color: #dacfbd;
+        background-color: var(--light-cream);
         /* Fondo de las cards */
         border-radius: 8px;
         overflow: hidden;
@@ -131,9 +131,9 @@ get_header();
 
     #catering-menu .card-title {
         font-size: 1.2rem;
-        color: #bf9861;
+        color: var(--primary);
         /* Color de títulos */
-        border-bottom: 2px solid #bf9861;
+        border-bottom: 2px solid var(--primary);
         display: inline-block;
         padding-bottom: 5px;
         margin-bottom: 15px;
@@ -149,7 +149,7 @@ get_header();
     }
 
     #catering-menu ul li span {
-        color: #bf9861;
+        color: var(--primary);
         /* Color de los precios */
         font-weight: bold;
     }
@@ -167,11 +167,11 @@ get_header();
     /* Botón dorado */
     /* Botón dorado */
     .btn-gold {
-        background-color: #bf9861;
+        background-color: var(--primary);
         color: #1a1a1a;
         font-weight: bold;
         padding: 10px 25px;
-        border: 2px solid #bf9861;
+        border: 2px solid var(--primary);
         /* Borde visible siempre */
         border-radius: 8px;
         text-transform: uppercase;
@@ -181,17 +181,17 @@ get_header();
     .btn-gold:hover {
         background-color: transparent;
         /* Fondo transparente en hover */
-        color: #bf9861;
+        color: var(--primary);
         /* Texto dorado */
-        border-color: #bf9861;
+        border-color: var(--primary);
         /* Mantener borde dorado */
     }
 
     /* Botón contorno dorado */
     .btn-outline-gold {
         background-color: transparent;
-        color: #bf9861;
-        border: 2px solid #bf9861;
+        color: var(--primary);
+        border: 2px solid var(--primary);
         font-weight: bold;
         padding: 10px 25px;
         border-radius: 8px;
@@ -200,9 +200,9 @@ get_header();
     }
 
     .btn-outline-gold:hover {
-        background-color: #bf9861;
+        background-color: var(--primary);
         color: #1a1a1a;
-        border-color: #bf9861;
+        border-color: var(--primary);
     }
 
     /* ====== Event Packages ====== */
@@ -215,13 +215,13 @@ get_header();
 
     /* Color título */
     .text-gold {
-        color: #bf9861;
+        color: var(--primary);
     }
 
     /* Cards uniformes */
     .package-card {
         background-color: rgba(17, 17, 17, 0.95);
-        border: 2px solid #bf9861;
+        border: 2px solid var(--primary);
         border-radius: 8px;
         transition: transform 0.3s ease, box-shadow 0.3s ease;
         display: flex;
@@ -236,14 +236,14 @@ get_header();
 
     /* Lista */
     .package-card ul li {
-        color: #dacfbd;
+        color: var(--light-cream);
         font-size: 0.95rem;
         padding: 4px 0;
     }
 
     /* Badge */
     .badge-popular {
-        background-color: #bf9861;
+        background-color: var(--primary);
         color: #1a1a1a;
         font-weight: bold;
         padding: 5px 10px;
@@ -255,8 +255,8 @@ get_header();
     /* Botón */
     .btn-outline-gold {
         background-color: transparent;
-        color: #bf9861;
-        border: 2px solid #bf9861;
+        color: var(--primary);
+        border: 2px solid var(--primary);
         font-weight: bold;
         padding: 8px 20px;
         border-radius: 8px;
@@ -266,7 +266,7 @@ get_header();
     }
 
     .btn-outline-gold:hover {
-        background-color: #bf9861;
+        background-color: var(--primary);
         color: #1a1a1a;
     }
 
@@ -324,38 +324,13 @@ get_header();
         text-align: center;
     }
 
-    /* Imagen circular */
-    .favorite-img {
-        width: 160px;
-        height: 160px;
-        margin-bottom: 10px;
-        overflow: hidden;
-        border-radius: 50%;
-        border: 1px solid #bf9861;
-    }
-
-    .favorite-img img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    /* Título */
-    .favorite-title {
-        min-height: 40px;
-        /* espacio reservado para títulos largos/cortos */
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #bf9861;
-        text-align: center;
-    }
+    
 
     /* Botón contorno dorado */
     .btn-outline-gold {
         background-color: transparent;
-        color: #bf9861;
-        border: 2px solid #bf9861;
+        color: var(--primary);
+        border: 2px solid var(--primary);
         font-weight: bold;
         padding: 6px 15px;
         border-radius: 8px;
@@ -365,13 +340,13 @@ get_header();
     }
 
     .btn-outline-gold:hover {
-        background-color: #bf9861;
+        background-color: var(--primary);
         color: #1a1a1a;
     }
 
     /* Texto dorado */
     .text-gold {
-        color: #bf9861;
+        color: var(--primary);
     }
 
     /* ✅ Ajuste solo para escritorio para igualar altura columnas */

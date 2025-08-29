@@ -40,12 +40,12 @@ get_header();
     .single .entry-content p {
         line-height: 1.8;
         font-size: 1.1rem;
-        color: #dacfbd;
+        color: var(--light-cream);
         /* Texto claro pero no blanco puro, para mejor lectura */
     }
 
     .single .entry-content a {
-        color: #bf9861;
+        color: var(--primary);
         /* Enlaces en color dorado */
         text-decoration: underline;
     }

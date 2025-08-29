@@ -1,14 +1,56 @@
 <?php
-// Obtener el título de la sección de testimonios
 $testimonials_title = get_field('testimonials_title') ?: 'What Our Guests Say';
 ?>
+
+<style>
+    .testimonials-section {
+        background-color: #101010;
+        color: var(--white);
+        margin-bottom: 60px;
+        margin-top: 60px;
+        padding-bottom: 8rem;
+        padding-top: 3rem;
+
+        h2 {
+            color: var(--white);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .testimonial-card {
+            height: 220px;
+            min-height: 27dvh !important;
+        }
+    }
+
+    .swiper-button-next,
+    .swiper-button-prev {
+        color: rgba(0, 0, 0, 0.174) !important;
+        font-size: 0.5rem !important;
+        width: 10px !important;
+        height: 10px !important;
+    }
+    .swiper-slide {
+        .testimonial-card {
+            a {
+                color: #333 !important;
+            }
+        }
+    }
+    .swiper-pagination-bullet-active {
+        opacity: var(--swiper-pagination-bullet-opacity, 0);
+        background: var(--swiper-pagination-color, rgba(174, 129, 129, 0));
+    }
+    .swiper-pagination {
+        margin-top: 5em !important;
+        display: none;
+    }
+</style>
 
 <section class="testimonials-section text-white">
     <div class="container text-center">
         <h2 class="fw-bold mb-5"><?php echo esc_html($testimonials_title); ?></h2>
 
-        <?php // El resto del contenido permanece estático, como se solicitó 
-        ?>
         <div class="row align-items-center justify-content-center">
             <div class="col-12 col-md-3 mb-4 mb-md-0 d-flex flex-column align-items-center text-center">
                 <div class="google-info-content">

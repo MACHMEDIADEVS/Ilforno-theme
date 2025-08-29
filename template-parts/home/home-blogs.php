@@ -1,55 +1,61 @@
 <?php
-// Obtener el título de la sección de blog
-$blog_section_title = get_field('blog_section_title') ?: 'Fresh News & Happenings';
+$blog_section_title = get_field('blog_section_title');
 ?>
+
+<style>
+    .text-truncate-2-lines {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+</style>
 
 <section class="blog-section">
     <div class="container">
-        <h2 class="text-center fw-bold text-dark mb-5">
-            <?php echo esc_html($blog_section_title); ?>
-        </h2>
+        <?php if ($blog_section_title) : ?>
+            <h2 class="text-center fw-bold text-dark mb-5">
+                <?php echo esc_html($blog_section_title); ?>
+            </h2>
+        <?php endif; ?>
 
-        <?php // El resto del contenido permanece estático, como se solicitó 
-        ?>
         <div class="row g-4">
-            <div class="col-md-6 col-lg-4">
-                <div class="blog-card">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/img/blog1.png" alt="Blog 1" class="img-fluid rounded-top" />
-                    <div class="p-4">
-                        <h5 class="fw-bold text-dark">Bring Your Own Bottle <br> Just Add Pizza</h5>
-                        <p class="text-muted">
-                            Yes, we’re BYOB! Pair your favorite wine or beer with our wood-fired pizzas...
-                        </p>
-                        <a href="#" class="btn-read">Read More</a>
-                    </div>
-                </div>
-            </div>
+            <?php
+            $args = array(
+                'post_type'      => 'post',
+                'posts_per_page' => 3,
+                'ignore_sticky_posts' => 1,
+            );
 
-            <div class="col-md-6 col-lg-4">
-                <div class="blog-card">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/img/blog2.png" alt="Blog 2" class="img-fluid rounded-top" />
-                    <div class="p-4">
-                        <h5 class="fw-bold text-dark">Ranked Among New Jersey’s Best Chicken Parm</h5>
-                        <p class="text-muted">
-                            IL Forno a Legna’s Pollo Parmigiana made NJ.com’s list of the 21 best...
-                        </p>
-                        <a href="#" class="btn-read">Read More</a>
-                    </div>
-                </div>
-            </div>
+            $latest_posts = new WP_Query($args);
 
-            <div class="col-md-6 col-lg-4">
-                <div class="blog-card">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/img/blog3.png" alt="Blog 3" class="img-fluid rounded-top" />
-                    <div class="p-4">
-                        <h5 class="fw-bold text-dark">Wood-Fired Pizza on Wheels Bringing the Heat to You</h5>
-                        <p class="text-muted">
-                            IL Forno a Legna delivers authentic wood-fired pizza straight from their...
-                        </p>
-                        <a href="#" class="btn-read">Read More</a>
+            if ($latest_posts->have_posts()) :
+                while ($latest_posts->have_posts()) : $latest_posts->the_post();
+            ?>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="blog-card">
+                            <?php if (has_post_thumbnail()) : ?>
+                                <img src="<?php echo get_the_post_thumbnail_url(get_the_ID(), 'large'); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" class="img-fluid rounded-top" />
+                            <?php endif; ?>
+                            <div class="p-4">
+                                <h5 class="fw-bold text-dark text-truncate"><?php the_title(); ?></h5>
+                                <div class="text-muted text-truncate-2-lines">
+                                    <?php the_excerpt(); ?>
+                                </div>
+                                <div class="container mx-0 px-0 py-4">
+                                    <a href="<?php the_permalink(); ?>" class="btn btn-secondary">Read More</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
+                <?php
+                endwhile;
+                wp_reset_postdata();
+            else :
+                ?>
+                <p class="text-center">No recent posts found.</p>
+            <?php endif; ?>
         </div>
     </div>
 </section>

@@ -12,7 +12,7 @@ get_header();
     /* Estilos para la sección 404 */
     .error-404-section {
         background-color: #1a1a1a; /* Fondo oscuro consistente con tu marca */
-        color: #fff;
+        color: var(--white);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -23,7 +23,7 @@ get_header();
     .error-404-content .error-title {
         font-size: 8rem; /* Número 404 grande y llamativo */
         font-weight: bold;
-        color: #bf9861; /* Color dorado de tu marca */
+        color: var(--primary); /* Color dorado de tu marca */
         line-height: 1;
     }
     .error-404-content .page-title {
@@ -38,7 +38,7 @@ get_header();
         margin: 0 auto 30px; /* Centrar y añadir espacio inferior */
     }
     .error-404-content .btn-home {
-        background-color: #bf9861;
+        background-color: var(--primary);
         color: #1a1a1a;
         font-weight: bold;
         padding: 12px 30px;

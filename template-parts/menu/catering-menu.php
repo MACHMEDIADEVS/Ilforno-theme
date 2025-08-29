@@ -7,7 +7,7 @@ $secondary_button = get_field('catering_secondary_button');
 
 <section id="catering-menu" class="py-5" style="background-color: #101010">
     <div class="container">
-        <h2 class="text-center mb-5 fw-bold text-uppercase" style="color: #bf9861">
+        <h2 class="text-center mb-5 fw-bold text-uppercase" style="color: var(--primary)">
             <?php echo esc_html($section_title); ?>
         </h2>
 
