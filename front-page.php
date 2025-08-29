@@ -404,7 +404,7 @@ get_header();
             </div>
 
             <div class="container">
-                <?php echo do_shortcode('[contact-form-7 id="98c8a5c" title="Catering"]'); ?>
+                <?php echo do_shortcode('[contact-form-7 id="2418186" title="Newslatter form"]'); ?>
             </div>
 
             <div class="col-md-5 text-center text-md-end">
