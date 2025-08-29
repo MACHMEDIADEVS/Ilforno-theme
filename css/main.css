@@ -96,38 +96,49 @@
   }
 }
 
-.pizza-welcome-section {
-  .pizza-image {
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-    height: 100%;
-    width: 100%;
-  }
-  .container {
-    .text-side {
-      overflow: hidden;
-    }
+/* ESTILOS CORREGIDOS PARA LA SECCIÓN DE BIENVENIDA */
 
-    .text-side .text-bg {
-      position: absolute;
-      inset: 0;
-      background-size: cover;
-      background-position: center center;
-      z-index: 0;
-    }
+/* Contenedor de la imagen del horno */
+.pizza-welcome-section .pizza-image {
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
+  min-height: 600px; /* Asegura una altura mínima para que no colapse */
+}
 
-    .text-side .text-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        to right,
-        rgba(0, 0, 0, 0.75) 0%,
-        rgba(0, 0, 0, 0.4) 50%,
-        rgba(0, 0, 0, 0) 100%
-      );
-      z-index: 1;
-    }
+/* Contenedor del lado del texto */
+.pizza-welcome-section .text-side {
+  overflow: hidden;
+}
+
+/* Imagen de fondo de leña */
+.pizza-welcome-section .text-side .text-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center center;
+  z-index: 0;
+}
+
+/* Superposición oscura sobre la leña */
+.pizza-welcome-section .text-side .text-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.85) 0%,
+    rgba(0, 0, 0, 0.6) 50%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  z-index: 1;
+}
+
+/* Responsive para pantallas pequeñas */
+@media (max-width: 991px) {
+  .pizza-welcome-section .pizza-image {
+    min-height: 300px;
   }
 }
 

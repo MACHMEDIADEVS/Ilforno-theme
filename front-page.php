@@ -392,22 +392,19 @@ get_header();
 <section class="social-newsletter-section py-5">
     <div class="container">
         <div class="row align-items-center g-4">
+
             <div class="col-md-7">
                 <h4 class="text-light fw-bold mb-3">Subscribe to our newsletter</h4>
+                
                 <?php
-                $newsletter_shortcode = get_field('shortcode_newsletter');
-
-                if ($newsletter_shortcode) {
-                    echo do_shortcode($newsletter_shortcode);
-                }
+                // ESTA ES LA LÍNEA CORRECTA QUE MUESTRA TU FORMULARIO
+                echo do_shortcode('[contact-form-7 id="2418186" title="Newslatter form"]'); 
                 ?>
+
+                <p class="text-light small mt-2">Get the latest updates in your inbox. No spam, we promise.</p>
             </div>
 
-            <div class="container">
-                <?php echo do_shortcode('[contact-form-7 id="2418186" title="Newslatter form"]'); ?>
-            </div>
-
-            <div class="col-md-5 text-center text-md-end">
+            <div class="col-md-5">
                 <div class="d-flex justify-content-center justify-content-md-end gap-3">
                     <a href="https://www.tiktok.com/@ilfornolegna" aria-label="TikTok" class="text-decoration-none">
                         <i class="bi bi-tiktok fs-3 text-light"></i>
@@ -420,6 +417,7 @@ get_header();
                     </a>
                 </div>
             </div>
+            
         </div>
     </div>
 </section>
