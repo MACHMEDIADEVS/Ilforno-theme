@@ -341,8 +341,6 @@ get_header();
     }
 </style>
 
-
-
 <!-- HERO -->
 <?php get_template_part('template-parts/home/home', 'hero'); ?>
 
@@ -399,21 +397,7 @@ get_header();
 </section>
 
 <script>
-    window.addEventListener("scroll", function() {
-        const header = document.getElementById("main-header");
 
-        if (window.innerWidth >= 992) {
-            // Solo aplica si es desktop
-            if (window.scrollY > 50) {
-                header.classList.add("scrolled");
-            } else {
-                header.classList.remove("scrolled");
-            }
-        } else {
-            // En mobile, el header no cambia con el scroll
-            header.classList.remove("scrolled");
-        }
-    });
 
     document.addEventListener("DOMContentLoaded", function() {
         // Inicializa el carrusel de reseñas
@@ -446,6 +430,7 @@ get_header();
         });
     });
 </script>
+
 
 <?php
 get_footer();

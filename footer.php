@@ -100,6 +100,22 @@ $facebook  = get_field('fb_ilforno', 'option');
   </p>
 </div>
 
+
+<?php
+// Script para el header, mantenido aquí para una conversión 1:1.
+?>
+<script>
+    document.addEventListener('scroll', function() {
+        const header = document.getElementById('main-header');
+        if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    });
+</script>
+
+
 <?php wp_footer(); ?>
 </body>
 

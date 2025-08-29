@@ -196,6 +196,11 @@ $description_fallback = '<p class="mb-4">
         .apply-section-bg {
             padding: 25px;
         }
+
+        h2 {
+            font-size: 1.8rem !important;
+            padding: 0em 1em !important;
+        }
     }
 
     /* formulario de aplicacion */

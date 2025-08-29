@@ -1,7 +1,7 @@
 <?php
-$background_image_url = get_field('image_service_bg') ?: get_template_directory_uri() . '/assets/img/servi-fondo.png';
-$section_title        = get_field('services_section_title') ?: 'Our Services';
-$section_subtitle     = get_field('services_section_subtitle') ?: 'We do more than serve pizza. Explore our full list of services designed for all occasions.';
+$background_image_url = get_field('image_service_bg');
+$section_title        = get_field('services_section_title');
+$section_subtitle     = get_field('services_section_subtitle');
 ?>
 
 <style>
@@ -17,58 +17,59 @@ $section_subtitle     = get_field('services_section_subtitle') ?: 'We do more th
         background-repeat: no-repeat;
         position: relative;
         z-index: 1;
+    }
 
-        .overlay-bg {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(39, 38, 38, 0.712);
-            z-index: 1;
-        }
+    .section-with-bg .overlay-bg {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(39, 38, 38, 0.712);
+        z-index: 1;
+    }
 
-        .container {
-            position: relative;
-            z-index: 2;
+    .section-with-bg .container {
+        position: relative;
+        z-index: 2;
+    }
 
-            .services-tabs {
-                gap: 15px;
-                border-bottom: none;
-            }
+    .section-with-bg .services-tabs {
+        gap: 15px;
+        border-bottom: none;
+    }
 
-            .services-tabs .nav-link {
-                background-color: transparent;
-                color: var(--light-cream);
-                border: 1px solid rgba(218, 207, 189, 0.4);
-                border-radius: 5px;
-                font-weight: bold;
-                font-size: 1.1rem;
-                padding: 12px 20px;
-                transition: all 0.3s ease-in-out;
-            }
+    .services-tabs .nav-link {
+        background-color: transparent;
+        color: var(--light-cream);
+        border: 1px solid rgba(218, 207, 189, 0.4);
+        border-radius: 5px;
+        font-weight: bold;
+        font-size: 1.1rem;
+        padding: 12px 20px;
+        transition: all 0.3s ease-in-out;
+        white-space: nowrap;
+    }
 
-            .services-tabs .nav-link.active {
-                background-color: var(--primary);
-                color: var(--white);
-                border-color: var(--primary);
-            }
+    .section-with-bg .services-tabs .nav-link.active {
+        background-color: var(--primary);
+        color: var(--white);
+        border-color: var(--primary);
+    }
 
-            .services-tabs .nav-link:hover {
-                background-color: rgba(255, 255, 255, 0.05);
-                color: var(--white);
-                border-color: rgba(218, 207, 189, 0.7);
-            }
-        }
+    .section-with-bg .services-tabs .nav-link:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+        color: var(--white);
+        border-color: rgba(218, 207, 189, 0.7);
+    }
 
-        .service-card {
-            background-color: #1a1a1a;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
-            margin-top: 30px;
-        }
+    .service-card {
+        background-color: #1a1a1a;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+        margin-top: 30px;
     }
 </style>
 
@@ -81,67 +82,86 @@ $section_subtitle     = get_field('services_section_subtitle') ?: 'We do more th
         </div>
 
         <?php
-        if (have_rows('pestanas_servicios')) : ?>
+        $tabs = get_field('pestanas_servicios');
+        if (!empty($tabs)) :
+            $total_tabs = count($tabs);
+        ?>
+            <div class="d-none d-lg-block">
+                <ul class="nav nav-tabs justify-content-center services-tabs mb-4 flex-nowrap" id="servicesTabDesktop" role="tablist">
+                    <?php foreach ($tabs as $index => $tab) :
+                        $slug = sanitize_title($tab['service_name']);
+                        $is_active = ($index === 0);
+                    ?>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link <?php if ($is_active) echo 'active'; ?>" id="<?php echo esc_attr($slug); ?>-tab-desktop" data-bs-toggle="tab" data-bs-target="#<?php echo esc_attr($slug); ?>" type="button" role="tab" aria-controls="<?php echo esc_attr($slug); ?>" aria-selected="<?php echo $is_active ? 'true' : 'false'; ?>">
+                                <?php echo esc_html($tab['service_name']); ?>
+                            </button>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
 
-            <ul class="nav nav-tabs justify-content-center services-tabs mb-4" id="servicesTab" role="tablist">
-                <?php
-                $tab_index = 0;
-                while (have_rows('pestanas_servicios')) : the_row();
-                    $service_name = get_sub_field('service_name');
-                    $slug = sanitize_title($service_name);
-                    $active_class = ($tab_index === 0) ? 'active' : '';
-                ?>
-                    <li class="nav-item d-inline-block" role="presentation">
-                        <button class="nav-link <?php echo $active_class; ?>" id="<?php echo $slug; ?>-tab" data-bs-toggle="tab" data-bs-target="#<?php echo $slug; ?>" type="button" role="tab" aria-controls="<?php echo $slug; ?>" aria-selected="<?php echo ($tab_index === 0) ? 'true' : 'false'; ?>">
-                            <?php echo esc_html($service_name); ?>
-                        </button>
-                    </li>
-                <?php
-                    $tab_index++;
-                endwhile;
-                ?>
-            </ul>
+            <div class="d-lg-none">
+                <ul class="nav nav-tabs justify-content-center services-tabs mb-2" id="servicesTabMobile" role="tablist">
+                    <?php for ($i = 0; $i < min(3, $total_tabs); $i++) :
+                        $tab = $tabs[$i];
+                        $slug = sanitize_title($tab['service_name']);
+                        $is_active = ($i === 0);
+                    ?>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link <?php if ($is_active) echo 'active'; ?>" id="<?php echo esc_attr($slug); ?>-tab-mobile" data-bs-toggle="tab" data-bs-target="#<?php echo esc_attr($slug); ?>" type="button" role="tab" aria-controls="<?php echo esc_attr($slug); ?>" aria-selected="<?php echo $is_active ? 'true' : 'false'; ?>">
+                                <?php echo esc_html($tab['service_name']); ?>
+                            </button>
+                        </li>
+                    <?php endfor; ?>
+                </ul>
+
+                <?php if ($total_tabs > 3) : ?>
+                    <ul class="nav nav-tabs justify-content-center services-tabs mb-4" role="tablist">
+                        <?php for ($i = 3; $i < $total_tabs; $i++) :
+                            $tab = $tabs[$i];
+                            $slug = sanitize_title($tab['service_name']);
+                        ?>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="<?php echo esc_attr($slug); ?>-tab-mobile" data-bs-toggle="tab" data-bs-target="#<?php echo esc_attr($slug); ?>" type="button" role="tab" aria-controls="<?php echo esc_attr($slug); ?>" aria-selected="false">
+                                    <?php echo esc_html($tab['service_name']); ?>
+                                </button>
+                            </li>
+                        <?php endfor; ?>
+                    </ul>
+                <?php endif; ?>
+            </div>
+
 
             <div class="tab-content" id="servicesTabContent">
-                <?php
-                $content_index = 0;
-                while (have_rows('pestanas_servicios')) : the_row();
-                    $service_name = get_sub_field('service_name');
-                    $slug = sanitize_title($service_name);
-
-                    $image_url     = get_sub_field('service_image');
-                    $content_title = get_sub_field('service_content_title') ?: $service_name;
-                    $description   = get_sub_field('service_description');
-                    $button        = get_sub_field('service_button');
-
-                    $active_class = ($content_index === 0) ? 'show active' : '';
+                <?php foreach ($tabs as $index => $tab) :
+                    $slug = sanitize_title($tab['service_name']);
+                    $is_active = ($index === 0);
+                    $content_title = $tab['service_content_title'] ?: $tab['service_name'];
+                    $button = $tab['service_button'];
                 ?>
-                    <div class="tab-pane fade <?php echo $active_class; ?>" id="<?php echo $slug; ?>" role="tabpanel" aria-labelledby="<?php echo $slug; ?>-tab">
+                    <div class="tab-pane fade <?php if ($is_active) echo 'show active'; ?>" id="<?php echo esc_attr($slug); ?>" role="tabpanel" aria-labelledby="<?php echo esc_attr($slug); ?>-tab">
                         <div class="service-card row g-0 align-items-center">
                             <div class="col-lg-6">
-                                <?php if ($image_url): ?>
-                                    <img src="<?php echo esc_url($image_url); ?>" class="img-fluid rounded-start w-100" alt="<?php echo esc_attr($content_title); ?>" />
+                                <?php if (!empty($tab['service_image'])) : ?>
+                                    <img src="<?php echo esc_url($tab['service_image']); ?>" class="img-fluid rounded-start w-100" alt="<?php echo esc_attr($content_title); ?>" />
                                 <?php endif; ?>
                             </div>
                             <div class="col-lg-6 p-4">
                                 <h3 class="text-light fw-bold"><?php echo esc_html($content_title); ?></h3>
-                                <p class="text-light pb-4"><?php echo esc_html($description); ?></p>
-                                <?php if ($button && $button['url'] && $button['title']) :
+                                <p class="text-light pb-4"><?php echo esc_html($tab['service_description']); ?></p>
+                                <?php if ($button && !empty($button['url']) && !empty($button['title'])) :
                                     $button_url = esc_url($button['url']);
                                     $button_title = esc_html($button['title']);
-                                    $button_target = $button['target'] ? 'target="' . esc_attr($button['target']) . '"' : '';
+                                    $button_target = !empty($button['target']) ? 'target="' . esc_attr($button['target']) . '"' : '';
                                 ?>
                                     <a href="<?php echo $button_url; ?>" class="btn btn-primary" <?php echo $button_target; ?>><?php echo $button_title; ?></a>
                                 <?php endif; ?>
                             </div>
                         </div>
                     </div>
-                <?php
-                    $content_index++;
-                endwhile;
-                ?>
+                <?php endforeach; ?>
             </div>
-
         <?php else : ?>
             <p class="text-center text-white">No hay servicios para mostrar en este momento.</p>
         <?php endif; ?>

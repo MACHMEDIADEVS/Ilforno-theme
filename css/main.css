@@ -248,3 +248,12 @@
     font-size: 0.9rem;
   }
 }
+
+.wpcf7-response-output {
+  color: #ffffff !important;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.wpcf7 form.sent .wpcf7-response-output {
+  border-color: var(--white) !important;
+}
